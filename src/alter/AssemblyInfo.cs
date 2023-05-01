@@ -1,4 +1,16 @@
+using System.Reflection;
 using System.Windows;
+
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyTitle("Alter")]
+[assembly: AssemblyDescription("Alter is a remote desktop client application.")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Alter")]
+[assembly: AssemblyCopyright("Copyright (c) 2023-present Takeshi Katano. All rights reserved.")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
