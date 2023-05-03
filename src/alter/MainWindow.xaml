@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlterApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Width="800" Height="600" MinWidth="640" MinHeight="480">
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
 
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="vmadmin@example.com"/>
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+            <Grid ShowGridLines="False" HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="400"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Margin="0,0,8,4" Padding="0,4,4,4" Content="Remote computer[:port]"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="0,0,0,4" Padding="4"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Margin="0,4,8,0" Padding="0,4,4,4" Content="User name"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="0,4,0,0" Padding="4"/>
+            </Grid>
+            <Button Width="100" HorizontalAlignment="Center" Margin="30" Padding="12" Content="Connect"/>
+        </StackPanel>
+        
+        <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Status message"/>
     </Grid>
 </Window>
