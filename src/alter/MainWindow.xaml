@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlterApp"
         mc:Ignorable="d"
-        Title="MainWindow" Width="800" Height="600" MinWidth="640" MinHeight="480">
+        Title="MainWindow"
+        Width="800" Height="600" MinWidth="640" MinHeight="480"
+        FontSize="13">
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="25*"/>
