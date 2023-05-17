@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Width="800" Height="600" MinWidth="640" MinHeight="480"
-        FontSize="13">
+        FontSize="14">
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="25*"/>
@@ -15,27 +15,16 @@
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Margin="32,0,32,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Text="vmadmin@example.com"/>
+        <TextBlock Grid.Row="0" Margin="32,0,32,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Text="vmadmin@example.com"/>
 
-        <StackPanel Grid.Row="1" VerticalAlignment="Center">
-            <Grid ShowGridLines="False" HorizontalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="400"/>
-                </Grid.ColumnDefinitions>
+        <StackPanel Width="500" Grid.Row="1" VerticalAlignment="Center">
+            <Label Margin="0,0,0,4" Padding="0" Content="Remote computer[:port]"/>
+            <TextBox Margin="0" Padding="4"/>
 
-                <Label Grid.Row="0" Grid.Column="0" Margin="0,0,8,4" Padding="0,4,4,4" Content="Remote computer[:port]"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Margin="0,0,0,4" Padding="4"/>
+            <Label Width="500" Margin="0,12,0,4" Padding="0" Content="User name"/>
+            <TextBox Margin="0" Padding="4"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Margin="0,4,8,0" Padding="0,4,4,4" Content="User name"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="0,4,0,0" Padding="4"/>
-            </Grid>
-            <Button Width="100" HorizontalAlignment="Center" Margin="0,30,0,0" Padding="12" Content="Connect"/>
+            <Button Width="200" HorizontalAlignment="Center" Margin="0,32,0,0" Padding="12" Content="Connect"/>
         </StackPanel>
         
         <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Status message"/>
