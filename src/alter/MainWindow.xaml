@@ -10,17 +10,22 @@
         FontSize="14">
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
+            <RowDefinition Height="38"/>
             <RowDefinition Height="25*"/>
             <RowDefinition Height="55*"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Margin="32,0,32,0"
+        <Button Width="30" Margin="4" Padding="0"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="*"/>
+
+        <TextBlock Grid.Row="1" Margin="32,0,32,0"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="28"
                    Text="vmadmin@example.com"/>
 
-        <Grid Grid.Row="1" Width="500" VerticalAlignment="Center" ShowGridLines="False">
+        <Grid Grid.Row="2" Width="500" VerticalAlignment="Center" ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="32"/>
@@ -33,31 +38,28 @@
                 <ColumnDefinition Width="12*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0"
-                   VerticalContentAlignment="Bottom" Margin="0,0,0,4" Padding="0"
-                   Content="Remote computer"/>
-            <TextBox Grid.Row="1" Grid.Column="0"
-                     VerticalContentAlignment="Center" Margin="0,0,4,0" Padding="6,0,6,0"/>
+            <Label Grid.Row="0" Grid.Column="0" Margin="0,0,0,4" Padding="0"
+                   VerticalContentAlignment="Bottom" Content="Remote computer"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,4,0" Padding="6,0,6,0"
+                     VerticalContentAlignment="Center"/>
 
-            <Label Grid.Row="0" Grid.Column="1"
-                   VerticalContentAlignment="Bottom" Margin="0,0,0,4" Padding="0"
-                   Content="Port"/>
-            <TextBox Grid.Row="1" Grid.Column="1"
-                     VerticalContentAlignment="Center" Margin="0" Padding="6,0,6,0"
+            <Label Grid.Row="0" Grid.Column="1" Margin="0,0,0,4" Padding="0"
+                   VerticalContentAlignment="Bottom" Content="Port"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="0" Padding="6,0,6,0"
+                     VerticalContentAlignment="Center"
                      MaxLength="5"/>
 
-            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                   Width="500" VerticalContentAlignment="Bottom" Margin="0,0,0,4" Padding="0"
-                   Content="User name"/>
-            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                     VerticalContentAlignment="Center" Margin="0" Padding="6,0,6,0"/>
+            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,4" Padding="0"
+                   VerticalContentAlignment="Bottom"  Content="User name"/>
+            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" Padding="6,0,6,0"
+                     VerticalContentAlignment="Center"/>
 
-            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                    Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,0" Padding="0,12,0,12"
+            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Padding="0,12,0,12"
+                    Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
                     Content="Connect"/>
         </Grid>
         
-        <TextBlock Grid.Row="2"
+        <TextBlock Grid.Row="3"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    Text="Status message"/>
     </Grid>
