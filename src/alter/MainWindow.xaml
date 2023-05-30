@@ -8,6 +8,24 @@
         Title="MainWindow"
         Width="800" Height="600" MinWidth="640" MinHeight="480"
         FontSize="14">
+
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="RoundedButton">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="4" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="TextBox" x:Key="RoundedTextBox">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="4" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+    
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="38"/>
@@ -18,12 +36,13 @@
 
         <Button Width="30" Margin="4" Padding="0"
                 HorizontalAlignment="Right"
-                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="*"/>
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="*">
+        </Button>
 
         <TextBlock Grid.Row="1" Margin="32,0,32,0"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                   TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="28"
-                   Text="vmadmin@example.com"/>
+                   TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="22"
+                   Text="vmadmin@example.com" FontWeight="SemiBold"/>
 
         <Grid Grid.Row="2" Width="500" VerticalAlignment="Center" ShowGridLines="False">
             <Grid.RowDefinitions>
@@ -41,21 +60,25 @@
             <Label Grid.Row="0" Grid.Column="0" Margin="0,0,0,4" Padding="0"
                    VerticalContentAlignment="Bottom" Content="Remote computer"/>
             <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,4,0" Padding="6,0,6,0"
+                     Style="{DynamicResource RoundedTextBox}"
                      VerticalContentAlignment="Center"/>
 
             <Label Grid.Row="0" Grid.Column="1" Margin="0,0,0,4" Padding="0"
                    VerticalContentAlignment="Bottom" Content="Port"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="0" Padding="6,0,6,0"
                      VerticalContentAlignment="Center"
+                     Style="{DynamicResource RoundedTextBox}"
                      MaxLength="5"/>
 
             <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,4" Padding="0"
                    VerticalContentAlignment="Bottom"  Content="User name"/>
             <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" Padding="6,0,6,0"
+                     Style="{DynamicResource RoundedTextBox}"
                      VerticalContentAlignment="Center"/>
 
             <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Padding="0,12,0,12"
-                    Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                    Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                    Style="{DynamicResource RoundedButton}"
                     Content="Connect"/>
         </Grid>
         
