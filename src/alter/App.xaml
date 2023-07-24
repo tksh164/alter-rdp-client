@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:alter"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Resources/AppDictionary.xaml"/>
     </Application.Resources>
 </Application>
