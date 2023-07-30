@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AlterApp"
+        xmlns:local="clr-namespace:AlterApp.Views"
+        xmlns:viewmodels="clr-namespace:AlterApp.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
+        Title="{Binding WindowTitle}"
         Width="800" Height="600" MinWidth="640" MinHeight="480"
         FontSize="14">
 
@@ -24,8 +26,8 @@
 
         <TextBlock Grid.Row="1" Margin="32,0,32,0"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                   TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="22"
-                   Text="vmadmin@example.com" FontWeight="SemiBold"/>
+                   TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="22" FontWeight="SemiBold"
+                   Text="{Binding DestinationDisplayText}"/>
 
         <Grid Grid.Row="2" Width="500" VerticalAlignment="Center" ShowGridLines="False">
             <Grid.RowDefinitions>
@@ -43,28 +45,32 @@
             <Label Grid.Row="0" Grid.Column="0" Margin="0,0,0,4" Padding="0"
                    VerticalContentAlignment="Bottom" Content="Remote computer"/>
             <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,4,0" Padding="6,0,6,0"
+                     VerticalContentAlignment="Center"
                      Style="{StaticResource RoundedTextBox}"
-                     VerticalContentAlignment="Center"/>
+                     Text="{Binding RemoteComputer, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Grid.Row="0" Grid.Column="1" Margin="0,0,0,4" Padding="0"
                    VerticalContentAlignment="Bottom" Content="Port"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="0" Padding="6,0,6,0"
                      VerticalContentAlignment="Center"
+                     MaxLength="5"
                      Style="{StaticResource RoundedTextBox}"
-                     MaxLength="5"/>
+                     Text="{Binding RemotePort, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,4" Padding="0"
                    VerticalContentAlignment="Bottom"  Content="User name"/>
             <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" Padding="6,0,6,0"
+                     VerticalContentAlignment="Center"
                      Style="{StaticResource RoundedTextBox}"
-                     VerticalContentAlignment="Center"/>
+                     Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Padding="0,12,0,12"
                     Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                     Style="{StaticResource RoundedButton}"
-                    Content="Connect"/>
+                    Content="Connect"
+                    Command="{Binding ConnectToRemoteComputerCommand}"/>
         </Grid>
-        
+
         <TextBlock Grid.Row="3"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    Text="Status message"/>
