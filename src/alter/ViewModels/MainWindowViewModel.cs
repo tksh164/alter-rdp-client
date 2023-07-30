@@ -23,16 +23,19 @@ namespace AlterApp.ViewModels
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
         [NotifyPropertyChangedFor(nameof(DestinationDisplayText))]
+        [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remoteComputer;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
         [NotifyPropertyChangedFor(nameof(DestinationDisplayText))]
+        [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remotePort;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
         [NotifyPropertyChangedFor(nameof(DestinationDisplayText))]
+        [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _userName;
 
         public string WindowTitle
@@ -45,9 +48,14 @@ namespace AlterApp.ViewModels
             get => _viewModelService.BuildDestinationDisplayText(UserName, RemoteComputer, RemotePort);
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanConnectToRemoteComputer))]
         private async Task ConnectToRemoteComputer()
         {
+        }
+
+        private bool CanConnectToRemoteComputer()
+        {
+            return !string.IsNullOrWhiteSpace(RemoteComputer) && !string.IsNullOrWhiteSpace(RemotePort) && !string.IsNullOrWhiteSpace(UserName);
         }
     }
 }
