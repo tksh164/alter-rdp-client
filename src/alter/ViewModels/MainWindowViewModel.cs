@@ -1,18 +1,22 @@
 ﻿using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using AlterApp.Services;
 
 namespace AlterApp.ViewModels
 {
     internal partial class MainWindowViewModel : ObservableObject
     {
-        private const string _appName = "Alter";
-        private const string _defaultRemotePort = "3389";
+        private readonly IAppSettingsService _appSettingsService;
+        private readonly IMainWindowViewModelService _viewModelService;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IAppSettingsService appSettingsService, IMainWindowViewModelService viewModelService)
         {
+            _appSettingsService = appSettingsService;
+            _viewModelService = viewModelService;
+
             RemoteComputer = string.Empty;
-            RemotePort = _defaultRemotePort;
+            RemotePort = _appSettingsService.GetRemotePort();
             UserName = string.Empty;
         }
 
@@ -33,17 +37,17 @@ namespace AlterApp.ViewModels
 
         public string WindowTitle
         {
-            get => _appName;
+            get => _viewModelService.BuildWindowTitle(_appSettingsService.GetAppName(), UserName, RemoteComputer, RemotePort);
         }
 
         public string DestinationDisplayText
         {
-            get => string.Format("{0}@{1}:{2}", UserName, RemoteComputer, RemotePort);
+            get => _viewModelService.BuildDestinationDisplayText(UserName, RemoteComputer, RemotePort);
         }
 
         [RelayCommand]
         private async Task ConnectToRemoteComputer()
-        { 
+        {
         }
     }
 }

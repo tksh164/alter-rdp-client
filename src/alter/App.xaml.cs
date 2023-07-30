@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using AlterApp.Services;
 using AlterApp.ViewModels;
 
 namespace AlterApp
@@ -31,6 +32,10 @@ namespace AlterApp
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
+
+            // Services
+            services.AddSingleton<IAppSettingsService, AppSettingsService>();
+            services.AddSingleton<IMainWindowViewModelService, MainWindowViewModelService>();
 
             // ViewModels
             services.AddTransient<MainWindowViewModel>();
