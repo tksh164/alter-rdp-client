@@ -12,7 +12,7 @@
 
 [assembly: System.Windows.Forms.AxHost.TypeLibraryTimeStamp("07/27/2023 23:01:38")]
 
-namespace MsRdcAx.MsTscLib
+namespace MsRdcAx.AxMsTscLib
 {
     [System.Windows.Forms.AxHost.ClsidAttribute("{a41a4187-5a86-4e26-b40a-856f9035d9cb}")]
     [System.ComponentModel.DesignTimeVisibleAttribute(true)]
