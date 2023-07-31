@@ -5,6 +5,7 @@
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Nullable>enable</Nullable>
 	<UseWindowsForms>true</UseWindowsForms>
+	<RootNamespace>MsRdcAx</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
