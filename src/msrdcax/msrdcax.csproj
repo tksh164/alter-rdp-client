@@ -4,6 +4,17 @@
     <TargetFramework>net7.0-windows</TargetFramework>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Nullable>enable</Nullable>
+	<UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="mstscax\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MSTSCLib">
+      <HintPath>mstscax\MSTSCLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>
