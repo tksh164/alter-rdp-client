@@ -144,32 +144,13 @@ namespace MsRdcAx
             _axRdpClient?.Disconnect();
         }
 
-        private void UpdateSessionDisplaySettings()
+        private void UpdateSessionDisplaySettingsWithRetry()
         {
             if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
-            var updateSessionDisplaySettingsInternal = () =>
-            {
-                const double NonscaledDpi = 96.0;  // DPI for 100%
-                uint desktopScaleFactor = (uint)((((double)_axRdpClient.DeviceDpi) / NonscaledDpi) * 100.0);
-                Debug.WriteLine("desktopScaleFactor: {0}", desktopScaleFactor);
-
-                const double OneInchInMillimeter = 25.4;
-                uint desktopWidth = (uint)_axRdpClient.Width;
-                uint desktopHeight = (uint)_axRdpClient.Height;
-                uint physicalWidth = (uint)(((double)desktopWidth / desktopScaleFactor) * OneInchInMillimeter);
-                uint physicalHeight = (uint)(((double)desktopHeight / desktopScaleFactor) * OneInchInMillimeter);
-                Debug.WriteLine("physicalWidth: {0}", physicalWidth);
-                Debug.WriteLine("physicalHeight: {0}", physicalHeight);
-
-                const uint DeviceScaleFactor = 100;
-                const uint Orientation = 0;
-                _axRdpClient.UpdateSessionDisplaySettings(desktopWidth, desktopHeight, physicalWidth, physicalHeight, Orientation, desktopScaleFactor, DeviceScaleFactor);
-            };
-
             try
             {
-                updateSessionDisplaySettingsInternal();
+                UpdateSessionDisplaySettings();
             }
             catch (COMException ex)
             {
@@ -178,9 +159,41 @@ namespace MsRdcAx
                 // Retry after waiting.
                 Task.Run(() => {
                     Thread.Sleep(2000);
-                    updateSessionDisplaySettingsInternal();
+                    UpdateSessionDisplaySettings();
                 });
             }
+        }
+
+        private void UpdateSessionDisplaySettings()
+        {
+            if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
+
+            uint desktopWidth = (uint)_axRdpClient.Width;
+            uint desktopHeight = (uint)_axRdpClient.Height;
+            double desktopScaleFactor = GetDesktopScaleFactor(_axRdpClient.DeviceDpi);
+            double physicalWidth = ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
+            double physicalHeight = ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
+            Debug.WriteLine("desktopWidth: {0}", desktopWidth);
+            Debug.WriteLine("desktopHeight: {0}", desktopHeight);
+            Debug.WriteLine("desktopScaleFactor: {0}", desktopScaleFactor);
+            Debug.WriteLine("physicalWidth: {0}", physicalWidth);
+            Debug.WriteLine("physicalHeight: {0}", physicalHeight);
+
+            const uint deviceScaleFactor = 100;
+            const uint orientation = 0;
+            _axRdpClient.UpdateSessionDisplaySettings(desktopWidth, desktopHeight, (uint)physicalWidth, (uint)physicalHeight, orientation, (uint)desktopScaleFactor, deviceScaleFactor);
+        }
+
+        private static double GetDesktopScaleFactor(double deviceDpi)
+        {
+            const double NonscaledDpi = 96.0;  // DPI for 100%
+            return deviceDpi / NonscaledDpi * 100.0;
+        }
+
+        private static double ConvertToPhysicalUnitSize(double desktopSize, double desktopScaleFactor)
+        {
+            const double oneInchInMillimeter = 25.4;
+            return desktopSize / desktopScaleFactor * oneInchInMillimeter;
         }
 
         public event EventHandler? OnConnecting;
@@ -250,7 +263,7 @@ namespace MsRdcAx
         {
             Debug.WriteLine("AxRdpClient_OnLoginComplete");
             IsLoginCompleted = true;
-            UpdateSessionDisplaySettings();
+            UpdateSessionDisplaySettingsWithRetry();
             OnLoginComplete?.Invoke(sender, e);
         }
 
