@@ -57,22 +57,27 @@ namespace MsRdcAx
 
         private void InitializeRdpClientActiveXControl()
         {
+            // Create and initialize the RDP client ActiveX control.
             _axRdpClient = new AxRdpClient();
             _axRdpClient.BeginInit();
             _axRdpClient.EndInit();
 
+            // Set the RDP client ActiveX control as a child element of WindowsFormsHost.
             this.BeginInit();
             this.Child = _axRdpClient;
             this.EndInit();
 
-            _axRdpClient.Visible = false;
+            // Create the RDP client ActiveX control's visible controls.
             _axRdpClient.CreateControl();
+
+            _axRdpClient.Visible = false;  // TODO: Is this need?,   // TODO: Shoud do this in the app's code.
         }
 
         private void InitializeRdpClientAxEventHandlers()
         {
             if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
+            // Connecting
             _axRdpClient.OnConnecting += AxRdpClient_OnConnecting;
             _axRdpClient.OnAuthenticationWarningDisplayed += AxRdpClient_OnAuthenticationWarningDisplayed;
             _axRdpClient.OnAuthenticationWarningDismissed += AxRdpClient_OnAuthenticationWarningDismissed;
@@ -82,50 +87,54 @@ namespace MsRdcAx
             _axRdpClient.OnLogonError += AxRdpClient_OnLogonError;
             _axRdpClient.OnReceivedTSPublicKey += AxRdpClient_OnReceivedTSPublicKey;
 
+            // Disconnecting
             _axRdpClient.OnDisconnected += AxRdpClient_OnDisconnected;
             _axRdpClient.OnConfirmClose += AxRdpClient_OnConfirmClose;
 
-            _axRdpClient.Resize += AxRdpClient_Resize;
-
+            // Networking
             _axRdpClient.OnNetworkStatusChanged += AxRdpClient_OnNetworkStatusChanged;
             _axRdpClient.OnAutoReconnecting += AxRdpClient_OnAutoReconnecting;
             _axRdpClient.OnAutoReconnecting2 += AxRdpClient_OnAutoReconnecting2;
             _axRdpClient.OnAutoReconnected += AxRdpClient_OnAutoReconnected;
 
-            _axRdpClient.OnFocusReleased += AxRdpClient_OnFocusReleased;
-            _axRdpClient.OnMouseInputModeChanged += AxRdpClient_OnMouseInputModeChanged;
-
+            // Screen resizing
+            _axRdpClient.Resize += AxRdpClient_Resize;
             _axRdpClient.OnRemoteDesktopSizeChange += AxRdpClient_OnRemoteDesktopSizeChange;
             _axRdpClient.OnEnterFullScreenMode += AxRdpClient_OnEnterFullScreenMode;
             _axRdpClient.OnLeaveFullScreenMode += AxRdpClient_OnLeaveFullScreenMode;
             _axRdpClient.OnRequestGoFullScreen += AxRdpClient_OnRequestGoFullScreen;
             _axRdpClient.OnRequestLeaveFullScreen += AxRdpClient_OnRequestLeaveFullScreen;
 
+            // UI
+            _axRdpClient.OnFocusReleased += AxRdpClient_OnFocusReleased;
+            _axRdpClient.OnMouseInputModeChanged += AxRdpClient_OnMouseInputModeChanged;
             _axRdpClient.OnConnectionBarPullDown += AxRdpClient_OnConnectionBarPullDown;
             _axRdpClient.OnDevicesButtonPressed += AxRdpClient_OnDevicesButtonPressed;
             _axRdpClient.OnRequestContainerMinimize += AxRdpClient_OnRequestContainerMinimize;
-
-            _axRdpClient.OnChannelReceivedData += AxRdpClient_OnChannelReceivedData;
             _axRdpClient.OnIdleTimeoutNotification += AxRdpClient_OnIdleTimeoutNotification;
+
+            // Data communication
+            _axRdpClient.OnChannelReceivedData += AxRdpClient_OnChannelReceivedData;
             _axRdpClient.OnServiceMessageReceived += AxRdpClient_OnServiceMessageReceived;
 
+            // Error
             _axRdpClient.OnWarning += AxRdpClient_OnWarning;
             _axRdpClient.OnFatalError += AxRdpClient_OnFatalError;
 
-            // OnRemoteProgramDisplayed  // For RemoteApp
-            // OnRemoteProgramResult     // For RemoteApp
-            // OnRemoteWindowDisplayed   // For RemoteApp
+            // RemoteApp
+            // OnRemoteProgramDisplayed
+            // OnRemoteProgramResult
+            // OnRemoteWindowDisplayed
         }
 
         private void InitializeRdpClientAxSettings()
         {
             if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
-            _axRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
-
             _axRdpClient.Server = RemoteComputer;
             _axRdpClient.AdvancedSettings2.RDPPort = RemotePort;
             _axRdpClient.UserName = UserName;
+            _axRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
             _axRdpClient.DesktopWidth = DesktopWidth;
             _axRdpClient.DesktopHeight = DesktopHeight;
         }
@@ -180,16 +189,21 @@ namespace MsRdcAx
         {
             Debug.WriteLine("AxRdpClient_OnConnecting");
 
-            // Do hidden the WindowsFormsHost element while the RDP client establishing a connection
+            // Do hidden the WindowsFormsHost element (this class) while the RDP client establishing a connection
             // for showing the connecting status message that at under the WindowsFormsHost element.
-            // If did hidden the WindowsFormsHost element at initial time, the credential prompt
-            // window does not showing up the center of the main window.
+            // If did hidden the WindowsFormsHost element at initial time, the credential prompt window does not
+            // showing up the center of the main window.
+            HideWindowsFormsHost();  // TODO: Shoud do this in the app's code.
+
+            OnConnecting?.Invoke(sender, e);
+        }
+
+        private void HideWindowsFormsHost()
+        {
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, () =>
             {
                 this.Visibility = Visibility.Hidden;
             });
-
-            OnConnecting?.Invoke(sender, e);
         }
 
         public event EventHandler? OnAuthenticationWarningDisplayed;
@@ -224,8 +238,8 @@ namespace MsRdcAx
             if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
             // Do visible the WindowsFormsHost element that did hidden in the OnConnecting event handler.
-            this.Visibility = Visibility.Visible;
-            _axRdpClient.Visible = true;
+            this.Visibility = Visibility.Visible;  // TODO: Shoud do this in the app's code.
+            _axRdpClient.Visible = true;  // TODO: Shoud do this in the app's code.
 
             OnConnected?.Invoke(sender, e);
         }
@@ -263,8 +277,9 @@ namespace MsRdcAx
             Debug.WriteLine("AxRdpClient_OnDisconnected");
             if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
-            LastDisconnectReason = new RdpClientDisconnectReason(e.discReason, _axRdpClient.ExtendedDisconnectReason);
             IsLoginCompleted = false;
+            LastDisconnectReason = new RdpClientDisconnectReason(e.discReason, _axRdpClient.ExtendedDisconnectReason);
+            // TODO: Get reason text
             OnDisconnected?.Invoke(sender, e);
         }
 
