@@ -309,22 +309,31 @@ namespace MsRdcAx
             Debug.WriteLine("AxRdpClient_Resize");
             if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
-            // UpdateSessionDisplaySettings works after complete login only.
+            // NOTE: UpdateSessionDisplaySettings only works after complete login.
             if (IsLoginCompleted)
             {
-                var onResizeState = (DelayMilliseconds: 300, ClientSizeWidthAtFired: _axRdpClient.ClientSize.Width, ClientSizeHeightAtFired: _axRdpClient.ClientSize.Height);
-                Task.Factory.StartNew((object? onResizeState) =>
-                {
-                    ArgumentNullException.ThrowIfNull(nameof(onResizeState));
+                const int delayToUpdateInMsec = 300;
+                Task.Run(() => UpdateSessionDisplaySettingsOnResize(_axRdpClient.ClientSize.Width, _axRdpClient.ClientSize.Height, delayToUpdateInMsec));
+            }
+        }
 
-                    var (delayMilliseconds, clientSizeWidthAtFired, clientSizeHeightAtFired) = ((int, int, int))onResizeState;
-                    Thread.Sleep(delayMilliseconds);
-                    if (clientSizeWidthAtFired == _axRdpClient.ClientSize.Width && clientSizeHeightAtFired == _axRdpClient.ClientSize.Height)
-                    {
-                        Debug.WriteLine("Resize completed.");
-                        UpdateSessionDisplaySettings();
-                    }
-                }, onResizeState);
+        private void UpdateSessionDisplaySettingsOnResize(int clientSizeWidthAtFired, int clientSizeHeightAtFired, int delayToUpdateInMilliseconds)
+        {
+            if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
+
+            // Delay the session display settings update because continuously fired resize event during the window's edge dragging.
+            Thread.Sleep(delayToUpdateInMilliseconds);
+
+            // If the current client sizes are the same as the client sizes of this thread started, it means dragging of the window's edge is stopped.
+            // Only call the UpdateSessionDisplaySettings when dragging of the window's edge is stopped.
+            if (_axRdpClient.ClientSize.Width == clientSizeWidthAtFired && _axRdpClient.ClientSize.Height == clientSizeHeightAtFired)
+            {
+                Debug.WriteLine("Doing resize.");
+                UpdateSessionDisplaySettingsWithRetry();
+            }
+            else
+            {
+                Debug.WriteLine("Skip resize: {0}!={1}, {2}!={3}", _axRdpClient.ClientSize.Width, clientSizeWidthAtFired, _axRdpClient.ClientSize.Height, clientSizeHeightAtFired);
             }
         }
 
