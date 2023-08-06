@@ -156,11 +156,20 @@ namespace MsRdcAx
             {
                 Debug.WriteLine("COMException: {0}", ex.HResult);
 
-                // Retry after waiting.
-                Task.Run(() => {
-                    Thread.Sleep(2000);
-                    UpdateSessionDisplaySettings();
-                });
+                // Some times UpdateSessionDisplaySettings() throws a COM exception with E_UNEXPECTED.
+                const int E_UNEXPECTED = -2147418113;  // 0x8000ffff
+                if (ex.HResult == E_UNEXPECTED)
+                {
+                    // Retry after the waiting.
+                    Task.Run(() =>
+                    {
+                        Thread.Sleep(2000);
+                        UpdateSessionDisplaySettingsWithRetry();
+                    });
+                    return;
+                }
+
+                throw;
             }
         }
 
