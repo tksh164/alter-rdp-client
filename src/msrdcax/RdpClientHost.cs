@@ -186,8 +186,8 @@ namespace MsRdcAx
 
         private static double GetDesktopScaleFactor(double deviceDpi)
         {
-            const double NonscaledDpi = 96.0;  // DPI for 100%
-            return deviceDpi / NonscaledDpi * 100.0;
+            const double nonScaledDpi = 96.0;  // DPI for 100%
+            return deviceDpi / nonScaledDpi * 100.0;
         }
 
         private static double ConvertToPhysicalUnitSize(double desktopSize, double desktopScaleFactor)
