@@ -24,7 +24,9 @@ namespace MsRdcAx
             base.Dispose();
         }
 
-        public string RemoteServer { get; set; } = string.Empty;
+        public string RemoteComputer { get; set; } = string.Empty;
+
+        public int RemotePort { get; set; }
 
         public string UserName { get; set; } = string.Empty;
 
@@ -119,12 +121,13 @@ namespace MsRdcAx
         {
             if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
-            _axRdpClient!.Server = RemoteServer;
+            _axRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
+
+            _axRdpClient.Server = RemoteComputer;
+            _axRdpClient.AdvancedSettings2.RDPPort = RemotePort;
             _axRdpClient.UserName = UserName;
             _axRdpClient.DesktopWidth = DesktopWidth;
             _axRdpClient.DesktopHeight = DesktopHeight;
-
-            _axRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
         }
 
         public void Disconnect()
@@ -181,7 +184,8 @@ namespace MsRdcAx
             // for showing the connecting status message that at under the WindowsFormsHost element.
             // If did hidden the WindowsFormsHost element at initial time, the credential prompt
             // window does not showing up the center of the main window.
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, () => {
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, () =>
+            {
                 this.Visibility = Visibility.Hidden;
             });
 
