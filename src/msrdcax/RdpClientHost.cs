@@ -144,55 +144,6 @@ namespace MsRdcAx
             _axRdpClient?.Disconnect();
         }
 
-        private void UpdateSessionDisplaySettingsWithRetry()
-        {
-            if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
-
-            try
-            {
-                UpdateSessionDisplaySettings();
-            }
-            catch (COMException ex)
-            {
-                Debug.WriteLine("COMException: {0}", ex.HResult);
-
-                // Some times UpdateSessionDisplaySettings() throws a COM exception with E_UNEXPECTED.
-                const int E_UNEXPECTED = -2147418113;  // 0x8000ffff
-                if (ex.HResult == E_UNEXPECTED)
-                {
-                    // Retry after the waiting.
-                    Task.Run(() =>
-                    {
-                        Thread.Sleep(2000);
-                        UpdateSessionDisplaySettingsWithRetry();
-                    });
-                    return;
-                }
-
-                throw;
-            }
-        }
-
-        private void UpdateSessionDisplaySettings()
-        {
-            if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
-
-            uint desktopWidth = (uint)_axRdpClient.Width;
-            uint desktopHeight = (uint)_axRdpClient.Height;
-            double desktopScaleFactor = GetDesktopScaleFactor(_axRdpClient.DeviceDpi);
-            double physicalWidth = ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
-            double physicalHeight = ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
-            Debug.WriteLine("desktopWidth: {0}", desktopWidth);
-            Debug.WriteLine("desktopHeight: {0}", desktopHeight);
-            Debug.WriteLine("desktopScaleFactor: {0}", desktopScaleFactor);
-            Debug.WriteLine("physicalWidth: {0}", physicalWidth);
-            Debug.WriteLine("physicalHeight: {0}", physicalHeight);
-
-            const uint deviceScaleFactor = 100;
-            const uint orientation = 0;
-            _axRdpClient.UpdateSessionDisplaySettings(desktopWidth, desktopHeight, (uint)physicalWidth, (uint)physicalHeight, orientation, (uint)desktopScaleFactor, deviceScaleFactor);
-        }
-
         private static double GetDesktopScaleFactor(double deviceDpi)
         {
             const double nonScaledDpi = 96.0;  // DPI for 100%
@@ -274,6 +225,55 @@ namespace MsRdcAx
             IsLoginCompleted = true;
             UpdateSessionDisplaySettingsWithRetry();
             OnLoginComplete?.Invoke(sender, e);
+        }
+
+        private void UpdateSessionDisplaySettingsWithRetry()
+        {
+            if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
+
+            try
+            {
+                UpdateSessionDisplaySettings();
+            }
+            catch (COMException ex)
+            {
+                Debug.WriteLine("COMException: {0}", ex.HResult);
+
+                // Some times UpdateSessionDisplaySettings() throws a COM exception with E_UNEXPECTED.
+                const int E_UNEXPECTED = -2147418113;  // 0x8000ffff
+                if (ex.HResult == E_UNEXPECTED)
+                {
+                    // Retry after the waiting.
+                    Task.Run(() =>
+                    {
+                        Thread.Sleep(2000);
+                        UpdateSessionDisplaySettingsWithRetry();
+                    });
+                    return;
+                }
+
+                throw;
+            }
+        }
+
+        private void UpdateSessionDisplaySettings()
+        {
+            if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
+
+            uint desktopWidth = (uint)_axRdpClient.Width;
+            uint desktopHeight = (uint)_axRdpClient.Height;
+            double desktopScaleFactor = GetDesktopScaleFactor(_axRdpClient.DeviceDpi);
+            double physicalWidth = ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
+            double physicalHeight = ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
+            Debug.WriteLine("desktopWidth: {0}", desktopWidth);
+            Debug.WriteLine("desktopHeight: {0}", desktopHeight);
+            Debug.WriteLine("desktopScaleFactor: {0}", desktopScaleFactor);
+            Debug.WriteLine("physicalWidth: {0}", physicalWidth);
+            Debug.WriteLine("physicalHeight: {0}", physicalHeight);
+
+            const uint deviceScaleFactor = 100;
+            const uint orientation = 0;
+            _axRdpClient.UpdateSessionDisplaySettings(desktopWidth, desktopHeight, (uint)physicalWidth, (uint)physicalHeight, orientation, (uint)desktopScaleFactor, deviceScaleFactor);
         }
 
         public event IMsTscAxEvents_OnLogonErrorEventHandler? OnLogonError;
