@@ -313,39 +313,6 @@ namespace MsRdcAx
             OnConfirmClose?.Invoke(sender, e);
         }
 
-        private void AxRdpClient_Resize(object? sender, EventArgs e)
-        {
-            Debug.WriteLine("AxRdpClient_Resize");
-            if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
-
-            // NOTE: UpdateSessionDisplaySettings only works after complete login.
-            if (IsLoginCompleted)
-            {
-                const int delayToUpdateInMsec = 300;
-                Task.Run(() => UpdateSessionDisplaySettingsOnResize(_axRdpClient.ClientSize.Width, _axRdpClient.ClientSize.Height, delayToUpdateInMsec));
-            }
-        }
-
-        private void UpdateSessionDisplaySettingsOnResize(int clientSizeWidthAtFired, int clientSizeHeightAtFired, int delayToUpdateInMilliseconds)
-        {
-            if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
-
-            // Delay the session display settings update because continuously fired resize event during the window's edge dragging.
-            Thread.Sleep(delayToUpdateInMilliseconds);
-
-            // If the current client sizes are the same as the client sizes of this thread started, it means dragging of the window's edge is stopped.
-            // Only call the UpdateSessionDisplaySettings when dragging of the window's edge is stopped.
-            if (_axRdpClient.ClientSize.Width == clientSizeWidthAtFired && _axRdpClient.ClientSize.Height == clientSizeHeightAtFired)
-            {
-                Debug.WriteLine("Doing resize.");
-                UpdateSessionDisplaySettingsWithRetry();
-            }
-            else
-            {
-                Debug.WriteLine("Skip resize: {0}!={1}, {2}!={3}", _axRdpClient.ClientSize.Width, clientSizeWidthAtFired, _axRdpClient.ClientSize.Height, clientSizeHeightAtFired);
-            }
-        }
-
         public event IMsTscAxEvents_OnNetworkStatusChangedEventHandler? OnNetworkStatusChanged;
 
         private void AxRdpClient_OnNetworkStatusChanged(object? sender, IMsTscAxEvents_OnNetworkStatusChangedEvent e)
@@ -378,20 +345,37 @@ namespace MsRdcAx
             OnAutoReconnected?.Invoke(sender, e);
         }
 
-        public event IMsTscAxEvents_OnFocusReleasedEventHandler? OnFocusReleased;
-
-        private void AxRdpClient_OnFocusReleased(object? sender, IMsTscAxEvents_OnFocusReleasedEvent e)
+        private void AxRdpClient_Resize(object? sender, EventArgs e)
         {
-            Debug.WriteLine("AxRdpClient_OnFocusReleased");
-            OnFocusReleased?.Invoke(sender, e);
+            Debug.WriteLine("AxRdpClient_Resize");
+            if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
+
+            // NOTE: UpdateSessionDisplaySettings only works after complete login.
+            if (IsLoginCompleted)
+            {
+                const int delayToUpdateInMsec = 300;
+                Task.Run(() => UpdateSessionDisplaySettingsOnResize(_axRdpClient.ClientSize.Width, _axRdpClient.ClientSize.Height, delayToUpdateInMsec));
+            }
         }
 
-        public event IMsTscAxEvents_OnMouseInputModeChangedEventHandler? OnMouseInputModeChanged;
-
-        private void AxRdpClient_OnMouseInputModeChanged(object? sender, IMsTscAxEvents_OnMouseInputModeChangedEvent e)
+        private void UpdateSessionDisplaySettingsOnResize(int clientSizeWidthAtFired, int clientSizeHeightAtFired, int delayToUpdateInMilliseconds)
         {
-            Debug.WriteLine("AxRdpClient_OnMouseInputModeChanged");
-            OnMouseInputModeChanged?.Invoke(sender, e);
+            if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
+
+            // Delay the session display settings update because continuously fired resize event during the window's edge dragging.
+            Thread.Sleep(delayToUpdateInMilliseconds);
+
+            // If the current client sizes are the same as the client sizes of this thread started, it means dragging of the window's edge is stopped.
+            // Only call the UpdateSessionDisplaySettings when dragging of the window's edge is stopped.
+            if (_axRdpClient.ClientSize.Width == clientSizeWidthAtFired && _axRdpClient.ClientSize.Height == clientSizeHeightAtFired)
+            {
+                Debug.WriteLine("Doing resize.");
+                UpdateSessionDisplaySettingsWithRetry();
+            }
+            else
+            {
+                Debug.WriteLine("Skip resize: {0}!={1}, {2}!={3}", _axRdpClient.ClientSize.Width, clientSizeWidthAtFired, _axRdpClient.ClientSize.Height, clientSizeHeightAtFired);
+            }
         }
 
         public event IMsTscAxEvents_OnRemoteDesktopSizeChangeEventHandler? OnRemoteDesktopSizeChange;
@@ -434,6 +418,22 @@ namespace MsRdcAx
             OnRequestLeaveFullScreen?.Invoke(sender, e);
         }
 
+        public event IMsTscAxEvents_OnFocusReleasedEventHandler? OnFocusReleased;
+
+        private void AxRdpClient_OnFocusReleased(object? sender, IMsTscAxEvents_OnFocusReleasedEvent e)
+        {
+            Debug.WriteLine("AxRdpClient_OnFocusReleased");
+            OnFocusReleased?.Invoke(sender, e);
+        }
+
+        public event IMsTscAxEvents_OnMouseInputModeChangedEventHandler? OnMouseInputModeChanged;
+
+        private void AxRdpClient_OnMouseInputModeChanged(object? sender, IMsTscAxEvents_OnMouseInputModeChangedEvent e)
+        {
+            Debug.WriteLine("AxRdpClient_OnMouseInputModeChanged");
+            OnMouseInputModeChanged?.Invoke(sender, e);
+        }
+
         public event EventHandler? OnConnectionBarPullDown;
 
         private void AxRdpClient_OnConnectionBarPullDown(object? sender, EventArgs e)
@@ -458,20 +458,20 @@ namespace MsRdcAx
             OnRequestContainerMinimize?.Invoke(sender, e);
         }
 
-        public event IMsTscAxEvents_OnChannelReceivedDataEventHandler? OnChannelReceivedData;
-
-        private void AxRdpClient_OnChannelReceivedData(object? sender, IMsTscAxEvents_OnChannelReceivedDataEvent e)
-        {
-            Debug.WriteLine("AxRdpClient_OnChannelReceivedData");
-            OnChannelReceivedData?.Invoke(sender, e);
-        }
-
         public event EventHandler? OnIdleTimeoutNotification;
 
         private void AxRdpClient_OnIdleTimeoutNotification(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnIdleTimeoutNotification");
             OnIdleTimeoutNotification?.Invoke(sender, e);
+        }
+
+        public event IMsTscAxEvents_OnChannelReceivedDataEventHandler? OnChannelReceivedData;
+
+        private void AxRdpClient_OnChannelReceivedData(object? sender, IMsTscAxEvents_OnChannelReceivedDataEvent e)
+        {
+            Debug.WriteLine("AxRdpClient_OnChannelReceivedData");
+            OnChannelReceivedData?.Invoke(sender, e);
         }
 
         public event IMsTscAxEvents_OnServiceMessageReceivedEventHandler? OnServiceMessageReceived;
