@@ -369,12 +369,12 @@ namespace MsRdcAx
             // Only call the UpdateSessionDisplaySettings when dragging of the window's edge is stopped.
             if (_axRdpClient.ClientSize.Width == clientSizeWidthAtFired && _axRdpClient.ClientSize.Height == clientSizeHeightAtFired)
             {
-                Debug.WriteLine("Doing resize.");
+                Debug.WriteLine("Do resizing.");
                 UpdateSessionDisplaySettingsWithRetry();
             }
             else
             {
-                Debug.WriteLine("Skip resize: {0}!={1}, {2}!={3}", _axRdpClient.ClientSize.Width, clientSizeWidthAtFired, _axRdpClient.ClientSize.Height, clientSizeHeightAtFired);
+                Debug.WriteLine("Skip resizing: {0}!={1}, {2}!={3}", _axRdpClient.ClientSize.Width, clientSizeWidthAtFired, _axRdpClient.ClientSize.Height, clientSizeHeightAtFired);
             }
         }
 
