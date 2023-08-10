@@ -135,25 +135,15 @@ namespace MsRdcAx
             _axRdpClient.AdvancedSettings2.RDPPort = RemotePort;
             _axRdpClient.UserName = UserName;
             _axRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
-            _axRdpClient.DesktopWidth = DesktopWidth;
-            _axRdpClient.DesktopHeight = DesktopHeight;
+
+            var displayScaleFactor = GetDisplayScaleFactor(_axRdpClient.DeviceDpi);
+            _axRdpClient.DesktopWidth = (int)(DesktopWidth * displayScaleFactor);
+            _axRdpClient.DesktopHeight = (int)(DesktopHeight * displayScaleFactor);
         }
 
         public void Disconnect()
         {
             _axRdpClient?.Disconnect();
-        }
-
-        private static double GetDesktopScaleFactor(double deviceDpi)
-        {
-            const double nonScaledDpi = 96.0;  // DPI for 100%
-            return deviceDpi / nonScaledDpi * 100.0;
-        }
-
-        private static double ConvertToPhysicalUnitSize(double desktopSize, double desktopScaleFactor)
-        {
-            const double oneInchInMillimeter = 25.4;
-            return desktopSize / desktopScaleFactor * oneInchInMillimeter;
         }
 
         public event EventHandler? OnConnecting;
@@ -260,11 +250,11 @@ namespace MsRdcAx
         {
             if (_axRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
-            uint desktopWidth = (uint)_axRdpClient.Width;
-            uint desktopHeight = (uint)_axRdpClient.Height;
-            double desktopScaleFactor = GetDesktopScaleFactor(_axRdpClient.DeviceDpi);
-            double physicalWidth = ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
-            double physicalHeight = ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
+            var desktopWidth = (uint)_axRdpClient.Width;
+            var desktopHeight = (uint)_axRdpClient.Height;
+            var desktopScaleFactor = (uint)(GetDisplayScaleFactor(_axRdpClient.DeviceDpi) * 100.0);
+            var physicalWidth = ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
+            var physicalHeight = ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
             Debug.WriteLine("desktopWidth: {0}", desktopWidth);
             Debug.WriteLine("desktopHeight: {0}", desktopHeight);
             Debug.WriteLine("desktopScaleFactor: {0}", desktopScaleFactor);
@@ -273,7 +263,19 @@ namespace MsRdcAx
 
             const uint deviceScaleFactor = 100;
             const uint orientation = 0;
-            _axRdpClient.UpdateSessionDisplaySettings(desktopWidth, desktopHeight, (uint)physicalWidth, (uint)physicalHeight, orientation, (uint)desktopScaleFactor, deviceScaleFactor);
+            _axRdpClient.UpdateSessionDisplaySettings(desktopWidth, desktopHeight, physicalWidth, physicalHeight, orientation, desktopScaleFactor, deviceScaleFactor);
+        }
+
+        private static double GetDisplayScaleFactor(int deviceDpi)
+        {
+            const double nonScaledDpi = 96.0;  // DPI for 100%
+            return deviceDpi / nonScaledDpi;
+        }
+
+        private static uint ConvertToPhysicalUnitSize(uint desktopSize, uint desktopScaleFactor)
+        {
+            const double oneInchInMillimeter = 25.4;
+            return (uint)(desktopSize / desktopScaleFactor * oneInchInMillimeter);
         }
 
         public event IMsTscAxEvents_OnLogonErrorEventHandler? OnLogonError;
