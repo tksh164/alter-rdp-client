@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlterApp.Views"
         xmlns:viewmodels="clr-namespace:AlterApp.ViewModels"
+        xmlns:ap="clr-namespace:AlterApp.AttachedProperties"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
         Title="{Binding WindowTitle}"
@@ -79,7 +80,9 @@
 
         <Rectangle Visibility="{Binding RdpClientVisibility}" Fill="Blue"/>
         
-        <ContentControl Visibility="{Binding RdpClientVisibility}" Content="{Binding RdpClientHost}" Background="Red"/>
-
+        <ContentControl Visibility="{Binding RdpClientHostVisibility}" Content="{Binding RdpClientHost}" Background="Red"
+                        ap:SizeObservation.IsEnabled="True"
+                        ap:SizeObservation.ObservedActualWidth="{Binding RdpClientHostWidth, Mode=OneWayToSource}"
+                        ap:SizeObservation.ObservedActualHeight="{Binding RdpClientHostHeight, Mode=OneWayToSource}"/>
     </Grid>
 </Window>

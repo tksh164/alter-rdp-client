@@ -64,6 +64,12 @@ namespace AlterApp.ViewModels
             private set => SetProperty(ref _rdpClientVisibility, value);
         }
 
+        [ObservableProperty]
+        private double _rdpClientHostWidth;
+
+        [ObservableProperty]
+        private double _rdpClientHostHeight;
+
         // TODO: Enable/Disable flag for elements
 
         [RelayCommand(CanExecute = nameof(CanConnectToRemoteComputer))]
@@ -79,8 +85,8 @@ namespace AlterApp.ViewModels
                     RemoteComputer = RemoteComputer,
                     RemotePort = int.Parse(RemotePort),  // TODO
                     UserName = UserName,
-                    DesktopWidth = 1024,
-                    DesktopHeight = 768,
+                    DesktopWidth = (int)RdpClientHostWidth,
+                    DesktopHeight = (int)RdpClientHostHeight,
                 };
                 RdpClientHost.Connect();
             }
