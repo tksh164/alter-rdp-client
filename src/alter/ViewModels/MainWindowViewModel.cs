@@ -65,14 +65,19 @@ namespace AlterApp.ViewModels
         [ObservableProperty]
         private double _rdpClientHostHeight;
 
+        private bool _isElementEnabled = true;
+        public bool IsElementEnabled
+        {
+            get => _isElementEnabled;
+            private set => SetProperty(ref _isElementEnabled, value);
+        }
+
         private Visibility _rdpClientHostVisibility = Visibility.Hidden;
         public Visibility RdpClientHostVisibility
         {
             get => _rdpClientHostVisibility;
             private set => SetProperty(ref _rdpClientHostVisibility, value);
         }
-
-        // TODO: Enable/Disable flag for elements
 
         [RelayCommand(CanExecute = nameof(CanConnectToRemoteComputer))]
         private async Task ConnectToRemoteComputer()
