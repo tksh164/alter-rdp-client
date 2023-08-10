@@ -40,13 +40,6 @@ namespace AlterApp.ViewModels
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _userName;
 
-        private RdpClientHost? _rdpClientHost = null;
-        public RdpClientHost? RdpClientHost
-        {
-            get => _rdpClientHost;
-            private set => SetProperty(ref _rdpClientHost, value);
-        }
-
         public string WindowTitle
         {
             get => _viewModelService.BuildWindowTitle(_appSettingsService.GetAppName(), UserName, RemoteComputer, RemotePort);
@@ -57,11 +50,11 @@ namespace AlterApp.ViewModels
             get => _viewModelService.BuildDestinationDisplayText(UserName, RemoteComputer, RemotePort);
         }
 
-        private Visibility _rdpClientHostVisibility = Visibility.Hidden;
-        public Visibility RdpClientHostVisibility
+        private RdpClientHost? _rdpClientHost = null;
+        public RdpClientHost? RdpClientHost
         {
-            get => _rdpClientHostVisibility;
-            private set => SetProperty(ref _rdpClientHostVisibility, value);
+            get => _rdpClientHost;
+            private set => SetProperty(ref _rdpClientHost, value);
         }
 
         [ObservableProperty]
@@ -69,6 +62,13 @@ namespace AlterApp.ViewModels
 
         [ObservableProperty]
         private double _rdpClientHostHeight;
+
+        private Visibility _rdpClientHostVisibility = Visibility.Hidden;
+        public Visibility RdpClientHostVisibility
+        {
+            get => _rdpClientHostVisibility;
+            private set => SetProperty(ref _rdpClientHostVisibility, value);
+        }
 
         // TODO: Enable/Disable flag for elements
 
