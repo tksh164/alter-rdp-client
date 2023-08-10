@@ -78,7 +78,7 @@
                    Text="Status message"/>
         </Grid>
 
-        <Rectangle Visibility="{Binding RdpClientVisibility}" Fill="Blue"/>
+        <Rectangle Visibility="{Binding RdpClientHostVisibility}" Fill="Blue"/>
         
         <ContentControl Visibility="{Binding RdpClientHostVisibility}" Content="{Binding RdpClientHost}" Background="Red"
                         ap:SizeObservation.IsEnabled="True"

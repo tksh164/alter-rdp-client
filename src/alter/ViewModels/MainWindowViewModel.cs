@@ -57,11 +57,11 @@ namespace AlterApp.ViewModels
             get => _viewModelService.BuildDestinationDisplayText(UserName, RemoteComputer, RemotePort);
         }
 
-        private Visibility _rdpClientVisibility = Visibility.Hidden;
-        public Visibility RdpClientVisibility
+        private Visibility _rdpClientHostVisibility = Visibility.Hidden;
+        public Visibility RdpClientHostVisibility
         {
-            get => _rdpClientVisibility;
-            private set => SetProperty(ref _rdpClientVisibility, value);
+            get => _rdpClientHostVisibility;
+            private set => SetProperty(ref _rdpClientHostVisibility, value);
         }
 
         [ObservableProperty]
@@ -78,7 +78,7 @@ namespace AlterApp.ViewModels
             // TODO: Release RDP client host.
             if (RdpClientHost == null)
             {
-                RdpClientVisibility = Visibility.Visible;
+                RdpClientHostVisibility = Visibility.Visible;
 
                 RdpClientHost = new RdpClientHost
                 {
