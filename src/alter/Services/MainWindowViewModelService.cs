@@ -1,4 +1,9 @@
-﻿namespace AlterApp.Services
+﻿using System;
+using System.Windows;
+using System.Windows.Threading;
+using MsRdcAx;
+
+namespace AlterApp.Services
 {
     internal class MainWindowViewModelService : IMainWindowViewModelService
     {
@@ -33,6 +38,31 @@
             var remoteComputerPart = string.IsNullOrWhiteSpace(remoteComputer) ? PlaceHolderText : remoteComputer;
             var remotePortPart = string.IsNullOrWhiteSpace(remotePort) ? PlaceHolderText : remotePort;
             return string.Format("{0}@{1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
+        }
+
+        public void RdpClientHost_OnConnecting(object? sender, EventArgs e)
+        {
+            ArgumentNullException.ThrowIfNull(sender, nameof(sender));
+
+            // Do hidden the WindowsFormsHost element while the RDP client establishing a connection
+            // for showing the connecting status message that at under the WindowsFormsHost element.
+            // If did hidden the WindowsFormsHost element at initial time, the credential prompt window does not
+            // showing up the center of the main window.
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, HideRdpClientHost, sender);
+        }
+
+        private void HideRdpClientHost(RdpClientHost rdpClientHost)
+        {
+            rdpClientHost.Visibility = Visibility.Hidden;
+        }
+
+        public void RdpClientHost_OnConnected(object? sender, EventArgs e)
+        {
+            ArgumentNullException.ThrowIfNull(sender, nameof(sender));
+
+            // Do visible the WindowsFormsHost element that did hidden in the OnConnecting event handler.
+            var rdpClientHost = (RdpClientHost)sender;
+            rdpClientHost.Visibility = Visibility.Visible;
         }
     }
 }

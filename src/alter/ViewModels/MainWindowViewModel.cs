@@ -4,6 +4,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using AlterApp.Services;
 using MsRdcAx;
+using System.Windows.Threading;
+using System;
 
 namespace AlterApp.ViewModels
 {
@@ -88,6 +90,10 @@ namespace AlterApp.ViewModels
                     DesktopWidth = (int)RdpClientHostWidth,
                     DesktopHeight = (int)RdpClientHostHeight,
                 };
+
+                RdpClientHost.OnConnecting += _viewModelService.RdpClientHost_OnConnecting;
+                RdpClientHost.OnConnected += _viewModelService.RdpClientHost_OnConnected;
+
                 RdpClientHost.Connect();
             }
         }

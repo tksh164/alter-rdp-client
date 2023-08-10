@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
+using System.Windows.Forms.Integration;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms.Integration;
-using System.Windows.Threading;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 using MsRdcAx.AxMsTscLib;
 
 namespace MsRdcAx
@@ -69,8 +67,6 @@ namespace MsRdcAx
 
             // Create the RDP client ActiveX control's visible controls.
             _axMsRdpClient.CreateControl();
-
-            _axRdpClient.Visible = false;  // TODO: Is this need?,   // TODO: Shoud do this in the app's code.
         }
 
         private void SetupRdpClientAxEventHandlers()
@@ -151,22 +147,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnConnecting(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnConnecting");
-
-            // Do hidden the WindowsFormsHost element (this class) while the RDP client establishing a connection
-            // for showing the connecting status message that at under the WindowsFormsHost element.
-            // If did hidden the WindowsFormsHost element at initial time, the credential prompt window does not
-            // showing up the center of the main window.
-            HideWindowsFormsHost();  // TODO: Shoud do this in the app's code.
-
-            OnConnecting?.Invoke(sender, e);
-        }
-
-        private void HideWindowsFormsHost()
-        {
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, () =>
-            {
-                this.Visibility = Visibility.Hidden;
-            });
+            OnConnecting?.Invoke(this, e);
         }
 
         public event EventHandler? OnAuthenticationWarningDisplayed;
@@ -174,7 +155,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnAuthenticationWarningDisplayed(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnAuthenticationWarningDisplayed");
-            OnAuthenticationWarningDisplayed?.Invoke(sender, e);
+            OnAuthenticationWarningDisplayed?.Invoke(this, e);
         }
 
         public event EventHandler? OnAuthenticationWarningDismissed;
@@ -182,7 +163,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnAuthenticationWarningDismissed(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnAuthenticationWarningDismissed");
-            OnAuthenticationWarningDismissed?.Invoke(sender, e);
+            OnAuthenticationWarningDismissed?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnUserNameAcquiredEventHandler? OnUserNameAcquired;
@@ -190,7 +171,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnUserNameAcquired(object? sender, IMsTscAxEvents_OnUserNameAcquiredEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnUserNameAcquired");
-            OnUserNameAcquired?.Invoke(sender, e);
+            OnUserNameAcquired?.Invoke(this, e);
         }
 
         public event EventHandler? OnConnected;
@@ -198,13 +179,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnConnected(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnConnected");
-            if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
-
-            // Do visible the WindowsFormsHost element that did hidden in the OnConnecting event handler.
-            this.Visibility = Visibility.Visible;  // TODO: Shoud do this in the app's code.
-            _axMsRdpClient.Visible = true;  // TODO: Shoud do this in the app's code.
-
-            OnConnected?.Invoke(sender, e);
+            OnConnected?.Invoke(this, e);
         }
 
         public event EventHandler? OnLoginComplete;
@@ -214,7 +189,7 @@ namespace MsRdcAx
             Debug.WriteLine("AxRdpClient_OnLoginComplete");
             IsLoginCompleted = true;
             UpdateSessionDisplaySettingsWithRetry();
-            OnLoginComplete?.Invoke(sender, e);
+            OnLoginComplete?.Invoke(this, e);
         }
 
         private void UpdateSessionDisplaySettingsWithRetry()
@@ -283,7 +258,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnLogonError(object? sender, IMsTscAxEvents_OnLogonErrorEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnLogonError");
-            OnLogonError?.Invoke(sender, e);
+            OnLogonError?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnReceivedTSPublicKeyEventHandler? OnReceivedTSPublicKey;
@@ -291,7 +266,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnReceivedTSPublicKey(object? sender, IMsTscAxEvents_OnReceivedTSPublicKeyEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnReceivedTSPublicKey");
-            OnReceivedTSPublicKey?.Invoke(sender, e);
+            OnReceivedTSPublicKey?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnDisconnectedEventHandler? OnDisconnected;
@@ -304,7 +279,7 @@ namespace MsRdcAx
             IsLoginCompleted = false;
             LastDisconnectReason = new RdpClientDisconnectReason(e.discReason, _axMsRdpClient.ExtendedDisconnectReason);
             // TODO: Get reason text
-            OnDisconnected?.Invoke(sender, e);
+            OnDisconnected?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnConfirmCloseEventHandler? OnConfirmClose;
@@ -312,7 +287,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnConfirmClose(object? sender, IMsTscAxEvents_OnConfirmCloseEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnConfirmClose");
-            OnConfirmClose?.Invoke(sender, e);
+            OnConfirmClose?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnNetworkStatusChangedEventHandler? OnNetworkStatusChanged;
@@ -320,7 +295,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnNetworkStatusChanged(object? sender, IMsTscAxEvents_OnNetworkStatusChangedEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnNetworkStatusChanged");
-            OnNetworkStatusChanged?.Invoke(sender, e);
+            OnNetworkStatusChanged?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnAutoReconnectingEventHandler? OnAutoReconnecting;
@@ -328,7 +303,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnAutoReconnecting(object? sender, IMsTscAxEvents_OnAutoReconnectingEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnAutoReconnecting");
-            OnAutoReconnecting?.Invoke(sender, e);
+            OnAutoReconnecting?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnAutoReconnecting2EventHandler? OnAutoReconnecting2;
@@ -336,7 +311,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnAutoReconnecting2(object? sender, IMsTscAxEvents_OnAutoReconnecting2Event e)
         {
             Debug.WriteLine("AxRdpClient_OnAutoReconnecting2");
-            OnAutoReconnecting2?.Invoke(sender, e);
+            OnAutoReconnecting2?.Invoke(this, e);
         }
 
         public event EventHandler? OnAutoReconnected;
@@ -344,7 +319,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnAutoReconnected(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnAutoReconnected");
-            OnAutoReconnected?.Invoke(sender, e);
+            OnAutoReconnected?.Invoke(this, e);
         }
 
         private void AxRdpClient_Resize(object? sender, EventArgs e)
@@ -385,7 +360,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnRemoteDesktopSizeChange(object? sender, IMsTscAxEvents_OnRemoteDesktopSizeChangeEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnRemoteDesktopSizeChange");
-            OnRemoteDesktopSizeChange?.Invoke(sender, e);
+            OnRemoteDesktopSizeChange?.Invoke(this, e);
         }
 
         public event EventHandler? OnEnterFullScreenMode;
@@ -393,7 +368,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnEnterFullScreenMode(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnEnterFullScreenMode");
-            OnEnterFullScreenMode?.Invoke(sender, e);
+            OnEnterFullScreenMode?.Invoke(this, e);
         }
 
         public event EventHandler? OnLeaveFullScreenMode;
@@ -401,7 +376,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnLeaveFullScreenMode(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnLeaveFullScreenMode");
-            OnLeaveFullScreenMode?.Invoke(sender, e);
+            OnLeaveFullScreenMode?.Invoke(this, e);
         }
 
         public event EventHandler? OnRequestGoFullScreen;
@@ -409,7 +384,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnRequestGoFullScreen(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnRequestGoFullScreen");
-            OnRequestGoFullScreen?.Invoke(sender, e);
+            OnRequestGoFullScreen?.Invoke(this, e);
         }
 
         public event EventHandler? OnRequestLeaveFullScreen;
@@ -417,7 +392,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnRequestLeaveFullScreen(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnRequestLeaveFullScreen");
-            OnRequestLeaveFullScreen?.Invoke(sender, e);
+            OnRequestLeaveFullScreen?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnFocusReleasedEventHandler? OnFocusReleased;
@@ -425,7 +400,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnFocusReleased(object? sender, IMsTscAxEvents_OnFocusReleasedEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnFocusReleased");
-            OnFocusReleased?.Invoke(sender, e);
+            OnFocusReleased?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnMouseInputModeChangedEventHandler? OnMouseInputModeChanged;
@@ -433,7 +408,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnMouseInputModeChanged(object? sender, IMsTscAxEvents_OnMouseInputModeChangedEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnMouseInputModeChanged");
-            OnMouseInputModeChanged?.Invoke(sender, e);
+            OnMouseInputModeChanged?.Invoke(this, e);
         }
 
         public event EventHandler? OnConnectionBarPullDown;
@@ -441,7 +416,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnConnectionBarPullDown(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnConnectionBarPullDown");
-            OnConnectionBarPullDown?.Invoke(sender, e);
+            OnConnectionBarPullDown?.Invoke(this, e);
         }
 
         public event EventHandler? OnDevicesButtonPressed;
@@ -449,7 +424,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnDevicesButtonPressed(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnDevicesButtonPressed");
-            OnDevicesButtonPressed?.Invoke(sender, e);
+            OnDevicesButtonPressed?.Invoke(this, e);
         }
 
         public event EventHandler? OnRequestContainerMinimize;
@@ -457,7 +432,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnRequestContainerMinimize(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnRequestContainerMinimize");
-            OnRequestContainerMinimize?.Invoke(sender, e);
+            OnRequestContainerMinimize?.Invoke(this, e);
         }
 
         public event EventHandler? OnIdleTimeoutNotification;
@@ -465,7 +440,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnIdleTimeoutNotification(object? sender, EventArgs e)
         {
             Debug.WriteLine("AxRdpClient_OnIdleTimeoutNotification");
-            OnIdleTimeoutNotification?.Invoke(sender, e);
+            OnIdleTimeoutNotification?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnChannelReceivedDataEventHandler? OnChannelReceivedData;
@@ -473,7 +448,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnChannelReceivedData(object? sender, IMsTscAxEvents_OnChannelReceivedDataEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnChannelReceivedData");
-            OnChannelReceivedData?.Invoke(sender, e);
+            OnChannelReceivedData?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnServiceMessageReceivedEventHandler? OnServiceMessageReceived;
@@ -481,7 +456,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnServiceMessageReceived(object? sender, IMsTscAxEvents_OnServiceMessageReceivedEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnServiceMessageReceived");
-            OnServiceMessageReceived?.Invoke(sender, e);
+            OnServiceMessageReceived?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnWarningEventHandler? OnWarning;
@@ -489,7 +464,7 @@ namespace MsRdcAx
         private void AxRdpClient_OnWarning(object? sender, IMsTscAxEvents_OnWarningEvent e)
         {
             Debug.WriteLine("AxRdpClient_OnWarning");
-            OnWarning?.Invoke(sender, e);
+            OnWarning?.Invoke(this, e);
         }
 
         public event IMsTscAxEvents_OnFatalErrorEventHandler? OnFatalError;
@@ -498,7 +473,7 @@ namespace MsRdcAx
         {
             Debug.WriteLine("AxRdpClient_OnFatalError");
             IsLoginCompleted = false;
-            OnFatalError?.Invoke(sender, e);
+            OnFatalError?.Invoke(this, e);
         }
     }
 }
