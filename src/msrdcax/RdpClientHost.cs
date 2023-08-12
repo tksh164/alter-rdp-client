@@ -193,7 +193,7 @@ namespace MsRdcAx
             _axMsRdpClient.UserName = UserName;
             _axMsRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
 
-            var displayScaleFactor = GetDisplayScaleFactor(_axMsRdpClient.DeviceDpi);
+            var displayScaleFactor = DisplaySettingsHelper.GetDisplayScaleFactor(_axMsRdpClient.DeviceDpi);
             _axMsRdpClient.DesktopWidth = (int)(DesktopWidth * displayScaleFactor);
             _axMsRdpClient.DesktopHeight = (int)(DesktopHeight * displayScaleFactor);
         }
@@ -289,9 +289,9 @@ namespace MsRdcAx
 
             var desktopWidth = (uint)_axMsRdpClient.Width;
             var desktopHeight = (uint)_axMsRdpClient.Height;
-            var desktopScaleFactor = (uint)(GetDisplayScaleFactor(_axMsRdpClient.DeviceDpi) * 100.0);
-            var physicalWidth = ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
-            var physicalHeight = ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
+            var desktopScaleFactor = (uint)(DisplaySettingsHelper.GetDisplayScaleFactor(_axMsRdpClient.DeviceDpi) * 100.0);
+            var physicalWidth = DisplaySettingsHelper.ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
+            var physicalHeight = DisplaySettingsHelper.ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
             Debug.WriteLine("desktopWidth: {0}", desktopWidth);
             Debug.WriteLine("desktopHeight: {0}", desktopHeight);
             Debug.WriteLine("desktopScaleFactor: {0}", desktopScaleFactor);
@@ -301,18 +301,6 @@ namespace MsRdcAx
             const uint deviceScaleFactor = 100;
             const uint orientation = 0;
             _axMsRdpClient.UpdateSessionDisplaySettings(desktopWidth, desktopHeight, physicalWidth, physicalHeight, orientation, desktopScaleFactor, deviceScaleFactor);
-        }
-
-        private static double GetDisplayScaleFactor(int deviceDpi)
-        {
-            const double nonScaledDpi = 96.0;  // DPI for 100%
-            return deviceDpi / nonScaledDpi;
-        }
-
-        private static uint ConvertToPhysicalUnitSize(uint desktopSize, uint desktopScaleFactor)
-        {
-            const double oneInchInMillimeter = 25.4;
-            return (uint)(desktopSize / desktopScaleFactor * oneInchInMillimeter);
         }
 
         public event IMsTscAxEvents_OnLogonErrorEventHandler? OnLogonError;
