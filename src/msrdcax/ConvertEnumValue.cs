@@ -6,15 +6,15 @@ namespace MsRdcAx
     {
         public static T To<T>(int value)
         {
-            return FromTo<int, T>(value);
+            return ConvertEnumValueToEnumMember<int, T>(value);
         }
 
         public static T To<T>(short value)
         {
-            return FromTo<short, T>(value);
+            return ConvertEnumValueToEnumMember<short, T>(value);
         }
 
-        private static T2 FromTo<T1, T2>(T1 value)
+        private static T2 ConvertEnumValueToEnumMember<T1, T2>(T1 value)
         {
             ArgumentNullException.ThrowIfNull(value, nameof(value));
 
