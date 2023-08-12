@@ -58,7 +58,7 @@
                        VerticalContentAlignment="Bottom" Content="Remote computer"/>
                 <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,4,0" Padding="6,0,6,0"
                          IsEnabled="{Binding IsElementEnabled}"
-                         Style="{StaticResource DefaultTextBox}"
+                         Style="{StaticResource RemoteComputerTextBox}"
                          VerticalContentAlignment="Center"
                          Text="{Binding RemoteComputer, UpdateSourceTrigger=PropertyChanged}"/>
 
@@ -67,7 +67,7 @@
                        VerticalContentAlignment="Bottom" Content="Port"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Margin="0" Padding="6,0,6,0"
                          IsEnabled="{Binding IsElementEnabled}"
-                         Style="{StaticResource DefaultTextBox}"
+                         Style="{StaticResource RemotePortTextBox}"
                          VerticalContentAlignment="Center" MaxLength="5"
                          Text="{Binding RemotePort, UpdateSourceTrigger=PropertyChanged}"/>
 
