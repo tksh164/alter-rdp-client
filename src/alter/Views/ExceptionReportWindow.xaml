@@ -23,14 +23,14 @@
         </TextBlock>
 
         <TextBox Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                 Style="{StaticResource RoundedTextBox}"
+                 Style="{StaticResource DefaultTextBox}"
                  IsReadOnly="True" Text=""/>
 
         <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="30,12" IsCancel="True"
-                Style="{StaticResource RoundedButton}"
+                Style="{StaticResource DefaultButton}"
                 Content="Quit"/>
         <Button Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="30,12" IsDefault="True"
-                Style="{StaticResource RoundedButton}"
+                Style="{StaticResource DefaultButton}"
                 Content="Copy"/>
     </Grid>
 </Window>
