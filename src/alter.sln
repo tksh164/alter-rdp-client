@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "alter", "alter\alter.csproj", "{2E11D3A7-4395-4735-9DBC-FCE80445C036}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "msrdcax", "msrdcax\msrdcax.csproj", "{E52EDF11-D94E-48A6-8EC4-10A7EB535475}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "msrdcax", "msrdcax\msrdcax.csproj", "{E52EDF11-D94E-48A6-8EC4-10A7EB535475}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
