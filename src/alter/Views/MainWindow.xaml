@@ -4,75 +4,129 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlterApp.Views"
-        xmlns:viewmodels="clr-namespace:AlterApp.ViewModels"
+        xmlns:vm="clr-namespace:AlterApp.ViewModels"
+        xmlns:cv="clr-namespace:AlterApp.Converters"
+        xmlns:ap="clr-namespace:AlterApp.AttachedProperties"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
+        d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         Title="{Binding WindowTitle}"
-        Width="800" Height="600" MinWidth="640" MinHeight="480"
+        Width="1200" Height="800" MinWidth="640" MinHeight="480"
         FontSize="14">
 
+    <Window.Resources>
+        <cv:RdpClientConnectionStateConverter x:Key="rdpClientConnectionStateConverter"/>
+        <cv:RdpClientDisconnectReasonConverter x:Key="rdpClientDisconnectReasonConverter"/>
+        <cv:RdpClientDisconnectReasonInfoConverter x:Key="rdpClientDisconnectReasonInfoConverter"/>
+    </Window.Resources>
+    
     <Grid ShowGridLines="False">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="38"/>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="55*"/>
-            <RowDefinition Height="20*"/>
-        </Grid.RowDefinitions>
-
-        <Button Width="30" Margin="4" Padding="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="*">
-        </Button>
-
-        <TextBlock Grid.Row="1" Margin="32,0,32,0"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                   TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="22" FontWeight="SemiBold"
-                   Text="{Binding DestinationDisplayText}"/>
-
-        <Grid Grid.Row="2" Width="500" VerticalAlignment="Center" ShowGridLines="False">
+        <Grid ShowGridLines="False">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="32"/>
-                <RowDefinition Height="35"/>
-                <RowDefinition Height="32"/>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="38"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="55*"/>
+                <RowDefinition Height="20*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="88*"/>
-                <ColumnDefinition Width="12*"/>
-            </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Margin="0,0,0,4" Padding="0"
-                   VerticalContentAlignment="Bottom" Content="Remote computer"/>
-            <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,4,0" Padding="6,0,6,0"
-                     VerticalContentAlignment="Center"
-                     Style="{StaticResource RoundedTextBox}"
-                     Text="{Binding RemoteComputer, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Grid.Row="0" Width="30" Margin="4" Padding="0"
+                    HorizontalAlignment="Right"
+                    IsEnabled="{Binding IsElementEnabled}"
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="*">
+            </Button>
 
-            <Label Grid.Row="0" Grid.Column="1" Margin="0,0,0,4" Padding="0"
-                   VerticalContentAlignment="Bottom" Content="Port"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="0" Padding="6,0,6,0"
-                     VerticalContentAlignment="Center"
-                     MaxLength="5"
-                     Style="{StaticResource RoundedTextBox}"
-                     Text="{Binding RemotePort, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="1" Margin="32,0,32,0"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       IsEnabled="{Binding IsElementEnabled}"
+                       TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="22" FontWeight="SemiBold"
+                       Text="{Binding DestinationDisplayText}"/>
 
-            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,4" Padding="0"
-                   VerticalContentAlignment="Bottom"  Content="User name"/>
-            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" Padding="6,0,6,0"
-                     VerticalContentAlignment="Center"
-                     Style="{StaticResource RoundedTextBox}"
-                     Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+            <Grid Grid.Row="2" Width="500" VerticalAlignment="Center" ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="88*"/>
+                    <ColumnDefinition Width="12*"/>
+                </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Padding="0,12,0,12"
-                    Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                    Style="{StaticResource RoundedButton}"
-                    Content="Connect"
-                    Command="{Binding ConnectToRemoteComputerCommand}"/>
+                <Label Grid.Row="0" Grid.Column="0" Margin="0,0,0,4" Padding="0"
+                       IsEnabled="{Binding IsElementEnabled}"
+                       VerticalContentAlignment="Bottom" Content="Remote computer"/>
+                <TextBox Grid.Row="1" Grid.Column="0" Margin="0,0,4,0" Padding="6,0,6,0"
+                         IsEnabled="{Binding IsElementEnabled}"
+                         Style="{StaticResource RoundedTextBox}"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding RemoteComputer, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="0" Grid.Column="1" Margin="0,0,0,4" Padding="0"
+                       IsEnabled="{Binding IsElementEnabled}"
+                       VerticalContentAlignment="Bottom" Content="Port"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="0" Padding="6,0,6,0"
+                         IsEnabled="{Binding IsElementEnabled}"
+                         Style="{StaticResource RoundedTextBox}"
+                         VerticalContentAlignment="Center" MaxLength="5"
+                         Text="{Binding RemotePort, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,4" Padding="0"
+                       IsEnabled="{Binding IsElementEnabled}"
+                       VerticalContentAlignment="Bottom"  Content="User name"/>
+                <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" Padding="6,0,6,0"
+                         IsEnabled="{Binding IsElementEnabled}"
+                         Style="{StaticResource RoundedTextBox}"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Padding="0,12,0,12"
+                        Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                        IsEnabled="{Binding IsElementEnabled}"
+                        Style="{StaticResource RoundedButton}"
+                        Content="Connect"
+                        Command="{Binding ConnectToRemoteComputerCommand}"/>
+            </Grid>
+
+            <ContentPresenter Grid.Row="3"
+                              HorizontalAlignment="Center" VerticalAlignment="Center"
+                              IsEnabled="{Binding IsElementEnabled}"
+                              Content="{Binding}">
+                <!-- Presentations -->
+                <ContentPresenter.Resources>
+                    <DataTemplate x:Key="ConnectionStateOnly">
+                        <TextBlock TextAlignment="Center" TextWrapping="WrapWithOverflow">
+                            <Run Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                    <DataTemplate x:Key="ConnectionStateWithDisconnectReason">
+                        <TextBlock TextAlignment="Center" TextWrapping="WrapWithOverflow">
+                            <Run Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Run Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonConverter}}"/>
+                            <LineBreak/>
+                            <Run Text="[ "/><Run Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonInfoConverter}}"/><Run Text=" ]"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ContentPresenter.Resources>
+                <!-- Triggers -->
+                <ContentPresenter.Style>
+                    <Style TargetType="{x:Type ContentPresenter}">
+                        <Setter Property="ContentTemplate" Value="{StaticResource ConnectionStateOnly}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShouldShowDisconnectReason}" Value="True">
+                                <Setter Property="ContentTemplate" Value="{StaticResource ConnectionStateWithDisconnectReason}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentPresenter.Style>
+            </ContentPresenter>
         </Grid>
 
-        <TextBlock Grid.Row="3"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                   Text="Status message"/>
+        <ContentControl Visibility="{Binding RdpClientHostVisibility}" Content="{Binding RdpClientHost}" Background="Red"
+                        ap:SizeObservation.IsEnabled="True"
+                        ap:SizeObservation.ObservedActualWidth="{Binding RdpClientHostWidth, Mode=OneWayToSource}"
+                        ap:SizeObservation.ObservedActualHeight="{Binding RdpClientHostHeight, Mode=OneWayToSource}"/>
     </Grid>
 </Window>
