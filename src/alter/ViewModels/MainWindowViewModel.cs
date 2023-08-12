@@ -114,6 +114,10 @@ namespace AlterApp.ViewModels
         private void SwtichToRdpClientView()
         {
             IsElementEnabled = false;
+
+            // The RdpClientHost element has to the Visible visibility when start connecting because the
+            // credential prompt window does not showing up the center of the RdpClientHost element if
+            // the visibility is not Visible.
             RdpClientHostVisibility = Visibility.Visible;
         }
 
@@ -127,10 +131,11 @@ namespace AlterApp.ViewModels
         {
             ArgumentNullException.ThrowIfNull(sender, nameof(sender));
 
-            // Do hidden the WindowsFormsHost element while the RDP client establishing a connection
-            // for showing the connecting status message that at under the WindowsFormsHost element.
-            // If did hidden the WindowsFormsHost element at initial time, the credential prompt window does not
-            // showing up the center of the main window.
+            // Set the RdpClientHost (= WindowsFormsHost) element visibility to Hidden during the RDP client
+            // establishing a connection for showing UI (e.g. connecting status message) that at under the
+            // RdpClientHost element.
+            // If did hidden the RdpClientHost element at initial time, the credential prompt window does not
+            // showing up the center of the RdpClientHost element.
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, HideRdpClientHost, sender);
         }
 
@@ -143,7 +148,7 @@ namespace AlterApp.ViewModels
         {
             ArgumentNullException.ThrowIfNull(sender, nameof(sender));
 
-            // Do visible the WindowsFormsHost element that did hidden in the OnConnecting event handler.
+            // Set the RdpClientHost element visibility to Visible that did set Hidden in the OnConnecting event handler.
             var rdpClientHost = (RdpClientHost)sender;
             rdpClientHost.Visibility = Visibility.Visible;
         }
