@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlterApp.Views"
         xmlns:vm="clr-namespace:AlterApp.ViewModels"
+        xmlns:cv="clr-namespace:AlterApp.Converters"
         xmlns:ap="clr-namespace:AlterApp.AttachedProperties"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
@@ -12,6 +13,12 @@
         Width="1200" Height="800" MinWidth="640" MinHeight="480"
         FontSize="14">
 
+    <Window.Resources>
+        <cv:RdpClientConnectionStateConverter x:Key="rdpClientConnectionStateConverter"/>
+        <cv:RdpClientDisconnectReasonConverter x:Key="rdpClientDisconnectReasonConverter"/>
+        <cv:RdpClientDisconnectReasonInfoConverter x:Key="rdpClientDisconnectReasonInfoConverter"/>
+    </Window.Resources>
+    
     <Grid ShowGridLines="False">
         <Grid ShowGridLines="False">
             <Grid.RowDefinitions>
@@ -81,14 +88,42 @@
                         Command="{Binding ConnectToRemoteComputerCommand}"/>
             </Grid>
 
-            <TextBlock Grid.Row="3"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                       IsEnabled="{Binding IsElementEnabled}"
-                       Text="{Binding RdpClientConnectionState}"/>
+            <ContentPresenter Grid.Row="3"
+                              HorizontalAlignment="Center" VerticalAlignment="Center"
+                              IsEnabled="{Binding IsElementEnabled}"
+                              Content="{Binding}">
+                <!-- Presentations -->
+                <ContentPresenter.Resources>
+                    <DataTemplate x:Key="ConnectionStateOnly">
+                        <TextBlock TextAlignment="Center" TextWrapping="WrapWithOverflow">
+                            <Run Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                    <DataTemplate x:Key="ConnectionStateWithDisconnectReason">
+                        <TextBlock TextAlignment="Center" TextWrapping="WrapWithOverflow">
+                            <Run Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Run Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonConverter}}"/>
+                            <LineBreak/>
+                            <Run Text="["/><Run Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonInfoConverter}}"/><Run Text="]"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ContentPresenter.Resources>
+                <!-- Triggers -->
+                <ContentPresenter.Style>
+                    <Style TargetType="{x:Type ContentPresenter}">
+                        <Setter Property="ContentTemplate" Value="{StaticResource ConnectionStateOnly}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShouldShowDisconnectReason}" Value="True">
+                                <Setter Property="ContentTemplate" Value="{StaticResource ConnectionStateWithDisconnectReason}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentPresenter.Style>
+            </ContentPresenter>
         </Grid>
 
-        <!--<Rectangle Visibility="{Binding RdpClientHostVisibility}" Fill="Blue"/>-->
-        
         <ContentControl Visibility="{Binding RdpClientHostVisibility}" Content="{Binding RdpClientHost}" Background="Red"
                         ap:SizeObservation.IsEnabled="True"
                         ap:SizeObservation.ObservedActualWidth="{Binding RdpClientHostWidth, Mode=OneWayToSource}"

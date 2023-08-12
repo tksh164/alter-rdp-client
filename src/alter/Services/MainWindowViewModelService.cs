@@ -1,4 +1,6 @@
-﻿namespace AlterApp.Services
+﻿using MsRdcAx;
+
+namespace AlterApp.Services
 {
     internal class MainWindowViewModelService : IMainWindowViewModelService
     {
@@ -33,6 +35,36 @@
             var remoteComputerPart = string.IsNullOrWhiteSpace(remoteComputer) ? PlaceHolderText : remoteComputer;
             var remotePortPart = string.IsNullOrWhiteSpace(remotePort) ? PlaceHolderText : remotePort;
             return string.Format("{0}@{1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
+        }
+
+        public bool ShouldShowDisconnectReason(RdpClientDisconnectReason lastDisconnectReason)
+        {
+            switch (lastDisconnectReason.Reason)
+            {
+                case RdpClientDisconnectReasonCode.NoInfo:
+                    return lastDisconnectReason.ExtendedReason switch
+                    {
+                        RdpClientExtendedDisconnectReasonCode.NoInfo => false,
+                        _ => true,
+                    };
+                case RdpClientDisconnectReasonCode.LocalNotError:
+                    return lastDisconnectReason.ExtendedReason switch
+                    {
+                        RdpClientExtendedDisconnectReasonCode.NoInfo => false,
+                        _ => true,
+                    };
+                //case RdpClientDisconnectReasonCode.RemoteByUser:
+                //    return lastDisconnectReason.ExtendedReason switch
+                //    {
+                //        RdpClientExtendedDisconnectReasonCode.RpcInitiatedDisconnectByUser => false,
+                //        RdpClientExtendedDisconnectReasonCode.LogoffByUser => false,
+                //        _ => true,
+                //    };
+                case RdpClientDisconnectReasonCode.AuthenticationWarningDismissed:
+                    return false;
+                default:
+                    return true;
+            }
         }
     }
 }

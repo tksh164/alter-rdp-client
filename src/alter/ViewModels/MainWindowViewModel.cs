@@ -80,7 +80,19 @@ namespace AlterApp.ViewModels
         public RdpClientDisconnectReason RdpClientLastDisconnectReason
         {
             get => _rdpClientLastDisconnectReason;
-            private set => SetProperty(ref _rdpClientLastDisconnectReason, value);
+            private set
+            {
+                SetProperty(ref _rdpClientLastDisconnectReason, value);
+                OnPropertyChanged(nameof(ShouldShowDisconnectReason));
+            }
+        }
+
+        public bool ShouldShowDisconnectReason
+        {
+            get
+            {
+                return _viewModelService.ShouldShowDisconnectReason(RdpClientLastDisconnectReason);
+            }
         }
 
         private bool _isElementEnabled = true;
@@ -129,13 +141,18 @@ namespace AlterApp.ViewModels
 
         private void RdpClientHost_OnConnecting(object? sender, EventArgs e)
         {
-            RdpClientConnectionState = RdpClientConnectionState.EstablishingConnection;
+            ArgumentNullException.ThrowIfNull(sender, nameof(sender));
+
+            var rdpClientHost = (RdpClientHost)sender;
+            RdpClientConnectionState = rdpClientHost.ConnectionState;
         }
 
         private void RdpClientHost_OnConnected(object? sender, EventArgs e)
         {
             ArgumentNullException.ThrowIfNull(sender, nameof(sender));
-            RdpClientConnectionState = RdpClientConnectionState.Connected;
+
+            var rdpClientHost = (RdpClientHost)sender;
+            RdpClientConnectionState = rdpClientHost.ConnectionState;
             RdpClientHostVisibility = Visibility.Visible;
         }
 
@@ -145,13 +162,9 @@ namespace AlterApp.ViewModels
 
             var rdpClientHost = (RdpClientHost)sender;
             RdpClientLastDisconnectReason = rdpClientHost.LastDisconnectReason;
-            RdpClientConnectionState = RdpClientConnectionState.NotConnected;
+            RdpClientConnectionState = rdpClientHost.ConnectionState;
             SwtichToSessionSetupView();
             GC.Collect();
-
-            //ConnectionState = RdpClientHost.ConnectionState;
-            //ConnectCommand.NotifyCanExecuteChanged();
-            //DisconnectCommand.NotifyCanExecuteChanged();
         }
     }
 }
