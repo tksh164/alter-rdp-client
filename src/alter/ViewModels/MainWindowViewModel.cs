@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using AlterApp.Services;
 using MsRdcAx;
-using System.Windows.Threading;
-using System;
+using MsRdcAx.AxMsTscLib;
 
 namespace AlterApp.ViewModels
 {
@@ -22,6 +22,11 @@ namespace AlterApp.ViewModels
             RemoteComputer = string.Empty;
             RemotePort = _appSettingsService.GetRemotePort();
             UserName = string.Empty;
+
+            RdpClientHost = new RdpClientHost();
+            RdpClientHost.OnConnecting += RdpClientHost_OnConnecting;
+            RdpClientHost.OnConnected += RdpClientHost_OnConnected;
+            RdpClientHost.OnDisconnected += RdpClientHost_OnDisconnected;
         }
 
         [ObservableProperty]
@@ -65,6 +70,13 @@ namespace AlterApp.ViewModels
         [ObservableProperty]
         private double _rdpClientHostHeight;
 
+        private RdpClientDisconnectReason _rdpClientLastDisconnectReason = new();
+        public RdpClientDisconnectReason RdpClientLastDisconnectReason
+        {
+            get => _rdpClientLastDisconnectReason;
+            private set => SetProperty(ref _rdpClientLastDisconnectReason, value);
+        }
+
         private bool _isElementEnabled = true;
         public bool IsElementEnabled
         {
@@ -80,32 +92,73 @@ namespace AlterApp.ViewModels
         }
 
         [RelayCommand(CanExecute = nameof(CanConnectToRemoteComputer))]
-        private async Task ConnectToRemoteComputer()
+        private void ConnectToRemoteComputer()
         {
-            // TODO: Release RDP client host.
-            if (RdpClientHost == null)
-            {
-                RdpClientHostVisibility = Visibility.Visible;
+            if (RdpClientHost == null) throw new InvalidOperationException("The RDP client host is not instantiated.");
 
-                RdpClientHost = new RdpClientHost
-                {
-                    RemoteComputer = RemoteComputer,
-                    RemotePort = int.Parse(RemotePort),  // TODO
-                    UserName = UserName,
-                    DesktopWidth = (int)RdpClientHostWidth,
-                    DesktopHeight = (int)RdpClientHostHeight,
-                };
-
-                RdpClientHost.OnConnecting += _viewModelService.RdpClientHost_OnConnecting;
-                RdpClientHost.OnConnected += _viewModelService.RdpClientHost_OnConnected;
-
-                RdpClientHost.Connect();
-            }
+            SwtichToRdpClientView();
+            RdpClientHost.RemoteComputer = RemoteComputer;
+            RdpClientHost.RemotePort = int.Parse(RemotePort);  // TODO: Valication
+            RdpClientHost.UserName = UserName;
+            RdpClientHost.DesktopWidth = (int)RdpClientHostWidth;
+            RdpClientHost.DesktopHeight = (int)RdpClientHostHeight;
+            RdpClientHost.Connect();
         }
 
         private bool CanConnectToRemoteComputer()
         {
             return !string.IsNullOrWhiteSpace(RemoteComputer) && !string.IsNullOrWhiteSpace(RemotePort) && !string.IsNullOrWhiteSpace(UserName);
+        }
+
+        private void SwtichToRdpClientView()
+        {
+            IsElementEnabled = false;
+            RdpClientHostVisibility = Visibility.Visible;
+        }
+
+        private void SwtichToSessionSetupView()
+        {
+            IsElementEnabled = true;
+            RdpClientHostVisibility = Visibility.Hidden;
+        }
+
+        private void RdpClientHost_OnConnecting(object? sender, EventArgs e)
+        {
+            ArgumentNullException.ThrowIfNull(sender, nameof(sender));
+
+            // Do hidden the WindowsFormsHost element while the RDP client establishing a connection
+            // for showing the connecting status message that at under the WindowsFormsHost element.
+            // If did hidden the WindowsFormsHost element at initial time, the credential prompt window does not
+            // showing up the center of the main window.
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, HideRdpClientHost, sender);
+        }
+
+        private void HideRdpClientHost(RdpClientHost rdpClientHost)
+        {
+            rdpClientHost.Visibility = Visibility.Hidden;
+        }
+
+        private void RdpClientHost_OnConnected(object? sender, EventArgs e)
+        {
+            ArgumentNullException.ThrowIfNull(sender, nameof(sender));
+
+            // Do visible the WindowsFormsHost element that did hidden in the OnConnecting event handler.
+            var rdpClientHost = (RdpClientHost)sender;
+            rdpClientHost.Visibility = Visibility.Visible;
+        }
+
+        private void RdpClientHost_OnDisconnected(object sender, IMsTscAxEvents_OnDisconnectedEvent e)
+        {
+            ArgumentNullException.ThrowIfNull(sender, nameof(sender));
+
+            var rdpClientHost = (RdpClientHost)sender;
+            RdpClientLastDisconnectReason = rdpClientHost.LastDisconnectReason;
+            SwtichToSessionSetupView();
+            GC.Collect();
+
+            //ConnectionState = RdpClientHost.ConnectionState;
+            //ConnectCommand.NotifyCanExecuteChanged();
+            //DisconnectCommand.NotifyCanExecuteChanged();
         }
     }
 }
