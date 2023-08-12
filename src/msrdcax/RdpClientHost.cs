@@ -193,7 +193,7 @@ namespace MsRdcAx
             _axMsRdpClient.UserName = UserName;
             _axMsRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
 
-            var displayScaleFactor = DisplaySettingsHelper.GetDisplayScaleFactor(_axMsRdpClient.DeviceDpi);
+            double displayScaleFactor = DisplaySettingsHelper.GetDisplayScaleFactor(_axMsRdpClient.DeviceDpi);
             _axMsRdpClient.DesktopWidth = (int)(DesktopWidth * displayScaleFactor);
             _axMsRdpClient.DesktopHeight = (int)(DesktopHeight * displayScaleFactor);
         }
@@ -287,11 +287,11 @@ namespace MsRdcAx
         {
             if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
-            var desktopWidth = (uint)_axMsRdpClient.Width;
-            var desktopHeight = (uint)_axMsRdpClient.Height;
-            var desktopScaleFactor = (uint)(DisplaySettingsHelper.GetDisplayScaleFactor(_axMsRdpClient.DeviceDpi) * 100.0);
-            var physicalWidth = DisplaySettingsHelper.ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
-            var physicalHeight = DisplaySettingsHelper.ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
+            uint desktopWidth = (uint)_axMsRdpClient.Width;
+            uint desktopHeight = (uint)_axMsRdpClient.Height;
+            uint desktopScaleFactor = (uint)(DisplaySettingsHelper.GetDisplayScaleFactor(_axMsRdpClient.DeviceDpi) * 100.0);
+            uint physicalWidth = DisplaySettingsHelper.ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
+            uint physicalHeight = DisplaySettingsHelper.ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
             Debug.WriteLine("desktopWidth: {0}", desktopWidth);
             Debug.WriteLine("desktopHeight: {0}", desktopHeight);
             Debug.WriteLine("desktopScaleFactor: {0}", desktopScaleFactor);
