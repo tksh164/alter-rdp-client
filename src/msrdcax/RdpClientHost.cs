@@ -200,7 +200,8 @@ namespace MsRdcAx
 
         public void Disconnect()
         {
-            _axMsRdpClient?.Disconnect();
+            if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
+            _axMsRdpClient.Disconnect();
         }
 
         public event EventHandler? OnConnecting;
