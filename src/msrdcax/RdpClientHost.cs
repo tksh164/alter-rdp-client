@@ -327,8 +327,8 @@ namespace MsRdcAx
             if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
             IsLoginCompleted = false;
-            LastDisconnectReason = new RdpClientDisconnectReason(e.discReason, _axMsRdpClient.ExtendedDisconnectReason);
-            // TODO: Get reason text
+            string errorDescription = _axMsRdpClient.GetErrorDescription((uint)e.discReason, (uint)_axMsRdpClient.ExtendedDisconnectReason);
+            LastDisconnectReason = new RdpClientDisconnectReason(e.discReason, _axMsRdpClient.ExtendedDisconnectReason, errorDescription);
             OnDisconnected?.Invoke(this, e);
         }
 

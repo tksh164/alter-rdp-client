@@ -4,17 +4,23 @@
     {
         public RdpClientDisconnectReason()
         {
+            Reason = RdpClientDisconnectReasonCode.NoInfo;
+            ExtendedReason = RdpClientExtendedDisconnectReasonCode.NoInfo;
+            ErrorDescription = string.Empty;
         }
 
-        public RdpClientDisconnectReason(int reason, MSTSCLib.ExtendedDisconnectReasonCode extendedReason)
+        public RdpClientDisconnectReason(int reason, MSTSCLib.ExtendedDisconnectReasonCode extendedReason, string errorDescription)
         {
             Reason = ConvertEnumValue.To<RdpClientDisconnectReasonCode>(reason);
             ExtendedReason = ConvertEnumValue.To<RdpClientExtendedDisconnectReasonCode>((int)extendedReason);
+            ErrorDescription = errorDescription;
         }
 
         public RdpClientDisconnectReasonCode Reason { get; private set; } = RdpClientDisconnectReasonCode.NoInfo;
 
         public RdpClientExtendedDisconnectReasonCode ExtendedReason { get; private set; } = RdpClientExtendedDisconnectReasonCode.NoInfo;
+
+        public string ErrorDescription { get; private set; }
     }
 
     /// <summary>
