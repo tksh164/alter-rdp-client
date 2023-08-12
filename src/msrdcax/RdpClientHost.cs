@@ -18,8 +18,15 @@ namespace MsRdcAx
 
         public new void Dispose()
         {
+            UnregisterRdpClientAxEventHandlers();
             _axMsRdpClient?.Dispose();
             base.Dispose();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            this.Child?.Dispose();
+            base.Dispose(disposing);
         }
 
         public string RemoteComputer { get; set; } = string.Empty;
@@ -116,6 +123,60 @@ namespace MsRdcAx
             // Error
             _axMsRdpClient.OnWarning += AxRdpClient_OnWarning;
             _axMsRdpClient.OnFatalError += AxRdpClient_OnFatalError;
+
+            // RemoteApp
+            // OnRemoteProgramDisplayed
+            // OnRemoteProgramResult
+            // OnRemoteWindowDisplayed
+        }
+
+        private void UnregisterRdpClientAxEventHandlers()
+        {
+            if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
+
+            // Connecting
+            _axMsRdpClient.OnConnecting -= AxRdpClient_OnConnecting;
+            _axMsRdpClient.OnAuthenticationWarningDisplayed -= AxRdpClient_OnAuthenticationWarningDisplayed;
+            _axMsRdpClient.OnAuthenticationWarningDismissed -= AxRdpClient_OnAuthenticationWarningDismissed;
+            _axMsRdpClient.OnUserNameAcquired -= AxRdpClient_OnUserNameAcquired;
+            _axMsRdpClient.OnConnected -= AxRdpClient_OnConnected;
+            _axMsRdpClient.OnLoginComplete -= AxRdpClient_OnLoginComplete;
+            _axMsRdpClient.OnLogonError -= AxRdpClient_OnLogonError;
+            _axMsRdpClient.OnReceivedTSPublicKey -= AxRdpClient_OnReceivedTSPublicKey;
+
+            // Disconnecting
+            _axMsRdpClient.OnDisconnected -= AxRdpClient_OnDisconnected;
+            _axMsRdpClient.OnConfirmClose -= AxRdpClient_OnConfirmClose;
+
+            // Networking
+            _axMsRdpClient.OnNetworkStatusChanged -= AxRdpClient_OnNetworkStatusChanged;
+            _axMsRdpClient.OnAutoReconnecting -= AxRdpClient_OnAutoReconnecting;
+            _axMsRdpClient.OnAutoReconnecting2 -= AxRdpClient_OnAutoReconnecting2;
+            _axMsRdpClient.OnAutoReconnected -= AxRdpClient_OnAutoReconnected;
+
+            // Screen resizing
+            _axMsRdpClient.Resize -= AxRdpClient_Resize;
+            _axMsRdpClient.OnRemoteDesktopSizeChange -= AxRdpClient_OnRemoteDesktopSizeChange;
+            _axMsRdpClient.OnEnterFullScreenMode -= AxRdpClient_OnEnterFullScreenMode;
+            _axMsRdpClient.OnLeaveFullScreenMode -= AxRdpClient_OnLeaveFullScreenMode;
+            _axMsRdpClient.OnRequestGoFullScreen -= AxRdpClient_OnRequestGoFullScreen;
+            _axMsRdpClient.OnRequestLeaveFullScreen -= AxRdpClient_OnRequestLeaveFullScreen;
+
+            // UI
+            _axMsRdpClient.OnFocusReleased -= AxRdpClient_OnFocusReleased;
+            _axMsRdpClient.OnMouseInputModeChanged -= AxRdpClient_OnMouseInputModeChanged;
+            _axMsRdpClient.OnConnectionBarPullDown -= AxRdpClient_OnConnectionBarPullDown;
+            _axMsRdpClient.OnDevicesButtonPressed -= AxRdpClient_OnDevicesButtonPressed;
+            _axMsRdpClient.OnRequestContainerMinimize -= AxRdpClient_OnRequestContainerMinimize;
+            _axMsRdpClient.OnIdleTimeoutNotification -= AxRdpClient_OnIdleTimeoutNotification;
+
+            // Data communication
+            _axMsRdpClient.OnChannelReceivedData -= AxRdpClient_OnChannelReceivedData;
+            _axMsRdpClient.OnServiceMessageReceived -= AxRdpClient_OnServiceMessageReceived;
+
+            // Error
+            _axMsRdpClient.OnWarning -= AxRdpClient_OnWarning;
+            _axMsRdpClient.OnFatalError -= AxRdpClient_OnFatalError;
 
             // RemoteApp
             // OnRemoteProgramDisplayed
