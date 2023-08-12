@@ -23,6 +23,7 @@ namespace AlterApp.ViewModels
             UserName = string.Empty;
 
             RdpClientHost = new RdpClientHost();
+            RdpClientHost.OnConnecting += RdpClientHost_OnConnecting;
             RdpClientHost.OnConnected += RdpClientHost_OnConnected;
             RdpClientHost.OnDisconnected += RdpClientHost_OnDisconnected;
         }
@@ -67,6 +68,13 @@ namespace AlterApp.ViewModels
 
         [ObservableProperty]
         private double _rdpClientHostHeight;
+
+        private RdpClientConnectionState _rdpClientConnectionState = RdpClientConnectionState.NotConnected;
+        public RdpClientConnectionState RdpClientConnectionState
+        {
+            get => _rdpClientConnectionState;
+            private set => SetProperty(ref _rdpClientConnectionState, value);
+        }
 
         private RdpClientDisconnectReason _rdpClientLastDisconnectReason = new();
         public RdpClientDisconnectReason RdpClientLastDisconnectReason
@@ -119,9 +127,15 @@ namespace AlterApp.ViewModels
             RdpClientHostVisibility = Visibility.Hidden;
         }
 
+        private void RdpClientHost_OnConnecting(object? sender, EventArgs e)
+        {
+            RdpClientConnectionState = RdpClientConnectionState.EstablishingConnection;
+        }
+
         private void RdpClientHost_OnConnected(object? sender, EventArgs e)
         {
             ArgumentNullException.ThrowIfNull(sender, nameof(sender));
+            RdpClientConnectionState = RdpClientConnectionState.Connected;
             RdpClientHostVisibility = Visibility.Visible;
         }
 
@@ -131,6 +145,7 @@ namespace AlterApp.ViewModels
 
             var rdpClientHost = (RdpClientHost)sender;
             RdpClientLastDisconnectReason = rdpClientHost.LastDisconnectReason;
+            RdpClientConnectionState = RdpClientConnectionState.NotConnected;
             SwtichToSessionSetupView();
             GC.Collect();
 

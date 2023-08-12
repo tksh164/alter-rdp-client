@@ -43,11 +43,11 @@ namespace MsRdcAx
 
         public bool IsLoginCompleted { get; private set; } = false;
 
-        public RdpClientConnectionStatus ConnectionStatus
+        public RdpClientConnectionState ConnectionState
         {
             get
             {
-                return _axMsRdpClient == null ? RdpClientConnectionStatus.NotConnected : ConvertEnumValue.To<RdpClientConnectionStatus>(_axMsRdpClient.Connected);
+                return _axMsRdpClient == null ? RdpClientConnectionState.NotConnected : ConvertEnumValue.To<RdpClientConnectionState>(_axMsRdpClient.Connected);
             }
         }
 

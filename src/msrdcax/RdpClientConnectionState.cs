@@ -1,6 +1,6 @@
 ﻿namespace MsRdcAx
 {
-    public enum RdpClientConnectionStatus : short
+    public enum RdpClientConnectionState : short
     {
         Unknown = -1,
         NotConnected = 0,

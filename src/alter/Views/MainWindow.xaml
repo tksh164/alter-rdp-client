@@ -84,7 +84,7 @@
             <TextBlock Grid.Row="3"
                        HorizontalAlignment="Center" VerticalAlignment="Center"
                        IsEnabled="{Binding IsElementEnabled}"
-                       Text="Status message"/>
+                       Text="{Binding RdpClientConnectionState}"/>
         </Grid>
 
         <!--<Rectangle Visibility="{Binding RdpClientHostVisibility}" Fill="Blue"/>-->
