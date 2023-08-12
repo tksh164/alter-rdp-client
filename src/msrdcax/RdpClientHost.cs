@@ -47,7 +47,7 @@ namespace MsRdcAx
         public void Connect()
         {
             InitializeRdpClientActiveXControl();
-            SetupRdpClientAxEventHandlers();
+            RegisterRdpClientAxEventHandlers();
             SetupRdpClientAxSettings();
             LastDisconnectReason = new();
             _axMsRdpClient!.Connect();
@@ -69,7 +69,7 @@ namespace MsRdcAx
             _axMsRdpClient.CreateControl();
         }
 
-        private void SetupRdpClientAxEventHandlers()
+        private void RegisterRdpClientAxEventHandlers()
         {
             if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
