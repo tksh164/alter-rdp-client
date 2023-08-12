@@ -98,7 +98,7 @@ namespace AlterApp.ViewModels
 
             SwtichToRdpClientView();
             RdpClientHost.RemoteComputer = RemoteComputer;
-            RdpClientHost.RemotePort = int.Parse(RemotePort);  // TODO: Valication
+            RdpClientHost.RemotePort = int.Parse(RemotePort);  // TODO: Validation
             RdpClientHost.UserName = UserName;
             RdpClientHost.DesktopWidth = (int)RdpClientHostWidth;
             RdpClientHost.DesktopHeight = (int)RdpClientHostHeight;
