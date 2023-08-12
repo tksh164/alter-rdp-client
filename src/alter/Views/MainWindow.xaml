@@ -106,7 +106,7 @@
                             <LineBreak/>
                             <Run Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonConverter}}"/>
                             <LineBreak/>
-                            <Run Text="["/><Run Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonInfoConverter}}"/><Run Text="]"/>
+                            <Run Text="[ "/><Run Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonInfoConverter}}"/><Run Text=" ]"/>
                         </TextBlock>
                     </DataTemplate>
                 </ContentPresenter.Resources>
