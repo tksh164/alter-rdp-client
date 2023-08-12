@@ -180,7 +180,6 @@ namespace MsRdcAx
         public void Connect()
         {
             SetRdpClientAxSettings();
-            //LastDisconnectReason = new();
             _axMsRdpClient!.Connect();
         }
 
