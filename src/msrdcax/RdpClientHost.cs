@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Windows.Forms.Integration;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Windows.Forms.Integration;
 using MsRdcAx.AxMsTscLib;
 
 namespace MsRdcAx
@@ -52,13 +52,6 @@ namespace MsRdcAx
         }
 
         public RdpClientDisconnectReason LastDisconnectReason { get; private set; } = new();
-
-        public void Connect()
-        {
-            SetRdpClientAxSettings();
-            //LastDisconnectReason = new();
-            _axMsRdpClient!.Connect();
-        }
 
         private void InitializeRdpClientActiveXControl()
         {
@@ -182,6 +175,13 @@ namespace MsRdcAx
             // OnRemoteProgramDisplayed
             // OnRemoteProgramResult
             // OnRemoteWindowDisplayed
+        }
+
+        public void Connect()
+        {
+            SetRdpClientAxSettings();
+            //LastDisconnectReason = new();
+            _axMsRdpClient!.Connect();
         }
 
         private void SetRdpClientAxSettings()
