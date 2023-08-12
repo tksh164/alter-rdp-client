@@ -24,7 +24,6 @@ namespace AlterApp.ViewModels
             UserName = string.Empty;
 
             RdpClientHost = new RdpClientHost();
-            RdpClientHost.OnConnecting += RdpClientHost_OnConnecting;
             RdpClientHost.OnConnected += RdpClientHost_OnConnected;
             RdpClientHost.OnDisconnected += RdpClientHost_OnDisconnected;
         }
@@ -96,13 +95,12 @@ namespace AlterApp.ViewModels
         {
             if (RdpClientHost == null) throw new InvalidOperationException("The RDP client host is not instantiated.");
 
+            SwtichToRdpClientView();
             RdpClientHost.RemoteComputer = RemoteComputer;
             RdpClientHost.RemotePort = int.Parse(RemotePort);  // TODO: Validation
             RdpClientHost.UserName = UserName;
             RdpClientHost.DesktopWidth = (int)RdpClientHostWidth;
             RdpClientHost.DesktopHeight = (int)RdpClientHostHeight;
-
-            SwtichToRdpClientView();
             RdpClientHost.Connect();
         }
 
@@ -114,11 +112,6 @@ namespace AlterApp.ViewModels
         private void SwtichToRdpClientView()
         {
             IsElementEnabled = false;
-
-            // The RdpClientHost element has to the Visible visibility when start connecting because the
-            // credential prompt window does not showing up the center of the RdpClientHost element if
-            // the visibility is not Visible.
-            RdpClientHostVisibility = Visibility.Visible;
         }
 
         private void SwtichToSessionSetupView()
@@ -127,30 +120,10 @@ namespace AlterApp.ViewModels
             RdpClientHostVisibility = Visibility.Hidden;
         }
 
-        private void RdpClientHost_OnConnecting(object? sender, EventArgs e)
-        {
-            ArgumentNullException.ThrowIfNull(sender, nameof(sender));
-
-            // Set the RdpClientHost (= WindowsFormsHost) element visibility to Hidden during the RDP client
-            // establishing a connection for showing UI (e.g. connecting status message) that at under the
-            // RdpClientHost element.
-            // If did hidden the RdpClientHost element at initial time, the credential prompt window does not
-            // showing up the center of the RdpClientHost element.
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, HideRdpClientHost, sender);
-        }
-
-        private void HideRdpClientHost(RdpClientHost rdpClientHost)
-        {
-            rdpClientHost.Visibility = Visibility.Hidden;
-        }
-
         private void RdpClientHost_OnConnected(object? sender, EventArgs e)
         {
             ArgumentNullException.ThrowIfNull(sender, nameof(sender));
-
-            // Set the RdpClientHost element visibility to Visible that did set Hidden in the OnConnecting event handler.
-            var rdpClientHost = (RdpClientHost)sender;
-            rdpClientHost.Visibility = Visibility.Visible;
+            RdpClientHostVisibility = Visibility.Visible;
         }
 
         private void RdpClientHost_OnDisconnected(object sender, IMsTscAxEvents_OnDisconnectedEvent e)
