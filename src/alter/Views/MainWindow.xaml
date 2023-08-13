@@ -26,9 +26,9 @@
     <Grid ShowGridLines="False">
         <Grid ShowGridLines="False">
             <Grid.RowDefinitions>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="55*"/>
-                <RowDefinition Height="25*"/>
+                <RowDefinition Height="18*"/>
+                <RowDefinition Height="64*"/>
+                <RowDefinition Height="18*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Margin="28,0,28,0"
@@ -100,7 +100,7 @@
                          Text="{Binding UserProvidedWindowTitle, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connected button -->
-                <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="10" Padding="0,12,0,12" Margin="0,0,0,0"
+                <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="10" Padding="0,10,0,10" Margin="0,0,0,0"
                         Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         IsEnabled="{Binding IsElementEnabled}" TabIndex="4"
                         Style="{StaticResource DefaultButton}"
@@ -125,24 +125,22 @@
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock TextAlignment="Center">
                                 <Run Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
-                                <LineBreak/>
                             </TextBlock>
-                            <TextBlock TextAlignment="Center"
-                                       Visibility="{Binding ShouldShowDisconnectReasonDetails, Mode=OneWay, Converter={StaticResource disconnectReasonVisibilityConverter}}"
+                            <TextBlock Visibility="{Binding ShouldShowDisconnectReasonDetails, Mode=OneWay, Converter={StaticResource disconnectReasonVisibilityConverter}}"
+                                       TextAlignment="Center"
                                        Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonConverter}}">
                                 <TextBlock.InputBindings>
                                     <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleDisconnectReasonDetailsVisibilityCommand}"/>
                                 </TextBlock.InputBindings>
                             </TextBlock>
-                            <TextBlock TextAlignment="Center"
-                                       Visibility="{Binding ShouldShowDisconnectReasonDetails, Mode=OneWay, Converter={StaticResource disconnectReasonDetailsVisibilityConverter}}"
+                            <TextBlock Visibility="{Binding ShouldShowDisconnectReasonDetails, Mode=OneWay, Converter={StaticResource disconnectReasonDetailsVisibilityConverter}}"
+                                       TextAlignment="Center"
                                        Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonDetailsConverter}}">
                                 <TextBlock.InputBindings>
                                     <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleDisconnectReasonDetailsVisibilityCommand}"/>
                                 </TextBlock.InputBindings>
                             </TextBlock>
                         </StackPanel>
-                        
                     </DataTemplate>
                 </ContentPresenter.Resources>
                 <!-- Triggers -->
