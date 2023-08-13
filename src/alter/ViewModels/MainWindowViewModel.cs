@@ -21,6 +21,7 @@ namespace AlterApp.ViewModels
             RemoteComputer = string.Empty;
             RemotePort = _appSettingsService.GetRemotePort();
             UserName = string.Empty;
+            UserProvidedWindowTitle = string.Empty;
 
             RdpClientHost = new RdpClientHost();
             RdpClientHost.OnConnecting += RdpClientHost_OnConnecting;
@@ -46,9 +47,13 @@ namespace AlterApp.ViewModels
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _userName;
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(WindowTitle))]
+        private string _userProvidedWindowTitle;
+
         public string WindowTitle
         {
-            get => _viewModelService.BuildWindowTitle(_appSettingsService.GetAppName(), UserName, RemoteComputer, RemotePort);
+            get => _viewModelService.BuildWindowTitle(UserProvidedWindowTitle, UserName, RemoteComputer, RemotePort, _appSettingsService.GetAppName());
         }
 
         public string DestinationDisplayText
