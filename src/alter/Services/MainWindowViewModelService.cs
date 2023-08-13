@@ -43,10 +43,15 @@ namespace AlterApp.Services
 
         public string BuildDestinationDisplayText(string userNmae, string remoteComputer, string remotePort)
         {
-            const string PlaceHolderText = "????";
-            var userNamePart = string.IsNullOrWhiteSpace(userNmae) ? PlaceHolderText : userNmae;
-            var remoteComputerPart = string.IsNullOrWhiteSpace(remoteComputer) ? PlaceHolderText : remoteComputer;
-            var remotePortPart = string.IsNullOrWhiteSpace(remotePort) ? PlaceHolderText : remotePort;
+            if (string.IsNullOrWhiteSpace(userNmae) && string.IsNullOrWhiteSpace(remoteComputer))
+            {
+                return "The destination not specified";
+            }
+
+            const string placeHolderText = "????";
+            var userNamePart = string.IsNullOrWhiteSpace(userNmae) ? placeHolderText : userNmae;
+            var remoteComputerPart = string.IsNullOrWhiteSpace(remoteComputer) ? placeHolderText : remoteComputer;
+            var remotePortPart = string.IsNullOrWhiteSpace(remotePort) ? placeHolderText : remotePort;
             return string.Format("{0}@{1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
         }
 
