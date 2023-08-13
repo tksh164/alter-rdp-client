@@ -11,6 +11,7 @@
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         Title="{Binding WindowTitle}"
         Width="1200" Height="800" MinWidth="700" MinHeight="500"
+        WindowStartupLocation="CenterScreen"
         FontSize="14"
         FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}">
 
