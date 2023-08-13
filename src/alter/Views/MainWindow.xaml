@@ -27,23 +27,26 @@
         <Grid ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="18*"/>
-                <RowDefinition Height="64*"/>
-                <RowDefinition Height="18*"/>
+                <RowDefinition Height="66*"/>
+                <RowDefinition Height="16*"/>
             </Grid.RowDefinitions>
 
+            <!-- Connection destination -->
             <TextBlock Grid.Row="0" Margin="28,0,28,0"
                        HorizontalAlignment="Center" VerticalAlignment="Center"
                        IsEnabled="{Binding IsElementEnabled}"
                        TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="22" FontWeight="SemiBold"
                        Text="{Binding DestinationDisplayText}"/>
 
+            <!-- Connection settings -->
             <Grid Grid.Row="1" Width="620" VerticalAlignment="Center" ShowGridLines="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="24"/>
                     <RowDefinition Height="32"/>
                     <RowDefinition Height="32"/>
                     <RowDefinition Height="32"/>
-                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="55"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -90,7 +93,7 @@
                          Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- User provided window title -->
-                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="8" Padding="0" Margin="0,0,0,4"
+                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="10" Padding="0" Margin="0,0,0,4"
                        IsEnabled="{Binding IsElementEnabled}"
                        VerticalContentAlignment="Bottom"  Content="_Window title"/>
                 <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="10" Padding="6,0,6,0" Margin="0,0,0,0"
@@ -100,6 +103,7 @@
                          Text="{Binding UserProvidedWindowTitle, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connected button -->
+                <!-- Connect button -->
                 <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="10" Padding="0,10,0,10" Margin="0,0,0,0"
                         Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         IsEnabled="{Binding IsElementEnabled}" TabIndex="4"
@@ -109,6 +113,7 @@
                         Command="{Binding ConnectToRemoteComputerCommand}"/>
             </Grid>
 
+            <!-- Connection status -->
             <ContentPresenter Grid.Row="2"
                               HorizontalAlignment="Center" VerticalAlignment="Center"
                               IsEnabled="{Binding IsElementEnabled}"
@@ -117,12 +122,14 @@
                 <ContentPresenter.Resources>
                     <DataTemplate x:Key="ConnectionStateOnly">
                         <StackPanel HorizontalAlignment="Center">
+                            <!-- Connection state -->
                             <TextBlock TextAlignment="Center"
                                        Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
                         </StackPanel>
                     </DataTemplate>
                     <DataTemplate x:Key="ConnectionStateWithDisconnectReason">
                         <StackPanel HorizontalAlignment="Center">
+                            <!-- Connection state -->
                             <TextBlock TextAlignment="Center">
                                 <Run Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
                             </TextBlock>
@@ -157,9 +164,11 @@
             </ContentPresenter>
         </Grid>
 
-        <ContentControl Visibility="{Binding RdpClientHostVisibility}" Content="{Binding RdpClientHost}" Background="{StaticResource RdpClientAreaBackground}"
+        <!-- RDP client -->
+        <ContentControl Visibility="{Binding RdpClientHostVisibility}" Background="{StaticResource RdpClientAreaBackground}"
                         ap:SizeObservation.IsEnabled="True"
                         ap:SizeObservation.ObservedActualWidth="{Binding RdpClientHostWidth, Mode=OneWayToSource}"
-                        ap:SizeObservation.ObservedActualHeight="{Binding RdpClientHostHeight, Mode=OneWayToSource}"/>
+                        ap:SizeObservation.ObservedActualHeight="{Binding RdpClientHostHeight, Mode=OneWayToSource}"
+                        Content="{Binding RdpClientHost}"/>
     </Grid>
 </Window>
