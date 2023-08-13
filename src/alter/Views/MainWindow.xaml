@@ -61,7 +61,7 @@
 
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Margin="0,0,0,4" Padding="0"
                        IsEnabled="{Binding IsElementEnabled}"
-                       VerticalContentAlignment="Bottom" Content="Remote computer"/>
+                       VerticalContentAlignment="Bottom" Content="_Remote computer"/>
                 <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Margin="0,0,4,0" Padding="6,0,6,0"
                          IsEnabled="{Binding IsElementEnabled}"
                          Style="{StaticResource RemoteComputerTextBox}"
@@ -70,7 +70,7 @@
 
                 <Label Grid.Row="0" Grid.Column="7" Margin="0,0,0,4" Padding="0"
                        IsEnabled="{Binding IsElementEnabled}"
-                       VerticalContentAlignment="Bottom" Content="Port"/>
+                       VerticalContentAlignment="Bottom" Content="_Port"/>
                 <TextBox Grid.Row="1" Grid.Column="7" Margin="0" Padding="6,0,6,0"
                          IsEnabled="{Binding IsElementEnabled}"
                          Style="{StaticResource RemotePortTextBox}"
@@ -79,7 +79,7 @@
 
                 <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="0,0,0,4" Padding="0"
                        IsEnabled="{Binding IsElementEnabled}"
-                       VerticalContentAlignment="Bottom"  Content="User name"/>
+                       VerticalContentAlignment="Bottom"  Content="_User name"/>
                 <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="0,0,4,0" Padding="6,0,6,0"
                          IsEnabled="{Binding IsElementEnabled}"
                          Style="{StaticResource DefaultTextBox}"
@@ -88,7 +88,7 @@
 
                 <Label Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="4" Margin="4,0,0,4" Padding="0"
                        IsEnabled="{Binding IsElementEnabled}"
-                       VerticalContentAlignment="Bottom"  Content="Window title"/>
+                       VerticalContentAlignment="Bottom"  Content="_Window title"/>
                 <TextBox Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="4" Margin="4,0,0,0" Padding="6,0,6,0"
                          IsEnabled="{Binding IsElementEnabled}"
                          Style="{StaticResource DefaultTextBox}"
