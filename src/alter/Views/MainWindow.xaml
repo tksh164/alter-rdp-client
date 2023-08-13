@@ -99,6 +99,7 @@
                         Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         IsEnabled="{Binding IsElementEnabled}"
                         Style="{StaticResource DefaultButton}"
+                        IsDefault="True"
                         Content="Connect"
                         Command="{Binding ConnectToRemoteComputerCommand}"/>
             </Grid>
