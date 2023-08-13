@@ -45,7 +45,7 @@ namespace AlterApp.Services
         {
             if (string.IsNullOrWhiteSpace(userNmae) && string.IsNullOrWhiteSpace(remoteComputer))
             {
-                return "The destination not specified";
+                return string.Empty;
             }
 
             const string placeHolderText = "????";
