@@ -63,7 +63,7 @@
                        IsEnabled="{Binding IsElementEnabled}"
                        VerticalContentAlignment="Bottom" Content="_Remote computer"/>
                 <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Margin="0,0,4,0" Padding="6,0,6,0"
-                         IsEnabled="{Binding IsElementEnabled}"
+                         IsEnabled="{Binding IsElementEnabled}" TabIndex="0"
                          Style="{StaticResource RemoteComputerTextBox}"
                          VerticalContentAlignment="Center"
                          Text="{Binding RemoteComputer, UpdateSourceTrigger=PropertyChanged}"/>
@@ -72,7 +72,7 @@
                        IsEnabled="{Binding IsElementEnabled}"
                        VerticalContentAlignment="Bottom" Content="_Port"/>
                 <TextBox Grid.Row="1" Grid.Column="7" Margin="0" Padding="6,0,6,0"
-                         IsEnabled="{Binding IsElementEnabled}"
+                         IsEnabled="{Binding IsElementEnabled}" TabIndex="1"
                          Style="{StaticResource RemotePortTextBox}"
                          VerticalContentAlignment="Center" MaxLength="5"
                          Text="{Binding RemotePort, UpdateSourceTrigger=PropertyChanged}"/>
@@ -81,7 +81,7 @@
                        IsEnabled="{Binding IsElementEnabled}"
                        VerticalContentAlignment="Bottom"  Content="_User name"/>
                 <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="0,0,4,0" Padding="6,0,6,0"
-                         IsEnabled="{Binding IsElementEnabled}"
+                         IsEnabled="{Binding IsElementEnabled}" TabIndex="2"
                          Style="{StaticResource DefaultTextBox}"
                          VerticalContentAlignment="Center"
                          Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
@@ -90,14 +90,14 @@
                        IsEnabled="{Binding IsElementEnabled}"
                        VerticalContentAlignment="Bottom"  Content="_Window title"/>
                 <TextBox Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="4" Margin="4,0,0,0" Padding="6,0,6,0"
-                         IsEnabled="{Binding IsElementEnabled}"
+                         IsEnabled="{Binding IsElementEnabled}" TabIndex="3"
                          Style="{StaticResource DefaultTextBox}"
                          VerticalContentAlignment="Center"
                          Text="{Binding UserProvidedWindowTitle, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="8" Margin="0,0,0,0" Padding="0,12,0,12"
                         Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                        IsEnabled="{Binding IsElementEnabled}"
+                        IsEnabled="{Binding IsElementEnabled}" TabIndex="4"
                         Style="{StaticResource DefaultButton}"
                         IsDefault="True"
                         Content="Connect"
