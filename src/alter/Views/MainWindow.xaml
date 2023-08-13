@@ -11,7 +11,9 @@
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         Title="{Binding WindowTitle}"
         Width="1200" Height="800" MinWidth="700" MinHeight="500"
-        FontSize="14">
+        WindowStartupLocation="CenterScreen"
+        FontSize="14"
+        FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}">
 
     <Window.Resources>
         <cv:RdpClientConnectionStateConverter x:Key="rdpClientConnectionStateConverter"/>
@@ -61,44 +63,46 @@
 
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Margin="0,0,0,4" Padding="0"
                        IsEnabled="{Binding IsElementEnabled}"
-                       VerticalContentAlignment="Bottom" Content="Remote computer"/>
-                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Margin="0,0,4,0" Padding="6,0,6,0"
-                         IsEnabled="{Binding IsElementEnabled}"
+                       VerticalContentAlignment="Bottom" Content="_Remote computer"/>
+                <TextBox x:Name="RemoteComputerTextBox"
+                         Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Margin="0,0,4,0" Padding="6,0,6,0"
+                         IsEnabled="{Binding IsElementEnabled}" TabIndex="0"
                          Style="{StaticResource RemoteComputerTextBox}"
                          VerticalContentAlignment="Center"
                          Text="{Binding RemoteComputer, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="0" Grid.Column="7" Margin="0,0,0,4" Padding="0"
                        IsEnabled="{Binding IsElementEnabled}"
-                       VerticalContentAlignment="Bottom" Content="Port"/>
+                       VerticalContentAlignment="Bottom" Content="_Port"/>
                 <TextBox Grid.Row="1" Grid.Column="7" Margin="0" Padding="6,0,6,0"
-                         IsEnabled="{Binding IsElementEnabled}"
+                         IsEnabled="{Binding IsElementEnabled}" TabIndex="1"
                          Style="{StaticResource RemotePortTextBox}"
                          VerticalContentAlignment="Center" MaxLength="5"
                          Text="{Binding RemotePort, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="0,0,0,4" Padding="0"
                        IsEnabled="{Binding IsElementEnabled}"
-                       VerticalContentAlignment="Bottom"  Content="User name"/>
+                       VerticalContentAlignment="Bottom"  Content="_User name"/>
                 <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="0,0,4,0" Padding="6,0,6,0"
-                         IsEnabled="{Binding IsElementEnabled}"
+                         IsEnabled="{Binding IsElementEnabled}" TabIndex="2"
                          Style="{StaticResource DefaultTextBox}"
                          VerticalContentAlignment="Center"
                          Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="4" Margin="4,0,0,4" Padding="0"
                        IsEnabled="{Binding IsElementEnabled}"
-                       VerticalContentAlignment="Bottom"  Content="Window title"/>
+                       VerticalContentAlignment="Bottom"  Content="_Window title"/>
                 <TextBox Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="4" Margin="4,0,0,0" Padding="6,0,6,0"
-                         IsEnabled="{Binding IsElementEnabled}"
+                         IsEnabled="{Binding IsElementEnabled}" TabIndex="3"
                          Style="{StaticResource DefaultTextBox}"
                          VerticalContentAlignment="Center"
                          Text="{Binding UserProvidedWindowTitle, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="8" Margin="0,0,0,0" Padding="0,12,0,12"
                         Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                        IsEnabled="{Binding IsElementEnabled}"
+                        IsEnabled="{Binding IsElementEnabled}" TabIndex="4"
                         Style="{StaticResource DefaultButton}"
+                        IsDefault="True"
                         Content="Connect"
                         Command="{Binding ConnectToRemoteComputerCommand}"/>
             </Grid>
