@@ -100,6 +100,15 @@ namespace AlterApp.ViewModels
             }
         }
 
+        [ObservableProperty]
+        private bool _shouldShowDisconnectReasonDetails = false;
+
+        [RelayCommand()]
+        private void ToggleDisconnectReasonDetailsVisibility()
+        {
+            ShouldShowDisconnectReasonDetails = !ShouldShowDisconnectReasonDetails;
+        }
+
         private bool _isElementEnabled = true;
         public bool IsElementEnabled
         {
@@ -120,6 +129,8 @@ namespace AlterApp.ViewModels
             if (RdpClientHost == null) throw new InvalidOperationException("The RDP client host is not instantiated.");
 
             SwtichToRdpClientView();
+            RdpClientLastDisconnectReason = new();
+
             RdpClientHost.RemoteComputer = RemoteComputer;
             RdpClientHost.RemotePort = int.Parse(RemotePort);  // TODO: Validation
             RdpClientHost.UserName = UserName;

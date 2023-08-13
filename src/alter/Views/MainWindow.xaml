@@ -18,7 +18,9 @@
     <Window.Resources>
         <cv:RdpClientConnectionStateConverter x:Key="rdpClientConnectionStateConverter"/>
         <cv:RdpClientDisconnectReasonConverter x:Key="rdpClientDisconnectReasonConverter"/>
-        <cv:RdpClientDisconnectReasonInfoConverter x:Key="rdpClientDisconnectReasonInfoConverter"/>
+        <cv:RdpClientDisconnectReasonDetailsConverter x:Key="rdpClientDisconnectReasonDetailsConverter"/>
+        <cv:DisconnectReasonVisibilityConverter x:Key="disconnectReasonVisibilityConverter"/>
+        <cv:DisconnectReasonDetailsVisibilityConverter x:Key="disconnectReasonDetailsVisibilityConverter"/>
     </Window.Resources>
 
     <Grid ShowGridLines="False">
@@ -114,19 +116,33 @@
                 <!-- Presentations -->
                 <ContentPresenter.Resources>
                     <DataTemplate x:Key="ConnectionStateOnly">
-                        <TextBlock TextAlignment="Center" TextWrapping="WrapWithOverflow">
-                            <Run Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
-                        </TextBlock>
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock TextAlignment="Center"
+                                       Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
+                        </StackPanel>
                     </DataTemplate>
                     <DataTemplate x:Key="ConnectionStateWithDisconnectReason">
-                        <TextBlock TextAlignment="Center" TextWrapping="WrapWithOverflow">
-                            <Run Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
-                            <LineBreak/>
-                            <LineBreak/>
-                            <Run Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonConverter}}"/>
-                            <LineBreak/>
-                            <Run Text="[ "/><Run Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonInfoConverter}}"/><Run Text=" ]"/>
-                        </TextBlock>
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock TextAlignment="Center">
+                                <Run Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
+                                <LineBreak/>
+                            </TextBlock>
+                            <TextBlock TextAlignment="Center"
+                                       Visibility="{Binding ShouldShowDisconnectReasonDetails, Mode=OneWay, Converter={StaticResource disconnectReasonVisibilityConverter}}"
+                                       Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonConverter}}">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleDisconnectReasonDetailsVisibilityCommand}"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                            <TextBlock TextAlignment="Center"
+                                       Visibility="{Binding ShouldShowDisconnectReasonDetails, Mode=OneWay, Converter={StaticResource disconnectReasonDetailsVisibilityConverter}}"
+                                       Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonDetailsConverter}}">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleDisconnectReasonDetailsVisibilityCommand}"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                        </StackPanel>
+                        
                     </DataTemplate>
                 </ContentPresenter.Resources>
                 <!-- Triggers -->
