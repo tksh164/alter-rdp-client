@@ -11,7 +11,8 @@
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         Title="{Binding WindowTitle}"
         Width="1200" Height="800" MinWidth="700" MinHeight="500"
-        FontSize="14">
+        FontSize="14"
+        FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}">
 
     <Window.Resources>
         <cv:RdpClientConnectionStateConverter x:Key="rdpClientConnectionStateConverter"/>
@@ -62,7 +63,8 @@
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Margin="0,0,0,4" Padding="0"
                        IsEnabled="{Binding IsElementEnabled}"
                        VerticalContentAlignment="Bottom" Content="_Remote computer"/>
-                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Margin="0,0,4,0" Padding="6,0,6,0"
+                <TextBox x:Name="RemoteComputerTextBox"
+                         Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Margin="0,0,4,0" Padding="6,0,6,0"
                          IsEnabled="{Binding IsElementEnabled}" TabIndex="0"
                          Style="{StaticResource RemoteComputerTextBox}"
                          VerticalContentAlignment="Center"
