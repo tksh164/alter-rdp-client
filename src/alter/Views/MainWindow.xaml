@@ -24,7 +24,7 @@
     </Window.Resources>
 
     <Grid ShowGridLines="False">
-        <Grid IsEnabled="{Binding IsElementEnabled}" ShowGridLines="False">
+        <Grid IsEnabled="{Binding IsElementEnabled, Mode=OneWay}" ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20*"/>
                 <RowDefinition Height="66*"/>
@@ -40,7 +40,7 @@
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
                                    TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                    FontWeight="SemiBold" FontSize="22"
-                                   Text="{Binding DestinationDisplayText}"/>
+                                   Text="{Binding DestinationDisplayText, Mode=OneWay}"/>
                     </DataTemplate>
                     <!-- Nickname and destination title -->
                     <DataTemplate x:Key="ConnectionNicknameAndDestinationTitle">
@@ -48,10 +48,10 @@
                             <TextBlock Margin="0,0,0,18"
                                        TextAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
                                        FontWeight="SemiBold" FontSize="22" 
-                                       Text="{Binding ConnectionNickname}"/>
+                                       Text="{Binding ConnectionNickname, Mode=OneWay}"/>
                             <TextBlock TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                        FontWeight="SemiBold" FontSize="22" LineHeight="22" LineStackingStrategy="BlockLineHeight"
-                                       Text="{Binding DestinationDisplayText}"/>
+                                       Text="{Binding DestinationDisplayText, Mode=OneWay}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ContentPresenter.Resources>
@@ -60,7 +60,7 @@
                     <Style TargetType="{x:Type ContentPresenter}">
                         <Setter Property="ContentTemplate" Value="{StaticResource DestinationOnlyTitle}"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ShouldShowConnectionNicknameAndDestinationTitle}" Value="True">
+                            <DataTrigger Binding="{Binding ShouldShowConnectionNicknameAndDestinationTitle, Mode=OneWay}" Value="True">
                                 <Setter Property="ContentTemplate" Value="{StaticResource ConnectionNicknameAndDestinationTitle}"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -98,7 +98,7 @@
                          Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Padding="6,0,6,0" Margin="0,0,2,0"
                          TabIndex="0" VerticalContentAlignment="Center"
                          Style="{StaticResource RemoteComputerTextBox}"
-                         Text="{Binding RemoteComputer, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding RemoteComputer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Remote port -->
                 <Label Grid.Row="0" Grid.Column="7" Padding="0" Margin="0,0,0,4"
@@ -106,7 +106,7 @@
                 <TextBox Grid.Row="1" Grid.Column="7" Padding="6,0,6,0" Margin="0,0,4,0"
                          TabIndex="1" VerticalContentAlignment="Center" MaxLength="5"
                          Style="{StaticResource RemotePortTextBox}"
-                         Text="{Binding RemotePort, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding RemotePort, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- User name -->
                 <Label Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="2" Padding="0" Margin="6,0,0,4"
@@ -114,7 +114,7 @@
                 <TextBox Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="2" Padding="6,0,6,0" Margin="6,0,0,0"
                          TabIndex="2" VerticalContentAlignment="Center"
                          Style="{StaticResource DefaultTextBox}"
-                         Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connection nickname -->
                 <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="10" Padding="0" Margin="0,0,0,4"
@@ -122,7 +122,7 @@
                 <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="10" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="3" VerticalContentAlignment="Center"
                          Style="{StaticResource DefaultTextBox}"
-                         Text="{Binding ConnectionNickname, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding ConnectionNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Select from history -->
                 <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="10" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -186,7 +186,7 @@
                     <Style TargetType="{x:Type ContentPresenter}">
                         <Setter Property="ContentTemplate" Value="{StaticResource ConnectionStateOnly}"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ShouldShowDisconnectReason}" Value="True">
+                            <DataTrigger Binding="{Binding ShouldShowDisconnectReason, Mode=OneWay}" Value="True">
                                 <Setter Property="ContentTemplate" Value="{StaticResource ConnectionStateWithDisconnectReason}"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -196,10 +196,10 @@
         </Grid>
 
         <!-- RDP client -->
-        <ContentControl Visibility="{Binding RdpClientHostVisibility}" Background="{StaticResource RdpClientAreaBackground}"
+        <ContentControl Visibility="{Binding RdpClientHostVisibility, Mode=OneWay}" Background="{StaticResource RdpClientAreaBackground}"
                         ap:SizeObservation.IsEnabled="True"
                         ap:SizeObservation.ObservedActualWidth="{Binding RdpClientHostWidth, Mode=OneWayToSource}"
                         ap:SizeObservation.ObservedActualHeight="{Binding RdpClientHostHeight, Mode=OneWayToSource}"
-                        Content="{Binding RdpClientHost}"/>
+                        Content="{Binding RdpClientHost, Mode=OneWay}"/>
     </Grid>
 </Window>
