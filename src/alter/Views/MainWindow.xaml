@@ -142,6 +142,7 @@
             <ContentPresenter Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding}">
                 <!-- Presentations -->
                 <ContentPresenter.Resources>
+                    <!-- Connection state only -->
                     <DataTemplate x:Key="ConnectionStateOnly">
                         <StackPanel HorizontalAlignment="Center">
                             <!-- Connection state -->
@@ -149,6 +150,7 @@
                                        Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
                         </StackPanel>
                     </DataTemplate>
+                    <!-- Connection state with disconnect reason -->
                     <DataTemplate x:Key="ConnectionStateWithDisconnectReason">
                         <StackPanel HorizontalAlignment="Center">
                             <!-- Connection state -->
