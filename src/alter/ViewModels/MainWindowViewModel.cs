@@ -100,8 +100,15 @@ namespace AlterApp.ViewModels
             }
         }
 
-        [ObservableProperty]
         private bool _shouldShowDisconnectReasonDetails = false;
+        public bool ShouldShowDisconnectReasonDetails
+        {
+            get => _shouldShowDisconnectReasonDetails;
+            private set
+            {
+                SetProperty(ref _shouldShowDisconnectReasonDetails, value);
+            }
+        }
 
         [RelayCommand()]
         private void ToggleDisconnectReasonDetailsVisibility()
