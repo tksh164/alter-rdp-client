@@ -100,10 +100,7 @@ namespace AlterApp.ViewModels
 
         public bool ShouldShowDisconnectReason
         {
-            get
-            {
-                return _viewModelService.ShouldShowDisconnectReason(RdpClientLastDisconnectReason);
-            }
+            get => _viewModelService.ShouldShowDisconnectReason(RdpClientLastDisconnectReason);
         }
 
         private bool _shouldShowDisconnectReasonDetails = false;
