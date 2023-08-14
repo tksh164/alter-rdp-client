@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         Title="{Binding WindowTitle}"
-        Width="1200" Height="800" MinWidth="700" MinHeight="500"
+        Width="1024" Height="768" MinWidth="780" MinHeight="520"
         WindowStartupLocation="CenterScreen"
         FontSize="14"
         FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}">
@@ -69,7 +69,7 @@
             </ContentPresenter>
 
             <!-- Connection settings -->
-            <Grid Grid.Row="1" Width="620" VerticalAlignment="Center" ShowGridLines="False">
+            <Grid Grid.Row="1" Width="700" VerticalAlignment="Center" ShowGridLines="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="24"/>
                     <RowDefinition Height="32"/>
