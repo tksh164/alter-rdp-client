@@ -49,6 +49,7 @@ namespace AlterApp.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
+        [NotifyPropertyChangedFor(nameof(ShouldShowNicknameAndDestinationTitle))]
         private string _userProvidedWindowTitle;
 
         public string WindowTitle
@@ -59,6 +60,11 @@ namespace AlterApp.ViewModels
         public string DestinationDisplayText
         {
             get => _viewModelService.BuildDestinationDisplayText(UserName, RemoteComputer, RemotePort);
+        }
+
+        public bool ShouldShowNicknameAndDestinationTitle
+        {
+            get => _viewModelService.ShouldShowNicknameAndDestinationTitle(UserProvidedWindowTitle);
         }
 
         private RdpClientHost? _rdpClientHost = null;

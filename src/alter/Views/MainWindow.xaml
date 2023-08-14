@@ -26,16 +26,47 @@
     <Grid ShowGridLines="False">
         <Grid IsEnabled="{Binding IsElementEnabled}" ShowGridLines="False">
             <Grid.RowDefinitions>
-                <RowDefinition Height="18*"/>
+                <RowDefinition Height="20*"/>
                 <RowDefinition Height="66*"/>
-                <RowDefinition Height="16*"/>
+                <RowDefinition Height="14*"/>
             </Grid.RowDefinitions>
 
-            <!-- Connection destination -->
-            <TextBlock Grid.Row="0" Margin="28,0,28,0"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                       TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="22" FontWeight="SemiBold"
-                       Text="{Binding DestinationDisplayText}"/>
+            <!-- Title -->
+            <ContentPresenter Grid.Row="0" Content="{Binding}" Margin="28,0,28,0">
+                <!-- Presentations -->
+                <ContentPresenter.Resources>
+                    <!-- Destination only title -->
+                    <DataTemplate x:Key="DestinationOnlyTitle">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                   FontWeight="SemiBold" FontSize="22"
+                                   Text="{Binding DestinationDisplayText}"/>
+                    </DataTemplate>
+                    <!-- Nickname and destination title -->
+                    <DataTemplate x:Key="NicknameAndDestinationTitle">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Margin="0,0,0,18"
+                                       TextAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                                       FontWeight="SemiBold" FontSize="22" 
+                                       Text="{Binding UserProvidedWindowTitle}"/>
+                            <TextBlock TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                       FontWeight="SemiBold" FontSize="22" LineHeight="22" LineStackingStrategy="BlockLineHeight"
+                                       Text="{Binding DestinationDisplayText}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ContentPresenter.Resources>
+                <!-- Triggers -->
+                <ContentPresenter.Style>
+                    <Style TargetType="{x:Type ContentPresenter}">
+                        <Setter Property="ContentTemplate" Value="{StaticResource DestinationOnlyTitle}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShouldShowNicknameAndDestinationTitle}" Value="True">
+                                <Setter Property="ContentTemplate" Value="{StaticResource NicknameAndDestinationTitle}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentPresenter.Style>
+            </ContentPresenter>
 
             <!-- Connection settings -->
             <Grid Grid.Row="1" Width="620" VerticalAlignment="Center" ShowGridLines="False">

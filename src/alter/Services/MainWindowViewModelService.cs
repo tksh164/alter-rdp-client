@@ -55,6 +55,11 @@ namespace AlterApp.Services
             return string.Format("{0}@{1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
         }
 
+        public bool ShouldShowNicknameAndDestinationTitle(string userProvidedWindowTitle)
+        {
+            return !string.IsNullOrWhiteSpace(userProvidedWindowTitle);
+        }
+
         public bool ShouldShowDisconnectReason(RdpClientDisconnectReason lastDisconnectReason)
         {
             switch (lastDisconnectReason.Reason)
