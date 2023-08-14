@@ -43,12 +43,12 @@
                                    Text="{Binding DestinationDisplayText}"/>
                     </DataTemplate>
                     <!-- Nickname and destination title -->
-                    <DataTemplate x:Key="NicknameAndDestinationTitle">
+                    <DataTemplate x:Key="ConnectionNicknameAndDestinationTitle">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock Margin="0,0,0,18"
                                        TextAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
                                        FontWeight="SemiBold" FontSize="22" 
-                                       Text="{Binding UserProvidedWindowTitle}"/>
+                                       Text="{Binding ConnectionNickname}"/>
                             <TextBlock TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                        FontWeight="SemiBold" FontSize="22" LineHeight="22" LineStackingStrategy="BlockLineHeight"
                                        Text="{Binding DestinationDisplayText}"/>
@@ -60,8 +60,8 @@
                     <Style TargetType="{x:Type ContentPresenter}">
                         <Setter Property="ContentTemplate" Value="{StaticResource DestinationOnlyTitle}"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ShouldShowNicknameAndDestinationTitle}" Value="True">
-                                <Setter Property="ContentTemplate" Value="{StaticResource NicknameAndDestinationTitle}"/>
+                            <DataTrigger Binding="{Binding ShouldShowConnectionNicknameAndDestinationTitle}" Value="True">
+                                <Setter Property="ContentTemplate" Value="{StaticResource ConnectionNicknameAndDestinationTitle}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -116,13 +116,13 @@
                          Style="{StaticResource DefaultTextBox}"
                          Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <!-- User provided window title -->
+                <!-- Connection nickname -->
                 <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="10" Padding="0" Margin="0,0,0,4"
-                       VerticalContentAlignment="Bottom"  Content="_Window title"/>
+                       VerticalContentAlignment="Bottom"  Content="Connection _nickname"/>
                 <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="10" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="3" VerticalContentAlignment="Center"
                          Style="{StaticResource DefaultTextBox}"
-                         Text="{Binding UserProvidedWindowTitle, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding ConnectionNickname, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Select from history -->
                 <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="10" HorizontalAlignment="Center" VerticalAlignment="Center">

@@ -5,18 +5,18 @@ namespace AlterApp.Services
 {
     internal class MainWindowViewModelService : IMainWindowViewModelService
     {
-        public string BuildWindowTitle(string userProvidedWindowTitle, string userNmae, string remoteComputer, string remotePort, string appName)
+        public string BuildWindowTitle(string connectionNickname, string userNmae, string remoteComputer, string remotePort, string appName)
         {
-            if (string.IsNullOrWhiteSpace(userProvidedWindowTitle) && string.IsNullOrWhiteSpace(remoteComputer))
+            if (string.IsNullOrWhiteSpace(connectionNickname) && string.IsNullOrWhiteSpace(remoteComputer))
             {
                 return appName;
             }
 
             List<string> windowTitleParts = new();
 
-            if (!string.IsNullOrWhiteSpace(userProvidedWindowTitle))
+            if (!string.IsNullOrWhiteSpace(connectionNickname))
             {
-                windowTitleParts.Add(userProvidedWindowTitle);
+                windowTitleParts.Add(connectionNickname);
             }
 
             if (!string.IsNullOrWhiteSpace(userNmae) && !string.IsNullOrWhiteSpace(remoteComputer) && !string.IsNullOrWhiteSpace(remotePort))
@@ -55,9 +55,9 @@ namespace AlterApp.Services
             return string.Format("{0}@{1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
         }
 
-        public bool ShouldShowNicknameAndDestinationTitle(string userProvidedWindowTitle)
+        public bool ShouldShowConnectionNicknameAndDestinationTitle(string connectionNickname)
         {
-            return !string.IsNullOrWhiteSpace(userProvidedWindowTitle);
+            return !string.IsNullOrWhiteSpace(connectionNickname);
         }
 
         public bool ShouldShowDisconnectReason(RdpClientDisconnectReason lastDisconnectReason)
