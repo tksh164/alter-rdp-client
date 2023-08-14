@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         Title="{Binding WindowTitle}"
-        Width="1200" Height="800" MinWidth="700" MinHeight="500"
+        Width="1024" Height="768" MinWidth="780" MinHeight="520"
         WindowStartupLocation="CenterScreen"
         FontSize="14"
         FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}">
@@ -26,19 +26,50 @@
     <Grid ShowGridLines="False">
         <Grid IsEnabled="{Binding IsElementEnabled}" ShowGridLines="False">
             <Grid.RowDefinitions>
-                <RowDefinition Height="18*"/>
+                <RowDefinition Height="20*"/>
                 <RowDefinition Height="66*"/>
-                <RowDefinition Height="16*"/>
+                <RowDefinition Height="14*"/>
             </Grid.RowDefinitions>
 
-            <!-- Connection destination -->
-            <TextBlock Grid.Row="0" Margin="28,0,28,0"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                       TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="22" FontWeight="SemiBold"
-                       Text="{Binding DestinationDisplayText}"/>
+            <!-- Title -->
+            <ContentPresenter Grid.Row="0" Content="{Binding}" Margin="28,0,28,0">
+                <!-- Presentations -->
+                <ContentPresenter.Resources>
+                    <!-- Destination only title -->
+                    <DataTemplate x:Key="DestinationOnlyTitle">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                   FontWeight="SemiBold" FontSize="22"
+                                   Text="{Binding DestinationDisplayText}"/>
+                    </DataTemplate>
+                    <!-- Nickname and destination title -->
+                    <DataTemplate x:Key="ConnectionNicknameAndDestinationTitle">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Margin="0,0,0,18"
+                                       TextAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                                       FontWeight="SemiBold" FontSize="22" 
+                                       Text="{Binding ConnectionNickname}"/>
+                            <TextBlock TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                       FontWeight="SemiBold" FontSize="22" LineHeight="22" LineStackingStrategy="BlockLineHeight"
+                                       Text="{Binding DestinationDisplayText}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ContentPresenter.Resources>
+                <!-- Triggers -->
+                <ContentPresenter.Style>
+                    <Style TargetType="{x:Type ContentPresenter}">
+                        <Setter Property="ContentTemplate" Value="{StaticResource DestinationOnlyTitle}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShouldShowConnectionNicknameAndDestinationTitle}" Value="True">
+                                <Setter Property="ContentTemplate" Value="{StaticResource ConnectionNicknameAndDestinationTitle}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentPresenter.Style>
+            </ContentPresenter>
 
             <!-- Connection settings -->
-            <Grid Grid.Row="1" Width="620" VerticalAlignment="Center" ShowGridLines="False">
+            <Grid Grid.Row="1" Width="700" VerticalAlignment="Center" ShowGridLines="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="24"/>
                     <RowDefinition Height="32"/>
@@ -85,13 +116,13 @@
                          Style="{StaticResource DefaultTextBox}"
                          Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <!-- User provided window title -->
+                <!-- Connection nickname -->
                 <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="10" Padding="0" Margin="0,0,0,4"
-                       VerticalContentAlignment="Bottom"  Content="_Window title"/>
+                       VerticalContentAlignment="Bottom"  Content="Connection _nickname"/>
                 <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="10" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="3" VerticalContentAlignment="Center"
                          Style="{StaticResource DefaultTextBox}"
-                         Text="{Binding UserProvidedWindowTitle, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding ConnectionNickname, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Select from history -->
                 <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="10" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -111,6 +142,7 @@
             <ContentPresenter Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding}">
                 <!-- Presentations -->
                 <ContentPresenter.Resources>
+                    <!-- Connection state only -->
                     <DataTemplate x:Key="ConnectionStateOnly">
                         <StackPanel HorizontalAlignment="Center">
                             <!-- Connection state -->
@@ -118,6 +150,7 @@
                                        Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
                         </StackPanel>
                     </DataTemplate>
+                    <!-- Connection state with disconnect reason -->
                     <DataTemplate x:Key="ConnectionStateWithDisconnectReason">
                         <StackPanel HorizontalAlignment="Center">
                             <!-- Connection state -->

@@ -21,7 +21,7 @@ namespace AlterApp.ViewModels
             RemoteComputer = string.Empty;
             RemotePort = _appSettingsService.GetRemotePort();
             UserName = string.Empty;
-            UserProvidedWindowTitle = string.Empty;
+            ConnectionNickname = string.Empty;
 
             RdpClientHost = new RdpClientHost();
             RdpClientHost.OnConnecting += RdpClientHost_OnConnecting;
@@ -49,16 +49,22 @@ namespace AlterApp.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        private string _userProvidedWindowTitle;
+        [NotifyPropertyChangedFor(nameof(ShouldShowConnectionNicknameAndDestinationTitle))]
+        private string _connectionNickname;
 
         public string WindowTitle
         {
-            get => _viewModelService.BuildWindowTitle(UserProvidedWindowTitle, UserName, RemoteComputer, RemotePort, _appSettingsService.GetAppName());
+            get => _viewModelService.BuildWindowTitle(ConnectionNickname, UserName, RemoteComputer, RemotePort, _appSettingsService.GetAppName());
         }
 
         public string DestinationDisplayText
         {
             get => _viewModelService.BuildDestinationDisplayText(UserName, RemoteComputer, RemotePort);
+        }
+
+        public bool ShouldShowConnectionNicknameAndDestinationTitle
+        {
+            get => _viewModelService.ShouldShowConnectionNicknameAndDestinationTitle(ConnectionNickname);
         }
 
         private RdpClientHost? _rdpClientHost = null;
@@ -94,10 +100,7 @@ namespace AlterApp.ViewModels
 
         public bool ShouldShowDisconnectReason
         {
-            get
-            {
-                return _viewModelService.ShouldShowDisconnectReason(RdpClientLastDisconnectReason);
-            }
+            get => _viewModelService.ShouldShowDisconnectReason(RdpClientLastDisconnectReason);
         }
 
         private bool _shouldShowDisconnectReasonDetails = false;
