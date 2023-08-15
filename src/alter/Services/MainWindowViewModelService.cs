@@ -21,11 +21,11 @@ namespace AlterApp.Services
 
             if (!string.IsNullOrWhiteSpace(userNmae) && !string.IsNullOrWhiteSpace(remoteComputer) && !string.IsNullOrWhiteSpace(remotePort))
             {
-                windowTitleParts.Add(string.Format("{0}@{1}:{2}", userNmae, remoteComputer, remotePort));
+                windowTitleParts.Add(string.Format("{0} | {1}:{2}", userNmae, remoteComputer, remotePort));
             }
             else if (!string.IsNullOrWhiteSpace(userNmae) && !string.IsNullOrWhiteSpace(remoteComputer))
             {
-                windowTitleParts.Add(string.Format("{0}@{1}", userNmae, remoteComputer));
+                windowTitleParts.Add(string.Format("{0} | {1}", userNmae, remoteComputer));
             }
             else if (!string.IsNullOrWhiteSpace(remoteComputer) && !string.IsNullOrWhiteSpace(remotePort))
             {
@@ -52,7 +52,7 @@ namespace AlterApp.Services
             var userNamePart = string.IsNullOrWhiteSpace(userNmae) ? placeHolderText : userNmae;
             var remoteComputerPart = string.IsNullOrWhiteSpace(remoteComputer) ? placeHolderText : remoteComputer;
             var remotePortPart = string.IsNullOrWhiteSpace(remotePort) ? placeHolderText : remotePort;
-            return string.Format("{0}@{1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
+            return string.Format("{0} | {1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
         }
 
         public bool ShouldShowConnectionNicknameAndDestinationTitle(string connectionNickname)
