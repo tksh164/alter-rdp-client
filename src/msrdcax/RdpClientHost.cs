@@ -195,6 +195,12 @@ namespace MsRdcAx
             double displayScaleFactor = DisplaySettingsHelper.GetDisplayScaleFactor(_axMsRdpClient.DeviceDpi);
             _axMsRdpClient.DesktopWidth = (int)(DesktopWidth * displayScaleFactor);
             _axMsRdpClient.DesktopHeight = (int)(DesktopHeight * displayScaleFactor);
+
+            object initialDesktopScaleFactor = (uint)(displayScaleFactor * 100);
+            ((MSTSCLib.IMsRdpExtendedSettings)_axMsRdpClient.GetOcx()).set_Property("DesktopScaleFactor", ref initialDesktopScaleFactor);
+ 
+            object initialDeviceScaleFactor = (uint)100;
+            ((MSTSCLib.IMsRdpExtendedSettings)_axMsRdpClient.GetOcx()).set_Property("DeviceScaleFactor", ref initialDeviceScaleFactor);
         }
 
         public void Disconnect()
