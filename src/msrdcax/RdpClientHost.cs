@@ -191,11 +191,11 @@ namespace MsRdcAx
             _axMsRdpClient.DesktopWidth = (int)Math.Ceiling(DesktopWidth * displayScaleFactor);
             _axMsRdpClient.DesktopHeight = (int)Math.Ceiling(DesktopHeight * displayScaleFactor);
 
+            var rdpExtendedSettings = (MSTSCLib.IMsRdpExtendedSettings)_axMsRdpClient.GetOcx();
             object initialDesktopScaleFactor = (uint)(displayScaleFactor * 100);
-            ((MSTSCLib.IMsRdpExtendedSettings)_axMsRdpClient.GetOcx()).set_Property("DesktopScaleFactor", ref initialDesktopScaleFactor);
-
+            rdpExtendedSettings.set_Property("DesktopScaleFactor", ref initialDesktopScaleFactor);
             object initialDeviceScaleFactor = (uint)100;
-            ((MSTSCLib.IMsRdpExtendedSettings)_axMsRdpClient.GetOcx()).set_Property("DeviceScaleFactor", ref initialDeviceScaleFactor);
+            rdpExtendedSettings.set_Property("DeviceScaleFactor", ref initialDeviceScaleFactor);
 
             _axMsRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
 
