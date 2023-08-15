@@ -255,7 +255,6 @@ namespace MsRdcAx
         {
             Debug.WriteLine("AxRdpClient_OnLoginComplete");
             IsLoginCompleted = true;
-            UpdateSessionDisplaySettingsWithRetry();
             OnLoginComplete?.Invoke(this, e);
         }
 
