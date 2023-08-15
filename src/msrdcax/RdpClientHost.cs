@@ -191,6 +191,8 @@ namespace MsRdcAx
             _axMsRdpClient.DesktopWidth = (int)Math.Ceiling(DesktopWidth * displayScaleFactor);
             _axMsRdpClient.DesktopHeight = (int)Math.Ceiling(DesktopHeight * displayScaleFactor);
 
+            // NOTE: The first showing behavior of the remote screen becomes a little bit clumsy if this code
+            // move to the instance method of AxMsRdpClient.
             var rdpExtendedSettings = (MSTSCLib.IMsRdpExtendedSettings)_axMsRdpClient.GetOcx();
             object initialDesktopScaleFactor = (uint)(displayScaleFactor * 100);
             rdpExtendedSettings.set_Property("DesktopScaleFactor", ref initialDesktopScaleFactor);
