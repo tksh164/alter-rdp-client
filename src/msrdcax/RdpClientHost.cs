@@ -187,20 +187,21 @@ namespace MsRdcAx
         {
             if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
-            _axMsRdpClient.Server = RemoteComputer;
-            _axMsRdpClient.AdvancedSettings2.RDPPort = RemotePort;
-            _axMsRdpClient.UserName = UserName;
-            _axMsRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
-
             double displayScaleFactor = DisplaySettingsHelper.GetDisplayScaleFactor(_axMsRdpClient.DeviceDpi);
             _axMsRdpClient.DesktopWidth = (int)Math.Ceiling(DesktopWidth * displayScaleFactor);
             _axMsRdpClient.DesktopHeight = (int)Math.Ceiling(DesktopHeight * displayScaleFactor);
 
             object initialDesktopScaleFactor = (uint)(displayScaleFactor * 100);
             ((MSTSCLib.IMsRdpExtendedSettings)_axMsRdpClient.GetOcx()).set_Property("DesktopScaleFactor", ref initialDesktopScaleFactor);
- 
+
             object initialDeviceScaleFactor = (uint)100;
             ((MSTSCLib.IMsRdpExtendedSettings)_axMsRdpClient.GetOcx()).set_Property("DeviceScaleFactor", ref initialDeviceScaleFactor);
+
+            _axMsRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
+
+            _axMsRdpClient.Server = RemoteComputer;
+            _axMsRdpClient.AdvancedSettings2.RDPPort = RemotePort;
+            _axMsRdpClient.UserName = UserName;
         }
 
         public void Disconnect()
