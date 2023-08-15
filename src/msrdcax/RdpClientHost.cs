@@ -292,6 +292,7 @@ namespace MsRdcAx
             uint desktopScaleFactor = (uint)(_axMsRdpClient.GetScaleFactor() * 100.0);
             uint physicalWidth = DisplaySettingsHelper.ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
             uint physicalHeight = DisplaySettingsHelper.ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
+            uint desktopScaleFactor = (uint)(_axMsRdpClient.GetDesktopScaleFactor() * 100.0);
             Debug.WriteLine("desktopWidth: {0}", desktopWidth);
             Debug.WriteLine("desktopHeight: {0}", desktopHeight);
             Debug.WriteLine("desktopScaleFactor: {0}", desktopScaleFactor);
