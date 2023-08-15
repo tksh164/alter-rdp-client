@@ -8,7 +8,7 @@ namespace MsRdcAx
         {
         }
 
-        public double GetScaleFactor()
+        public double GetDesktopScaleFactor()
         {
             const double nonScaledDpi = 96.0;  // DPI for 100%
             return this.DeviceDpi / nonScaledDpi;
