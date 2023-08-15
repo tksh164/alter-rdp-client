@@ -197,11 +197,10 @@ namespace MsRdcAx
             object initialDeviceScaleFactor = (uint)100;
             rdpExtendedSettings.set_Property("DeviceScaleFactor", ref initialDeviceScaleFactor);
 
-            _axMsRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
-
             _axMsRdpClient.Server = RemoteComputer;
             _axMsRdpClient.AdvancedSettings2.RDPPort = RemotePort;
             _axMsRdpClient.UserName = UserName;
+            _axMsRdpClient.AdvancedSettings9.EnableCredSspSupport = true;
         }
 
         public void Disconnect()
