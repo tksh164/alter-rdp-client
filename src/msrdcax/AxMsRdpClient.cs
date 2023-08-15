@@ -2,7 +2,7 @@
 
 namespace MsRdcAx
 {
-    internal class AxMsRdpClient : AxMsRdpClient10NotSafeForScripting
+    internal class AxMsRdpClient : AxMsRdpClient9NotSafeForScripting
     {
         public AxMsRdpClient() : base()
         {
