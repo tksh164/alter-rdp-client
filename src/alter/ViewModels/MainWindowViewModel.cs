@@ -107,10 +107,7 @@ namespace AlterApp.ViewModels
         public bool ShouldShowDisconnectReasonDetails
         {
             get => _shouldShowDisconnectReasonDetails;
-            private set
-            {
-                SetProperty(ref _shouldShowDisconnectReasonDetails, value);
-            }
+            private set => SetProperty(ref _shouldShowDisconnectReasonDetails, value);
         }
 
         [RelayCommand()]
