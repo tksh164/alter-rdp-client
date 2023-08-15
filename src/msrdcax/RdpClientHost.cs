@@ -289,10 +289,9 @@ namespace MsRdcAx
 
             uint desktopWidth = (uint)_axMsRdpClient.Width;
             uint desktopHeight = (uint)_axMsRdpClient.Height;
-            uint desktopScaleFactor = (uint)(_axMsRdpClient.GetScaleFactor() * 100.0);
-            uint physicalWidth = DisplaySettingsHelper.ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
-            uint physicalHeight = DisplaySettingsHelper.ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
             uint desktopScaleFactor = (uint)(_axMsRdpClient.GetDesktopScaleFactor() * 100.0);
+            uint physicalWidth = ConvertToPhysicalUnitSize(desktopWidth, desktopScaleFactor);
+            uint physicalHeight = ConvertToPhysicalUnitSize(desktopHeight, desktopScaleFactor);
             Debug.WriteLine("desktopWidth: {0}", desktopWidth);
             Debug.WriteLine("desktopHeight: {0}", desktopHeight);
             Debug.WriteLine("desktopScaleFactor: {0}", desktopScaleFactor);
@@ -302,6 +301,12 @@ namespace MsRdcAx
             const uint deviceScaleFactor = 100;
             const uint orientation = 0;
             _axMsRdpClient.UpdateSessionDisplaySettings(desktopWidth, desktopHeight, physicalWidth, physicalHeight, orientation, desktopScaleFactor, deviceScaleFactor);
+        }
+
+        private static uint ConvertToPhysicalUnitSize(uint desktopSize, uint desktopScaleFactor)
+        {
+            const double oneInchInMillimeter = 25.4;
+            return (uint)(desktopSize / desktopScaleFactor * oneInchInMillimeter);
         }
 
         public event IMsTscAxEvents_OnLogonErrorEventHandler? OnLogonError;
