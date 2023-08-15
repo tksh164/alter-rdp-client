@@ -71,14 +71,14 @@
             <!-- Connection settings -->
             <Grid Grid.Row="1" Width="700" VerticalAlignment="Center" ShowGridLines="False">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="28"/>
                     <RowDefinition Height="32"/>
                     <RowDefinition Height="28"/>
                     <RowDefinition Height="32"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="32"/>
                     <RowDefinition Height="70"/>
-                    <RowDefinition Height="42"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -95,48 +95,48 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <!-- Select from the history -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="12" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Hyperlink KeyboardNavigation.TabIndex="5" Command="">Select from the history</Hyperlink>
+                </TextBlock>
+
                 <!-- Remote computer -->
-                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="11" Padding="0" Margin="0,0,0,2"
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="11" Padding="0" Margin="0,0,0,2"
                        VerticalContentAlignment="Bottom" Content="_Remote computer"/>
                 <TextBox x:Name="RemoteComputerTextBox"
-                         Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="11" Padding="6,0,6,0" Margin="0,0,2,0"
+                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="11" Padding="6,0,6,0" Margin="0,0,2,0"
                          TabIndex="0" VerticalContentAlignment="Center"
                          Style="{StaticResource RemoteComputerTextBox}"
                          Text="{Binding RemoteComputer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Remote port -->
-                <Label Grid.Row="0" Grid.Column="11" Padding="0" Margin="0,0,0,2"
+                <Label Grid.Row="1" Grid.Column="11" Padding="0" Margin="0,0,0,2"
                        VerticalContentAlignment="Bottom" Content="_Port"/>
-                <TextBox Grid.Row="1" Grid.Column="11" Padding="6,0,6,0" Margin="0,0,0,0"
+                <TextBox Grid.Row="2" Grid.Column="11" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="1" VerticalContentAlignment="Center" MaxLength="5"
                          Style="{StaticResource RemotePortTextBox}"
                          Text="{Binding RemotePort, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- User name -->
-                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,2"
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,2"
                        VerticalContentAlignment="Bottom"  Content="_User name"/>
-                <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
+                <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="2" VerticalContentAlignment="Center"
                          Style="{StaticResource DefaultTextBox}"
                          Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connection nickname -->
-                <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,2"
+                <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,2"
                        VerticalContentAlignment="Bottom" Content="_Nickname for the connection"/>
-                <TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
+                <TextBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="3" VerticalContentAlignment="Center"
                          Style="{StaticResource DefaultTextBox}"
                          Text="{Binding ConnectionNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <!-- Select from the history -->
-                <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="12" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Hyperlink KeyboardNavigation.TabIndex="4" Command="">Select from the history (Not implemented yet)</Hyperlink>
-                </TextBlock>
-
                 <!-- Connect button -->
-                <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="12" Padding="0,10,0,10" Margin="0,0,0,0"
+                <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="12" Padding="0,10,0,10" Margin="0,0,0,0"
                         Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                        TabIndex="5" IsDefault="True"
+                        TabIndex="4" IsDefault="True"
                         Style="{StaticResource DefaultButton}"
                         Command="{Binding ConnectToRemoteComputerCommand}"
                         Content="Connect"/>
