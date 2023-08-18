@@ -1,4 +1,6 @@
-﻿namespace AlterApp.Services
+﻿using AlterApp.Services.Interfaces;
+
+namespace AlterApp.Services
 {
     internal class AppSettingsService : IAppSettingsService
     {

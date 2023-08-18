@@ -2,7 +2,7 @@
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using AlterApp.Services;
+using AlterApp.Services.Interfaces;
 using MsRdcAx;
 using MsRdcAx.AxMsTscLib;
 

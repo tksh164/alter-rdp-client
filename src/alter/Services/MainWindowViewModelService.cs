@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AlterApp.Services.Interfaces;
 using MsRdcAx;
 
 namespace AlterApp.Services

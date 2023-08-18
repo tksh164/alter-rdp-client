@@ -1,6 +1,6 @@
 ﻿using MsRdcAx;
 
-namespace AlterApp.Services
+namespace AlterApp.Services.Interfaces
 {
     internal interface IMainWindowViewModelService
     {

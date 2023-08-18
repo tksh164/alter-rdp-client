@@ -4,28 +4,37 @@
     <Style TargetType="Button" x:Key="DefaultButton">
         <Style.Resources>
             <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="CornerRadius" Value="4"/>
             </Style>
         </Style.Resources>
     </Style>
     <Style TargetType="TextBox" x:Key="DefaultTextBox">
         <Style.Resources>
             <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="CornerRadius" Value="4"/>
+            </Style>
+        </Style.Resources>
+    </Style>
+    <Style TargetType="TextBox" x:Key="DefaultMultilineTextBox">
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="4"/>
+                <!-- "Padding" is need for the clear rounded corner line when scrollbar showing -->
+                <Setter Property="Padding" Value="0.6"/>
             </Style>
         </Style.Resources>
     </Style>
     <Style TargetType="TextBox" x:Key="RemoteComputerTextBox">
         <Style.Resources>
             <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="4 0 0 4" />
+                <Setter Property="CornerRadius" Value="4,0,0,4"/>
             </Style>
         </Style.Resources>
     </Style>
     <Style TargetType="TextBox" x:Key="RemotePortTextBox">
         <Style.Resources>
             <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="0 4 4 0" />
+                <Setter Property="CornerRadius" Value="0,4,4,0"/>
             </Style>
         </Style.Resources>
     </Style>
