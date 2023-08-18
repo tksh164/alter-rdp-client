@@ -6,7 +6,7 @@ namespace AlterApp.Services
 {
     internal class MainWindowViewModelService : IMainWindowViewModelService
     {
-        public string BuildWindowTitle(string connectionNickname, string userNmae, string remoteComputer, string remotePort, string appName)
+        public string GetWindowTitle(string connectionNickname, string userNmae, string remoteComputer, string remotePort, string appName)
         {
             if (string.IsNullOrWhiteSpace(connectionNickname) && string.IsNullOrWhiteSpace(remoteComputer))
             {
@@ -42,7 +42,7 @@ namespace AlterApp.Services
             return string.Join(" - ", windowTitleParts);
         }
 
-        public string BuildDestinationDisplayText(string userNmae, string remoteComputer, string remotePort)
+        public string GetDestinationDisplayText(string userNmae, string remoteComputer, string remotePort)
         {
             if (string.IsNullOrWhiteSpace(userNmae) && string.IsNullOrWhiteSpace(remoteComputer))
             {
