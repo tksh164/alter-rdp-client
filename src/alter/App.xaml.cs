@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using AlterApp.Services;
+using AlterApp.Services.Interfaces;
 using AlterApp.ViewModels;
+using AlterApp.Views;
 
 namespace AlterApp
 {
@@ -57,11 +60,17 @@ namespace AlterApp
             var services = new ServiceCollection();
 
             // Services
+            services.AddTransient<IUnhandledExceptionReportService, UnhandledExceptionReportService>();
             services.AddSingleton<IAppSettingsService, AppSettingsService>();
-            services.AddSingleton<IMainWindowViewModelService, MainWindowViewModelService>();
+            services.AddTransient<IExceptionReportWindowViewModelService, ExceptionReportWindowViewModelService>();
+            services.AddTransient<IMainWindowViewModelService, MainWindowViewModelService>();
 
             // ViewModels
+            services.AddTransient<ExceptionReportWindowViewModel>();
             services.AddTransient<MainWindowViewModel>();
+
+            // Views
+            services.AddTransient<ExceptionReportWindow>();
 
             return services.BuildServiceProvider();
         }
