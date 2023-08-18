@@ -54,7 +54,7 @@ namespace AlterApp.ViewModels
 
         public string WindowTitle
         {
-            get => _viewModelService.GetWindowTitle(ConnectionNickname, UserName, RemoteComputer, RemotePort, _appSettingsService.AppName);
+            get => _viewModelService.GetWindowTitle(ConnectionNickname, UserName, RemoteComputer, RemotePort);
         }
 
         public string DestinationDisplayText
