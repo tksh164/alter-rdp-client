@@ -2,7 +2,8 @@
 {
     internal interface IAppSettingsService
     {
-        public string GetAppName();
+        public string AppName { get; }
+
         public string GetRemotePort();
     }
 }

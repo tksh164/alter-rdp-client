@@ -25,7 +25,7 @@ namespace AlterApp.ViewModels
 
         public string AppName
         {
-            get => _appSettingsService.GetAppName();
+            get => _appSettingsService.AppName;
         }
 
         private const string _copyButtonCaptionForBeforeClick = "Copy the exception report to the clipboard";
