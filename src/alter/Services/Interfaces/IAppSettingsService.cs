@@ -4,6 +4,6 @@
     {
         public string AppName { get; }
 
-        public string GetRemotePort();
+        public string DefaultRemotePort { get; }
     }
 }

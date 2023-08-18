@@ -19,7 +19,7 @@ namespace AlterApp.ViewModels
             _viewModelService = viewModelService;
 
             RemoteComputer = string.Empty;
-            RemotePort = _appSettingsService.GetRemotePort();
+            RemotePort = _appSettingsService.DefaultRemotePort;
             UserName = string.Empty;
             ConnectionNickname = string.Empty;
 
