@@ -4,33 +4,44 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlterApp"
+        xmlns:vm="clr-namespace:AlterApp.ViewModels"
         mc:Ignorable="d"
-        Title="Exception Report"
-        Width="650" Height="500"
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False">
+        d:DataContext="{d:DesignInstance Type=vm:ExceptionReportWindowViewModel}"
+        Title="{Binding WindowTitle}"
+        Width="640" Height="480" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True"
+        FontSize="14"
+        FocusManager.FocusedElement="{Binding ElementName=ReportContentTextBox}">
 
     <Grid Margin="16">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="55"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" TextWrapping="Wrap">
-            The application crashed. Sorry for inconvenient to use.
-            It would be helpful for us if you could report the following data as an issue on 
-            <Hyperlink>the project website</Hyperlink>. Thank you.
+            <Run Text="{Binding AppName, Mode=OneWay}"/>
+            <Run Text="has crashed. Sorry for the inconvenience. It would be helpful for us if you could report the following data as an issue on"/>
+            <Hyperlink Command="{Binding OpenProjectWebsiteCommand}">the project website</Hyperlink><!--
+            --><Run Text=". Thank you."/>
         </TextBlock>
 
-        <TextBox Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                 Style="{StaticResource DefaultTextBox}"
-                 IsReadOnly="True" Text=""/>
-
-        <Button Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="30,12" IsCancel="True"
+        <TextBox x:Name="ReportContentTextBox"
+                 Grid.Row="1" Padding="4"
+                 TabIndex="0"
+                 IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                 Style="{StaticResource DefaultMultilineTextBox}" FontSize="12"
+                 Text="{Binding ReportContentText, Mode=OneWay}"/>
+        <Button Grid.Row="2" Padding="20,10" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                TabIndex="1" IsDefault="True"
                 Style="{StaticResource DefaultButton}"
-                Content="Quit"/>
-        <Button Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="30,12" IsDefault="True"
+                Command="{Binding CopyReportContentTextToClipboardCommand}"
+                Content="{Binding CopyButtonContentText}"/>
+        <Button Grid.Row="2" Padding="20,10" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                TabIndex="2" IsCancel="True"
                 Style="{StaticResource DefaultButton}"
-                Content="Copy"/>
+                Command="{Binding ExitApplicationCommand}"
+                Content="Exit"/>
     </Grid>
 </Window>
