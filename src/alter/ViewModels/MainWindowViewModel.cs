@@ -19,7 +19,7 @@ namespace AlterApp.ViewModels
             _viewModelService = viewModelService;
 
             RemoteComputer = string.Empty;
-            RemotePort = _appSettingsService.GetRemotePort();
+            RemotePort = _appSettingsService.DefaultRemotePort;
             UserName = string.Empty;
             ConnectionNickname = string.Empty;
 
@@ -54,12 +54,12 @@ namespace AlterApp.ViewModels
 
         public string WindowTitle
         {
-            get => _viewModelService.BuildWindowTitle(ConnectionNickname, UserName, RemoteComputer, RemotePort, _appSettingsService.GetAppName());
+            get => _viewModelService.GetWindowTitle(ConnectionNickname, UserName, RemoteComputer, RemotePort);
         }
 
         public string DestinationDisplayText
         {
-            get => _viewModelService.BuildDestinationDisplayText(UserName, RemoteComputer, RemotePort);
+            get => _viewModelService.GetDestinationDisplayText(UserName, RemoteComputer, RemotePort);
         }
 
         public bool ShouldShowConnectionNicknameAndDestinationTitle

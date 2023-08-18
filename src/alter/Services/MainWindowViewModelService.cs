@@ -6,11 +6,18 @@ namespace AlterApp.Services
 {
     internal class MainWindowViewModelService : IMainWindowViewModelService
     {
-        public string BuildWindowTitle(string connectionNickname, string userNmae, string remoteComputer, string remotePort, string appName)
+        private readonly IAppSettingsService _appSettingsService;
+
+        public MainWindowViewModelService(IAppSettingsService appSettingsService)
+        {
+            _appSettingsService = appSettingsService;
+        }
+
+        public string GetWindowTitle(string connectionNickname, string userNmae, string remoteComputer, string remotePort)
         {
             if (string.IsNullOrWhiteSpace(connectionNickname) && string.IsNullOrWhiteSpace(remoteComputer))
             {
-                return appName;
+                return _appSettingsService.AppName;
             }
 
             List<string> windowTitleParts = new();
@@ -37,12 +44,12 @@ namespace AlterApp.Services
                 windowTitleParts.Add(remoteComputer);
             }
 
-            windowTitleParts.Add(appName);
+            windowTitleParts.Add(_appSettingsService.AppName);
 
             return string.Join(" - ", windowTitleParts);
         }
 
-        public string BuildDestinationDisplayText(string userNmae, string remoteComputer, string remotePort)
+        public string GetDestinationDisplayText(string userNmae, string remoteComputer, string remotePort)
         {
             if (string.IsNullOrWhiteSpace(userNmae) && string.IsNullOrWhiteSpace(remoteComputer))
             {

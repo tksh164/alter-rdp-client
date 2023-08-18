@@ -15,7 +15,7 @@ namespace AlterApp.Services
 
         public string GetWindowTitle()
         {
-            return _appSettingsService.GetAppName();
+            return _appSettingsService.AppName;
         }
 
         public void OpenProjectWebsite()
