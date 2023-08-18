@@ -2,9 +2,9 @@
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using AlterApp.Services.Interfaces;
 using MsRdcAx;
 using MsRdcAx.AxMsTscLib;
-using AlterApp.Services.Interfaces;
 
 namespace AlterApp.ViewModels
 {
