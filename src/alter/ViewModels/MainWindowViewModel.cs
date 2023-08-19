@@ -10,13 +10,13 @@ namespace AlterApp.ViewModels
 {
     internal partial class MainWindowViewModel : ObservableObject
     {
-        private readonly IAppSettingsService _appSettingsService;
         private readonly IMainWindowViewModelService _viewModelService;
+        private readonly IAppSettingsService _appSettingsService;
 
-        public MainWindowViewModel(IAppSettingsService appSettingsService, IMainWindowViewModelService viewModelService)
+        public MainWindowViewModel(IMainWindowViewModelService viewModelService, IAppSettingsService appSettingsService)
         {
-            _appSettingsService = appSettingsService;
             _viewModelService = viewModelService;
+            _appSettingsService = appSettingsService;
 
             RemoteComputer = string.Empty;
             RemotePort = _appSettingsService.DefaultRemotePort;
