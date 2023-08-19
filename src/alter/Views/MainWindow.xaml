@@ -7,6 +7,7 @@
         xmlns:vm="clr-namespace:AlterApp.ViewModels"
         xmlns:cv="clr-namespace:AlterApp.Converters"
         xmlns:ap="clr-namespace:AlterApp.AttachedProperties"
+        xmlns:msrdcax="clr-namespace:MsRdcAx;assembly=msrdcax"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         Title="{Binding WindowTitle}"
@@ -18,6 +19,7 @@
     <Window.Resources>
         <!-- Brushes -->
         <SolidColorBrush x:Key="RdpClientAreaBackground" Color="#000000"/>
+        <SolidColorBrush x:Key="ProgressBar.Progress" Color="#0969DA"/>
         <!-- Styles -->
         <Style x:Key="RemoteComputerTextBox" TargetType="{x:Type TextBox}">
             <Style.Resources>
@@ -32,6 +34,62 @@
                     <Setter Property="CornerRadius" Value="0,4,4,0"/>
                 </Style>
             </Style.Resources>
+        </Style>
+        <Style x:Key="ConnectingIndicatorStyle" TargetType="{x:Type ProgressBar}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Grid x:Name="TemplateRoot">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Determinate"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Animation" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.2"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <PointAnimationUsingKeyFrames Storyboard.TargetName="Animation" Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)">
+                                                <EasingPointKeyFrame KeyTime="0" Value="-1,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:0.3" Value="0.9,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:0.6" Value="1.2,0.5"/>
+                                            </PointAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                            <Rectangle x:Name="PART_Track"/>
+                            <Grid x:Name="PART_Indicator" ClipToBounds="true" HorizontalAlignment="Left">
+                                <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}"/>
+                                <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5">
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Orientation" Value="Vertical">
+                                <Setter Property="LayoutTransform" TargetName="TemplateRoot">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsIndeterminate" Value="true">
+                                <Setter Property="Visibility" TargetName="Indicator" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <!-- Converters -->
         <cv:RdpClientConnectionStateConverter x:Key="rdpClientConnectionStateConverter"/>
@@ -176,6 +234,18 @@
                                        Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
                         </StackPanel>
                     </DataTemplate>
+                    <!-- Connection state with connecting indicator -->
+                    <DataTemplate x:Key="ConnectionStateWithConnectingIndicator">
+                        <StackPanel HorizontalAlignment="Center">
+                            <!-- Connection state -->
+                            <TextBlock TextAlignment="Center"
+                                       Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
+                            <ProgressBar Margin="0,10,0,0" Width="160" Height="3"
+                                         IsIndeterminate="True"
+                                         Style="{StaticResource ConnectingIndicatorStyle}"
+                                         BorderThickness="0" Foreground="{StaticResource ProgressBar.Progress}" Background="Transparent"/>
+                        </StackPanel>
+                    </DataTemplate>
                     <!-- Connection state with disconnect reason -->
                     <DataTemplate x:Key="ConnectionStateWithDisconnectReason">
                         <StackPanel HorizontalAlignment="Center">
@@ -212,6 +282,9 @@
                     <Style TargetType="{x:Type ContentPresenter}">
                         <Setter Property="ContentTemplate" Value="{StaticResource ConnectionStateOnly}"/>
                         <Style.Triggers>
+                            <DataTrigger Binding="{Binding RdpClientConnectionState, Mode=OneWay}" Value="{x:Static msrdcax:RdpClientConnectionState.EstablishingConnection}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource ConnectionStateWithConnectingIndicator}"/>
+                            </DataTrigger>
                             <DataTrigger Binding="{Binding ShouldShowDisconnectReason, Mode=OneWay}" Value="True">
                                 <Setter Property="ContentTemplate" Value="{StaticResource ConnectionStateWithDisconnectReason}"/>
                             </DataTrigger>
