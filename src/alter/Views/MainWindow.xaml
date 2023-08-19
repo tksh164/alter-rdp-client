@@ -16,6 +16,8 @@
         FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}">
 
     <Window.Resources>
+        <!-- Brushes -->
+        <SolidColorBrush x:Key="RdpClientAreaBackground" Color="#000000"/>
         <!-- Styles -->
         <Style x:Key="RemoteComputerTextBox" TargetType="{x:Type TextBox}">
             <Style.Resources>
