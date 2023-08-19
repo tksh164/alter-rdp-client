@@ -175,8 +175,7 @@
                                        Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
                             <ProgressBar Margin="0,10,0,0" Width="160" Height="3"
                                          IsIndeterminate="True"
-                                         Style="{StaticResource ConnectingIndicatorStyle}"
-                                         BorderThickness="0" Foreground="{StaticResource ProgressBar.Progress}" Background="Transparent"/>
+                                         Style="{StaticResource ConnectingIndicatorStyle}"/>
                         </StackPanel>
                     </DataTemplate>
 

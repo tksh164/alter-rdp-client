@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!-- Brushes -->
     <SolidColorBrush x:Key="RdpClientAreaBackground" Color="#000000"/>
-    <SolidColorBrush x:Key="ProgressBar.Progress" Color="#0969DA"/>
 
     <!-- Styles -->
     <Style x:Key="RemoteComputerTextBoxStyle" TargetType="{x:Type TextBox}">
@@ -20,8 +19,16 @@
             </Style>
         </Style.Resources>
     </Style>
-    
+
+    <!-- Connecting indicator -->
+    <SolidColorBrush x:Key="ProgressBar.Progress" Color="#0969DA"/>
+    <SolidColorBrush x:Key="ProgressBar.Background" Color="Transparent"/>
+    <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
     <Style x:Key="ConnectingIndicatorStyle" TargetType="{x:Type ProgressBar}">
+        <Setter Property="Foreground" Value="{StaticResource ProgressBar.Progress}"/>
+        <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ProgressBar}">
