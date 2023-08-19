@@ -3,7 +3,7 @@
     <!-- Brushes -->
     <SolidColorBrush x:Key="RdpClientAreaBackground" Color="#000000"/>
 
-    <!-- Styles -->
+    <!-- Remote computer TextBox -->
     <Style x:Key="RemoteComputerTextBoxStyle" TargetType="{x:Type TextBox}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
@@ -12,6 +12,7 @@
         </Style.Resources>
     </Style>
 
+    <!-- Remote port TextBox -->
     <Style x:Key="RemotePortTextBoxStyle" TargetType="{x:Type TextBox}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
