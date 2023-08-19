@@ -1,8 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!-- Brushes -->
-    <SolidColorBrush x:Key="RdpClientAreaBackground" Color="#000000"/>
-
     <!-- Remote computer TextBox -->
     <Style x:Key="RemoteComputerTextBoxStyle" TargetType="{x:Type TextBox}">
         <Style.Resources>
@@ -84,5 +81,11 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <!-- ContentControl for RDP client host -->
+    <SolidColorBrush x:Key="RdpClientHostContentControl.Background" Color="#000000"/>
+    <Style x:Key="RdpClientHostContentControlStyle" TargetType="{x:Type ContentControl}">
+        <Setter Property="Background" Value="{StaticResource RdpClientHostContentControl.Background}"/>
     </Style>
 </ResourceDictionary>

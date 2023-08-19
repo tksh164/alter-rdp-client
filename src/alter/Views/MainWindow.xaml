@@ -235,8 +235,8 @@
             </TextBlock>
         </Grid>
 
-        <!-- RDP client -->
-        <ContentControl Visibility="{Binding RdpClientHostVisibility, Mode=OneWay}" Background="{StaticResource RdpClientAreaBackground}"
+        <!-- RDP client host -->
+        <ContentControl Visibility="{Binding RdpClientHostVisibility, Mode=OneWay}" Style="{StaticResource RdpClientHostContentControlStyle}"
                         ap:SizeObservation.IsEnabled="True"
                         ap:SizeObservation.ObservedActualWidth="{Binding RdpClientHostWidth, Mode=OneWayToSource}"
                         ap:SizeObservation.ObservedActualHeight="{Binding RdpClientHostHeight, Mode=OneWayToSource}"
