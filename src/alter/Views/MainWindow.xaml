@@ -117,7 +117,7 @@
                 <TextBox x:Name="RemoteComputerTextBox"
                          Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="11" Padding="6,0,6,0" Margin="0,0,2,0"
                          TabIndex="0" VerticalContentAlignment="Center"
-                         Style="{StaticResource RemoteComputerTextBox}"
+                         Style="{StaticResource RemoteComputerTextBoxStyle}"
                          Text="{Binding RemoteComputer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Remote port -->
@@ -125,7 +125,7 @@
                        VerticalContentAlignment="Bottom" Content="_Port"/>
                 <TextBox Grid.Row="2" Grid.Column="11" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="1" VerticalContentAlignment="Center" MaxLength="5"
-                         Style="{StaticResource RemotePortTextBox}"
+                         Style="{StaticResource RemotePortTextBoxStyle}"
                          Text="{Binding RemotePort, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- User name -->
@@ -133,7 +133,7 @@
                        VerticalContentAlignment="Bottom"  Content="_User name"/>
                 <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="2" VerticalContentAlignment="Center"
-                         Style="{StaticResource DefaultTextBox}"
+                         Style="{StaticResource DefaultTextBoxStyle}"
                          Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connection nickname -->
@@ -141,14 +141,14 @@
                        VerticalContentAlignment="Bottom" Content="_Nickname for the connection"/>
                 <TextBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="3" VerticalContentAlignment="Center"
-                         Style="{StaticResource DefaultTextBox}"
+                         Style="{StaticResource DefaultTextBoxStyle}"
                          Text="{Binding ConnectionNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connect button -->
                 <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="12" Padding="0,10,0,10" Margin="0,0,0,0"
                         Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         TabIndex="4" IsDefault="True"
-                        Style="{StaticResource DefaultButton}"
+                        Style="{StaticResource DefaultButtonStyle}"
                         Command="{Binding ConnectToRemoteComputerCommand}"
                         Content="Connect"/>
             </Grid>

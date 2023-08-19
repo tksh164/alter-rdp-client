@@ -5,7 +5,7 @@
     <SolidColorBrush x:Key="ProgressBar.Progress" Color="#0969DA"/>
 
     <!-- Styles -->
-    <Style x:Key="RemoteComputerTextBox" TargetType="{x:Type TextBox}">
+    <Style x:Key="RemoteComputerTextBoxStyle" TargetType="{x:Type TextBox}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
                 <Setter Property="CornerRadius" Value="4,0,0,4"/>
@@ -13,7 +13,7 @@
         </Style.Resources>
     </Style>
 
-    <Style x:Key="RemotePortTextBox" TargetType="{x:Type TextBox}">
+    <Style x:Key="RemotePortTextBoxStyle" TargetType="{x:Type TextBox}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
                 <Setter Property="CornerRadius" Value="0,4,4,0"/>
