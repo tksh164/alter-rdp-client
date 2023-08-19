@@ -19,13 +19,13 @@
     </Style>
 
     <!-- Connecting indicator -->
-    <SolidColorBrush x:Key="ProgressBar.Progress" Color="#0969DA"/>
-    <SolidColorBrush x:Key="ProgressBar.Background" Color="Transparent"/>
-    <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
+    <SolidColorBrush x:Key="ConnectingIndicator.Progress" Color="#0969DA"/>
+    <SolidColorBrush x:Key="ConnectingIndicator.Background" Color="Transparent"/>
+    <SolidColorBrush x:Key="ConnectingIndicator.Border" Color="#FFBCBCBC"/>
     <Style x:Key="ConnectingIndicatorStyle" TargetType="{x:Type ProgressBar}">
-        <Setter Property="Foreground" Value="{StaticResource ProgressBar.Progress}"/>
-        <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
+        <Setter Property="Foreground" Value="{StaticResource ConnectingIndicator.Progress}"/>
+        <Setter Property="Background" Value="{StaticResource ConnectingIndicator.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ConnectingIndicator.Border}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
