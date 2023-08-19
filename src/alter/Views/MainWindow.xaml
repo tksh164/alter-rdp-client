@@ -157,6 +157,7 @@
             <ContentPresenter Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding}">
                 <!-- Presentations -->
                 <ContentPresenter.Resources>
+
                     <!-- Connection state only -->
                     <DataTemplate x:Key="ConnectionStateOnly">
                         <StackPanel HorizontalAlignment="Center">
@@ -165,6 +166,7 @@
                                        Text="{Binding RdpClientConnectionState, Mode=OneWay, Converter={StaticResource rdpClientConnectionStateConverter}}"/>
                         </StackPanel>
                     </DataTemplate>
+
                     <!-- Connection state with connecting indicator -->
                     <DataTemplate x:Key="ConnectionStateWithConnectingIndicator">
                         <StackPanel HorizontalAlignment="Center">
@@ -177,6 +179,7 @@
                                          BorderThickness="0" Foreground="{StaticResource ProgressBar.Progress}" Background="Transparent"/>
                         </StackPanel>
                     </DataTemplate>
+
                     <!-- Connection state with disconnect reason -->
                     <DataTemplate x:Key="ConnectionStateWithDisconnectReason">
                         <StackPanel HorizontalAlignment="Center">
@@ -207,6 +210,7 @@
                             </Border>
                         </StackPanel>
                     </DataTemplate>
+
                 </ContentPresenter.Resources>
                 <!-- Triggers -->
                 <ContentPresenter.Style>
