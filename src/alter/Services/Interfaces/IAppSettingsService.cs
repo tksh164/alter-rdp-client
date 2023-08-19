@@ -4,6 +4,8 @@
     {
         public string AppName { get; }
 
+        public string AppProjectWebsiteUri { get; }
+
         public string? GetAppVersion();
 
         public string? GetSemanticAppVersion();

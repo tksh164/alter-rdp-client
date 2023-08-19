@@ -10,6 +10,10 @@ namespace AlterApp.Services
 
         public string AppName => _appName;
 
+        private const string _appProjectWebsiteUri = "https://github.com/tksh164/alter-rdp-client";
+
+        public string AppProjectWebsiteUri => _appProjectWebsiteUri;
+
         public string? GetAppVersion()
         {
             return (((Assembly.GetEntryAssembly())?.GetName())?.Version)?.ToString();
