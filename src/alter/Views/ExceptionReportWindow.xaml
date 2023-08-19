@@ -31,16 +31,16 @@
                  Grid.Row="1" Padding="4"
                  TabIndex="0"
                  IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                 Style="{StaticResource DefaultMultilineTextBox}" FontSize="12"
+                 Style="{StaticResource DefaultMultilineTextBoxStyle}" FontSize="12"
                  Text="{Binding ReportContentText, Mode=OneTime}"/>
         <Button Grid.Row="2" Padding="20,10" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                 TabIndex="1" IsDefault="True"
-                Style="{StaticResource DefaultButton}"
+                Style="{StaticResource DefaultButtonStyle}"
                 Command="{Binding CopyReportContentTextToClipboardCommand, Mode=OneTime}"
                 Content="{Binding CopyButtonContentText}"/>
         <Button Grid.Row="2" Padding="20,10" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 TabIndex="2" IsCancel="True"
-                Style="{StaticResource DefaultButton}"
+                Style="{StaticResource DefaultButtonStyle}"
                 Command="{Binding ExitApplicationCommand, Mode=OneTime}"
                 Content="Exit"/>
     </Grid>
