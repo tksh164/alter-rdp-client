@@ -8,6 +8,7 @@
             </Style>
         </Style.Resources>
     </Style>
+
     <Style x:Key="DefaultTextBoxStyle" TargetType="{x:Type TextBox}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
@@ -15,6 +16,7 @@
             </Style>
         </Style.Resources>
     </Style>
+
     <Style x:Key="DefaultMultilineTextBoxStyle" TargetType="{x:Type TextBox}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
