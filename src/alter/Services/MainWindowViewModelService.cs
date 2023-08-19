@@ -97,5 +97,15 @@ namespace AlterApp.Services
                     return true;
             }
         }
+
+        public string GetVersionInfoText()
+        {
+            string? appVersion = _appSettingsService.GetSemanticAppVersion();
+            if (appVersion == null)
+            {
+                return string.Format("{0} (Could not get app version)", _appSettingsService.AppName);
+            }
+            return string.Format("{0} v{1}", _appSettingsService.AppName, appVersion);
+        }
     }
 }
