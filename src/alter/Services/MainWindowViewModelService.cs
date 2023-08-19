@@ -64,7 +64,7 @@ namespace AlterApp.Services
             return string.Format("{0} | {1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
         }
 
-        public bool ShouldShowConnectionNicknameAndDestinationTitle(string connectionNickname)
+        public bool ShouldShowDestinationAndNicknameTitle(string connectionNickname)
         {
             return !string.IsNullOrWhiteSpace(connectionNickname);
         }

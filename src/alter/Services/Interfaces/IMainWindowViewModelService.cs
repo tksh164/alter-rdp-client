@@ -8,7 +8,7 @@ namespace AlterApp.Services.Interfaces
 
         public string GetDestinationText(string userNmae, string remoteComputer, string remotePort);
 
-        public bool ShouldShowConnectionNicknameAndDestinationTitle(string connectionNickname);
+        public bool ShouldShowDestinationAndNicknameTitle(string connectionNickname);
 
         public RdpClientHost GetRdpClientInstance();
 
