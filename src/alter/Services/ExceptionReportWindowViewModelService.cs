@@ -18,12 +18,12 @@ namespace AlterApp.Services
             return _appSettingsService.AppName;
         }
 
-        public void OpenProjectWebsite()
+        public void OpenIssueReportUri()
         {
-            const string projectWebsiteUri = "https://github.com/tksh164/alter-rdp-client/issues";
+            string issueReportUri = _appSettingsService.AppProjectWebsiteUri + "/issues";
             Process.Start(new ProcessStartInfo()
             {
-                FileName = projectWebsiteUri,
+                FileName = issueReportUri,
                 UseShellExecute = true,
             });
         }
