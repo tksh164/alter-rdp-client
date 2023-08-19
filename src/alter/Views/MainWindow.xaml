@@ -23,6 +23,10 @@
         <cv:DisconnectReasonDetailsVisibilityConverter x:Key="disconnectReasonDetailsVisibilityConverter"/>
     </Window.Resources>
 
+    <Window.InputBindings>
+        <KeyBinding Key="V" Modifiers="Alt" Command="{Binding OpenProjectWebsiteCommand}"/>
+    </Window.InputBindings>
+
     <Grid ShowGridLines="False">
         <Grid IsEnabled="{Binding IsElementEnabled, Mode=OneWay}" ShowGridLines="False">
             <Grid.RowDefinitions>
