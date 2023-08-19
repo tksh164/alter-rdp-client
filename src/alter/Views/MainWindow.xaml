@@ -197,6 +197,13 @@
                     </Style>
                 </ContentPresenter.Style>
             </ContentPresenter>
+
+            <!-- Version info link -->
+            <TextBlock Grid.Row="2" Margin="16" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Hyperlink KeyboardNavigation.TabIndex="5" Command="">
+                    <Run Text="Alter v0.1.0"/>
+                </Hyperlink>
+            </TextBlock>
         </Grid>
 
         <!-- RDP client -->
