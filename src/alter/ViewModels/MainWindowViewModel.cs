@@ -10,13 +10,13 @@ namespace AlterApp.ViewModels
 {
     internal partial class MainWindowViewModel : ObservableObject
     {
-        private readonly IAppSettingsService _appSettingsService;
         private readonly IMainWindowViewModelService _viewModelService;
+        private readonly IAppSettingsService _appSettingsService;
 
-        public MainWindowViewModel(IAppSettingsService appSettingsService, IMainWindowViewModelService viewModelService)
+        public MainWindowViewModel(IMainWindowViewModelService viewModelService, IAppSettingsService appSettingsService)
         {
-            _appSettingsService = appSettingsService;
             _viewModelService = viewModelService;
+            _appSettingsService = appSettingsService;
 
             RemoteComputer = string.Empty;
             RemotePort = _appSettingsService.DefaultRemotePort;
@@ -133,17 +133,9 @@ namespace AlterApp.ViewModels
         [RelayCommand(CanExecute = nameof(CanConnectToRemoteComputer))]
         private void ConnectToRemoteComputer()
         {
-            if (RdpClientHost == null) throw new InvalidOperationException("The RDP client host is not instantiated.");
-
             SwtichToRdpClientView();
             RdpClientLastDisconnectReason = new();
-
-            RdpClientHost.RemoteComputer = RemoteComputer;
-            RdpClientHost.RemotePort = int.Parse(RemotePort);  // TODO: Validation
-            RdpClientHost.UserName = UserName;
-            RdpClientHost.DesktopWidth = (int)RdpClientHostWidth;
-            RdpClientHost.DesktopHeight = (int)RdpClientHostHeight;
-            RdpClientHost.Connect();
+            StartConnect();
         }
 
         private bool CanConnectToRemoteComputer()
@@ -160,6 +152,18 @@ namespace AlterApp.ViewModels
         {
             IsElementEnabled = true;
             RdpClientHostVisibility = Visibility.Hidden;
+        }
+
+        private void StartConnect()
+        {
+            if (RdpClientHost == null) throw new InvalidOperationException("The RDP client host is not instantiated.");
+
+            RdpClientHost.RemoteComputer = RemoteComputer;
+            RdpClientHost.RemotePort = int.Parse(RemotePort);  // TODO: Validation
+            RdpClientHost.UserName = UserName;
+            RdpClientHost.DesktopWidth = (int)RdpClientHostWidth;
+            RdpClientHost.DesktopHeight = (int)RdpClientHostHeight;
+            RdpClientHost.Connect();
         }
 
         public string VersionInfoText

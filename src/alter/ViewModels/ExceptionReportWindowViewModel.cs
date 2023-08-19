@@ -9,13 +9,13 @@ namespace AlterApp.ViewModels
 {
     internal partial class ExceptionReportWindowViewModel : ObservableObject
     {
-        private readonly IAppSettingsService _appSettingsService;
         private readonly IExceptionReportWindowViewModelService _viewModelService;
+        private readonly IAppSettingsService _appSettingsService;
 
-        public ExceptionReportWindowViewModel(IAppSettingsService appSettingsService, IExceptionReportWindowViewModelService viewModelService)
+        public ExceptionReportWindowViewModel(IExceptionReportWindowViewModelService viewModelService, IAppSettingsService appSettingsService)
         {
-            _appSettingsService = appSettingsService;
             _viewModelService = viewModelService;
+            _appSettingsService = appSettingsService;
         }
 
         public string WindowTitle
