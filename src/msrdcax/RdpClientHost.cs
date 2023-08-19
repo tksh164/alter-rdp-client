@@ -254,9 +254,17 @@ namespace MsRdcAx
             OnLoginComplete?.Invoke(this, e);
         }
 
-        private void UpdateSessionDisplaySettingsWithRetry()
+        private void UpdateSessionDisplaySettingsWithRetry(int retriedCount = 0)
         {
             if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
+
+            // Give up retrying if failed retry maxRetryCount times.
+            const int maxRetryCount = 2;
+            if (retriedCount > maxRetryCount)
+            {
+                Debug.WriteLine("Retrying UpdateSessionDisplaySettings() failed {0} times.", maxRetryCount);
+                return;
+            }
 
             try
             {
@@ -274,7 +282,7 @@ namespace MsRdcAx
                     Task.Run(() =>
                     {
                         Thread.Sleep(2000);
-                        UpdateSessionDisplaySettingsWithRetry();
+                        UpdateSessionDisplaySettingsWithRetry(retriedCount++);
                     });
                     return;
                 }
