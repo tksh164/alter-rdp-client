@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Win32;
@@ -12,21 +11,23 @@ namespace AlterApp.Services
     internal class UnhandledExceptionReportService : IUnhandledExceptionReportService
     {
         private readonly ExceptionReportWindow _window;
+        private readonly IAppSettingsService _appSettingsService;
 
-        public UnhandledExceptionReportService(ExceptionReportWindow window)
+        public UnhandledExceptionReportService(ExceptionReportWindow window, IAppSettingsService appSettingsService)
         {
             _window = window;
+            _appSettingsService = appSettingsService;
         }
 
         public void ReportUnhandledException(Exception? ex)
         {
             var viewModel = (ExceptionReportWindowViewModel)_window.DataContext;
-            viewModel.ReportContentText = GetExceptionReportText(ex);
+            viewModel.ReportContentText = BuildExceptionReportText(ex);
             _window.Closed += viewModel.OnWindowClosed;
             _window.ShowDialog();
         }
 
-        private static string GetExceptionReportText(Exception? exception)
+        private string BuildExceptionReportText(Exception? exception)
         {
             if (exception == null)
             {
@@ -37,7 +38,7 @@ namespace AlterApp.Services
             reportText.AppendLine(@"**** ENVIRONMENT ****");
 
             // App
-            string appVersion = (((Assembly.GetEntryAssembly())?.GetName())?.Version)?.ToString() ?? "(Could not get it)";
+            string appVersion = _appSettingsService.GetAppVersion() ?? "(Could not get app version)";
             string processArchitecture = RuntimeInformation.ProcessArchitecture.ToString();
             string dotNet = RuntimeInformation.FrameworkDescription;
             reportText.AppendFormat(@"App version: {0}", appVersion);
