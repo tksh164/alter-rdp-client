@@ -16,12 +16,34 @@
         FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}">
 
     <Window.Resources>
+        <!-- Brushes -->
+        <SolidColorBrush x:Key="RdpClientAreaBackground" Color="#000000"/>
+        <!-- Styles -->
+        <Style x:Key="RemoteComputerTextBox" TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="4,0,0,4"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="RemotePortTextBox" TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="0,4,4,0"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <!-- Converters -->
         <cv:RdpClientConnectionStateConverter x:Key="rdpClientConnectionStateConverter"/>
         <cv:RdpClientDisconnectReasonConverter x:Key="rdpClientDisconnectReasonConverter"/>
         <cv:RdpClientDisconnectReasonDetailsConverter x:Key="rdpClientDisconnectReasonDetailsConverter"/>
         <cv:DisconnectReasonVisibilityConverter x:Key="disconnectReasonVisibilityConverter"/>
         <cv:DisconnectReasonDetailsVisibilityConverter x:Key="disconnectReasonDetailsVisibilityConverter"/>
     </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="V" Modifiers="Alt" Command="{Binding OpenProjectWebsiteCommand}"/>
+    </Window.InputBindings>
 
     <Grid ShowGridLines="False">
         <Grid IsEnabled="{Binding IsElementEnabled, Mode=OneWay}" ShowGridLines="False">
@@ -40,10 +62,10 @@
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
                                    TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                    FontWeight="SemiBold" FontSize="22"
-                                   Text="{Binding DestinationDisplayText, Mode=OneWay}"/>
+                                   Text="{Binding DestinationText, Mode=OneWay}"/>
                     </DataTemplate>
                     <!-- Nickname and destination title -->
-                    <DataTemplate x:Key="ConnectionNicknameAndDestinationTitle">
+                    <DataTemplate x:Key="DestinationAndNicknameTitle">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock Margin="0,0,0,18"
                                        TextAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
@@ -51,7 +73,7 @@
                                        Text="{Binding ConnectionNickname, Mode=OneWay}"/>
                             <TextBlock TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                        FontWeight="SemiBold" FontSize="22" LineHeight="22" LineStackingStrategy="BlockLineHeight"
-                                       Text="{Binding DestinationDisplayText, Mode=OneWay}"/>
+                                       Text="{Binding DestinationText, Mode=OneWay}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ContentPresenter.Resources>
@@ -60,8 +82,8 @@
                     <Style TargetType="{x:Type ContentPresenter}">
                         <Setter Property="ContentTemplate" Value="{StaticResource DestinationOnlyTitle}"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ShouldShowConnectionNicknameAndDestinationTitle, Mode=OneWay}" Value="True">
-                                <Setter Property="ContentTemplate" Value="{StaticResource ConnectionNicknameAndDestinationTitle}"/>
+                            <DataTrigger Binding="{Binding ShouldShowDestinationAndNicknameTitle, Mode=OneWay}" Value="True">
+                                <Setter Property="ContentTemplate" Value="{StaticResource DestinationAndNicknameTitle}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -101,16 +123,16 @@
                 </TextBlock>
 
                 <!-- Remote computer -->
-                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="11" Padding="0" Margin="0,0,0,0"
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="11" Padding="0" Margin="0,0,0,2"
                        VerticalContentAlignment="Bottom" Content="_Remote computer"/>
                 <TextBox x:Name="RemoteComputerTextBox"
-                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="11" Padding="6,0,6,0" Margin="0,0,0,0"
+                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="11" Padding="6,0,6,0" Margin="0,0,2,0"
                          TabIndex="0" VerticalContentAlignment="Center"
                          Style="{StaticResource RemoteComputerTextBox}"
                          Text="{Binding RemoteComputer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Remote port -->
-                <Label Grid.Row="1" Grid.Column="11" Padding="0" Margin="0,0,0,0"
+                <Label Grid.Row="1" Grid.Column="11" Padding="0" Margin="0,0,0,2"
                        VerticalContentAlignment="Bottom" Content="_Port"/>
                 <TextBox Grid.Row="2" Grid.Column="11" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="1" VerticalContentAlignment="Center" MaxLength="5"
@@ -118,7 +140,7 @@
                          Text="{Binding RemotePort, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- User name -->
-                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,0"
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,2"
                        VerticalContentAlignment="Bottom"  Content="_User name"/>
                 <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="2" VerticalContentAlignment="Center"
@@ -126,7 +148,7 @@
                          Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connection nickname -->
-                <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,0"
+                <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,2"
                        VerticalContentAlignment="Bottom" Content="_Nickname for the connection"/>
                 <TextBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="3" VerticalContentAlignment="Center"

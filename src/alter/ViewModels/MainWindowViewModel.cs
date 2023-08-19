@@ -31,25 +31,25 @@ namespace AlterApp.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationDisplayText))]
+        [NotifyPropertyChangedFor(nameof(DestinationText))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remoteComputer;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationDisplayText))]
+        [NotifyPropertyChangedFor(nameof(DestinationText))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remotePort;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationDisplayText))]
+        [NotifyPropertyChangedFor(nameof(DestinationText))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _userName;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(ShouldShowConnectionNicknameAndDestinationTitle))]
+        [NotifyPropertyChangedFor(nameof(ShouldShowDestinationAndNicknameTitle))]
         private string _connectionNickname;
 
         public string WindowTitle
@@ -57,14 +57,14 @@ namespace AlterApp.ViewModels
             get => _viewModelService.GetWindowTitle(ConnectionNickname, UserName, RemoteComputer, RemotePort);
         }
 
-        public string DestinationDisplayText
+        public string DestinationText
         {
-            get => _viewModelService.GetDestinationDisplayText(UserName, RemoteComputer, RemotePort);
+            get => _viewModelService.GetDestinationText(UserName, RemoteComputer, RemotePort);
         }
 
-        public bool ShouldShowConnectionNicknameAndDestinationTitle
+        public bool ShouldShowDestinationAndNicknameTitle
         {
-            get => _viewModelService.ShouldShowConnectionNicknameAndDestinationTitle(ConnectionNickname);
+            get => _viewModelService.ShouldShowDestinationAndNicknameTitle(ConnectionNickname);
         }
 
         private RdpClientHost? _rdpClientHost = null;

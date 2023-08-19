@@ -50,7 +50,7 @@ namespace AlterApp.Services
             return string.Join(" - ", windowTitleParts);
         }
 
-        public string GetDestinationDisplayText(string userNmae, string remoteComputer, string remotePort)
+        public string GetDestinationText(string userNmae, string remoteComputer, string remotePort)
         {
             if (string.IsNullOrWhiteSpace(userNmae) && string.IsNullOrWhiteSpace(remoteComputer))
             {
@@ -64,7 +64,7 @@ namespace AlterApp.Services
             return string.Format("{0} | {1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
         }
 
-        public bool ShouldShowConnectionNicknameAndDestinationTitle(string connectionNickname)
+        public bool ShouldShowDestinationAndNicknameTitle(string connectionNickname)
         {
             return !string.IsNullOrWhiteSpace(connectionNickname);
         }
