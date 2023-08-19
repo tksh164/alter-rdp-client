@@ -200,7 +200,7 @@
 
             <!-- Version info link -->
             <TextBlock Grid.Row="2" Margin="16" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Hyperlink KeyboardNavigation.TabIndex="5" Command="">
+                <Hyperlink KeyboardNavigation.TabIndex="5" Command="{Binding OpenProjectWebsiteCommand}">
                     <Run Text="{Binding VersionInfoText, Mode=OneTime}"/>
                 </Hyperlink>
             </TextBlock>

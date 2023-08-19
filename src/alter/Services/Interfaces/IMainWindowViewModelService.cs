@@ -9,5 +9,6 @@ namespace AlterApp.Services.Interfaces
         public bool ShouldShowConnectionNicknameAndDestinationTitle(string connectionNickname);
         public bool ShouldShowDisconnectReason(RdpClientDisconnectReason lastDisconnectReason);
         public string GetVersionInfoText();
+        public void OpenProjectWebsite();
     }
 }
