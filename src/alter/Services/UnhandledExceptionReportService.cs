@@ -22,12 +22,12 @@ namespace AlterApp.Services
         public void ReportUnhandledException(Exception? ex)
         {
             var viewModel = (ExceptionReportWindowViewModel)_window.DataContext;
-            viewModel.ReportContentText = GetExceptionReportText(ex);
+            viewModel.ReportContentText = BuildExceptionReportText(ex);
             _window.Closed += viewModel.OnWindowClosed;
             _window.ShowDialog();
         }
 
-        private static string GetExceptionReportText(Exception? exception)
+        private string BuildExceptionReportText(Exception? exception)
         {
             if (exception == null)
             {
