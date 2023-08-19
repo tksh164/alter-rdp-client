@@ -69,6 +69,11 @@ namespace AlterApp.Services
             return !string.IsNullOrWhiteSpace(connectionNickname);
         }
 
+        public RdpClientHost GetRdpClientInstance()
+        {
+            return new RdpClientHost();
+        }
+
         public bool ShouldShowDisconnectReason(RdpClientDisconnectReason lastDisconnectReason)
         {
             switch (lastDisconnectReason.Reason)

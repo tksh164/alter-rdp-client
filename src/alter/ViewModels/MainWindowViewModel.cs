@@ -23,7 +23,7 @@ namespace AlterApp.ViewModels
             UserName = string.Empty;
             ConnectionNickname = string.Empty;
 
-            RdpClientHost = new RdpClientHost();
+            RdpClientHost = _viewModelService.GetRdpClientInstance();
             RdpClientHost.OnConnecting += RdpClientHost_OnConnecting;
             RdpClientHost.OnConnected += RdpClientHost_OnConnected;
             RdpClientHost.OnDisconnected += RdpClientHost_OnDisconnected;
