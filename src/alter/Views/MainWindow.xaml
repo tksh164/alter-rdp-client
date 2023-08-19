@@ -40,7 +40,7 @@
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
                                    TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                    FontWeight="SemiBold" FontSize="22"
-                                   Text="{Binding DestinationDisplayText, Mode=OneWay}"/>
+                                   Text="{Binding DestinationText, Mode=OneWay}"/>
                     </DataTemplate>
                     <!-- Nickname and destination title -->
                     <DataTemplate x:Key="ConnectionNicknameAndDestinationTitle">
@@ -51,7 +51,7 @@
                                        Text="{Binding ConnectionNickname, Mode=OneWay}"/>
                             <TextBlock TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                        FontWeight="SemiBold" FontSize="22" LineHeight="22" LineStackingStrategy="BlockLineHeight"
-                                       Text="{Binding DestinationDisplayText, Mode=OneWay}"/>
+                                       Text="{Binding DestinationText, Mode=OneWay}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ContentPresenter.Resources>

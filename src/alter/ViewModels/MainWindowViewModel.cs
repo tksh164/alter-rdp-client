@@ -31,19 +31,19 @@ namespace AlterApp.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationDisplayText))]
+        [NotifyPropertyChangedFor(nameof(DestinationText))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remoteComputer;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationDisplayText))]
+        [NotifyPropertyChangedFor(nameof(DestinationText))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remotePort;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationDisplayText))]
+        [NotifyPropertyChangedFor(nameof(DestinationText))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _userName;
 
@@ -57,9 +57,9 @@ namespace AlterApp.ViewModels
             get => _viewModelService.GetWindowTitle(ConnectionNickname, UserName, RemoteComputer, RemotePort);
         }
 
-        public string DestinationDisplayText
+        public string DestinationText
         {
-            get => _viewModelService.GetDestinationDisplayText(UserName, RemoteComputer, RemotePort);
+            get => _viewModelService.GetDestinationText(UserName, RemoteComputer, RemotePort);
         }
 
         public bool ShouldShowConnectionNicknameAndDestinationTitle

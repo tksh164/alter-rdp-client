@@ -50,7 +50,7 @@ namespace AlterApp.Services
             return string.Join(" - ", windowTitleParts);
         }
 
-        public string GetDestinationDisplayText(string userNmae, string remoteComputer, string remotePort)
+        public string GetDestinationText(string userNmae, string remoteComputer, string remotePort)
         {
             if (string.IsNullOrWhiteSpace(userNmae) && string.IsNullOrWhiteSpace(remoteComputer))
             {
