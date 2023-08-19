@@ -97,7 +97,7 @@
 
                 <!-- Select from the history -->
                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="12" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <Hyperlink KeyboardNavigation.TabIndex="5" Command="">Select from the history</Hyperlink>
+                    <Hyperlink KeyboardNavigation.TabIndex="6" Command="">Select from the history</Hyperlink>
                 </TextBlock>
 
                 <!-- Remote computer -->
