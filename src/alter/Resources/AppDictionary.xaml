@@ -24,18 +24,4 @@
             </Style>
         </Style.Resources>
     </Style>
-    <Style TargetType="TextBox" x:Key="RemoteComputerTextBox">
-        <Style.Resources>
-            <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="4,0,0,4"/>
-            </Style>
-        </Style.Resources>
-    </Style>
-    <Style TargetType="TextBox" x:Key="RemotePortTextBox">
-        <Style.Resources>
-            <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="0,4,4,0"/>
-            </Style>
-        </Style.Resources>
-    </Style>
 </ResourceDictionary>

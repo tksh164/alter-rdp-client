@@ -16,6 +16,22 @@
         FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}">
 
     <Window.Resources>
+        <!-- Styles -->
+        <Style x:Key="RemoteComputerTextBox" TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="4,0,0,4"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="RemotePortTextBox" TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="0,4,4,0"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <!-- Converters -->
         <cv:RdpClientConnectionStateConverter x:Key="rdpClientConnectionStateConverter"/>
         <cv:RdpClientDisconnectReasonConverter x:Key="rdpClientDisconnectReasonConverter"/>
         <cv:RdpClientDisconnectReasonDetailsConverter x:Key="rdpClientDisconnectReasonDetailsConverter"/>
