@@ -133,17 +133,9 @@ namespace AlterApp.ViewModels
         [RelayCommand(CanExecute = nameof(CanConnectToRemoteComputer))]
         private void ConnectToRemoteComputer()
         {
-            if (RdpClientHost == null) throw new InvalidOperationException("The RDP client host is not instantiated.");
-
             SwtichToRdpClientView();
             RdpClientLastDisconnectReason = new();
-
-            RdpClientHost.RemoteComputer = RemoteComputer;
-            RdpClientHost.RemotePort = int.Parse(RemotePort);  // TODO: Validation
-            RdpClientHost.UserName = UserName;
-            RdpClientHost.DesktopWidth = (int)RdpClientHostWidth;
-            RdpClientHost.DesktopHeight = (int)RdpClientHostHeight;
-            RdpClientHost.Connect();
+            StartConnect();
         }
 
         private bool CanConnectToRemoteComputer()
@@ -160,6 +152,18 @@ namespace AlterApp.ViewModels
         {
             IsElementEnabled = true;
             RdpClientHostVisibility = Visibility.Hidden;
+        }
+
+        private void StartConnect()
+        {
+            if (RdpClientHost == null) throw new InvalidOperationException("The RDP client host is not instantiated.");
+
+            RdpClientHost.RemoteComputer = RemoteComputer;
+            RdpClientHost.RemotePort = int.Parse(RemotePort);  // TODO: Validation
+            RdpClientHost.UserName = UserName;
+            RdpClientHost.DesktopWidth = (int)RdpClientHostWidth;
+            RdpClientHost.DesktopHeight = (int)RdpClientHostHeight;
+            RdpClientHost.Connect();
         }
 
         public string VersionInfoText
