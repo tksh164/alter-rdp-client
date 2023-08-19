@@ -1,4 +1,6 @@
-﻿using AlterApp.Services.Interfaces;
+﻿using System;
+using System.Reflection;
+using AlterApp.Services.Interfaces;
 
 namespace AlterApp.Services
 {
@@ -7,6 +9,21 @@ namespace AlterApp.Services
         private const string _appName = "Alter";
 
         public string AppName => _appName;
+
+        private const string _appProjectWebsiteUri = "https://github.com/tksh164/alter-rdp-client";
+
+        public string AppProjectWebsiteUri => _appProjectWebsiteUri;
+
+        public string? GetAppVersion()
+        {
+            return (((Assembly.GetEntryAssembly())?.GetName())?.Version)?.ToString();
+        }
+
+        public string? GetSemanticAppVersion()
+        {
+            string? appVersion = GetAppVersion();
+            return appVersion?.Substring(0, appVersion.LastIndexOf(".", StringComparison.OrdinalIgnoreCase));
+        }
 
         private const string _defaultRemotePort = "3389";
 

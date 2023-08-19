@@ -4,6 +4,12 @@
     {
         public string AppName { get; }
 
+        public string AppProjectWebsiteUri { get; }
+
+        public string? GetAppVersion();
+
+        public string? GetSemanticAppVersion();
+
         public string DefaultRemotePort { get; }
     }
 }

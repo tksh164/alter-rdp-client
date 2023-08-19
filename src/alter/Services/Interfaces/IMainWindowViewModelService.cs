@@ -8,5 +8,7 @@ namespace AlterApp.Services.Interfaces
         public string GetDestinationDisplayText(string userNmae, string remoteComputer, string remotePort);
         public bool ShouldShowConnectionNicknameAndDestinationTitle(string connectionNickname);
         public bool ShouldShowDisconnectReason(RdpClientDisconnectReason lastDisconnectReason);
+        public string GetVersionInfoText();
+        public void OpenProjectWebsite();
     }
 }

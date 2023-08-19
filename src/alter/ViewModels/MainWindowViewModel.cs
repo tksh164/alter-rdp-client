@@ -162,6 +162,17 @@ namespace AlterApp.ViewModels
             RdpClientHostVisibility = Visibility.Hidden;
         }
 
+        public string VersionInfoText
+        {
+            get => _viewModelService.GetVersionInfoText();
+        }
+
+        [RelayCommand()]
+        private void OpenProjectWebsite()
+        {
+            _viewModelService.OpenProjectWebsite();
+        }
+
         private void RdpClientHost_OnConnecting(object? sender, EventArgs e)
         {
             ArgumentNullException.ThrowIfNull(sender, nameof(sender));

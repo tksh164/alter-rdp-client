@@ -43,7 +43,7 @@ namespace AlterApp.ViewModels
         [RelayCommand()]
         private void OpenProjectWebsite()
         {
-            _viewModelService.OpenProjectWebsite();
+            _viewModelService.OpenIssueReportUri();
         }
 
         [RelayCommand()]

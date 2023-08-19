@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Diagnostics;
+using System.Collections.Generic;
 using AlterApp.Services.Interfaces;
 using MsRdcAx;
 
@@ -96,6 +97,25 @@ namespace AlterApp.Services
                 default:
                     return true;
             }
+        }
+
+        public string GetVersionInfoText()
+        {
+            string? appVersion = _appSettingsService.GetSemanticAppVersion();
+            if (appVersion == null)
+            {
+                return string.Format("{0} (Could not get app version)", _appSettingsService.AppName);
+            }
+            return string.Format("{0} v{1}", _appSettingsService.AppName, appVersion);
+        }
+
+        public void OpenProjectWebsite()
+        {
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = _appSettingsService.AppProjectWebsiteUri,
+                UseShellExecute = true,
+            });
         }
     }
 }
