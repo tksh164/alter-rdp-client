@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:AlterApp.ViewModels"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:ExceptionReportWindowViewModel}"
-        Title="{Binding WindowTitle}"
+        Title="{Binding WindowTitle, Mode=OneTime}"
         Width="640" Height="480" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True"
         FontSize="14"
@@ -21,9 +21,9 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" TextWrapping="Wrap">
-            <Run Text="{Binding AppName, Mode=OneWay}"/>
+            <Run Text="{Binding AppName, Mode=OneTime}"/>
             <Run Text="has crashed. Sorry for the inconvenience. It would be helpful for us if you could report the following data as an issue on"/>
-            <Hyperlink Command="{Binding OpenProjectWebsiteCommand}">the project website</Hyperlink><!--
+            <Hyperlink Command="{Binding OpenProjectWebsiteCommand, Mode=OneTime}">the project website</Hyperlink><!--
             --><Run Text=". Thank you."/>
         </TextBlock>
 
@@ -32,16 +32,16 @@
                  TabIndex="0"
                  IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
                  Style="{StaticResource DefaultMultilineTextBox}" FontSize="12"
-                 Text="{Binding ReportContentText, Mode=OneWay}"/>
+                 Text="{Binding ReportContentText, Mode=OneTime}"/>
         <Button Grid.Row="2" Padding="20,10" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                 TabIndex="1" IsDefault="True"
                 Style="{StaticResource DefaultButton}"
-                Command="{Binding CopyReportContentTextToClipboardCommand}"
+                Command="{Binding CopyReportContentTextToClipboardCommand, Mode=OneTime}"
                 Content="{Binding CopyButtonContentText}"/>
         <Button Grid.Row="2" Padding="20,10" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 TabIndex="2" IsCancel="True"
                 Style="{StaticResource DefaultButton}"
-                Command="{Binding ExitApplicationCommand}"
+                Command="{Binding ExitApplicationCommand, Mode=OneTime}"
                 Content="Exit"/>
     </Grid>
 </Window>
