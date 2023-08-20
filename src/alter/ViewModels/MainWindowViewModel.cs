@@ -172,6 +172,12 @@ namespace AlterApp.ViewModels
         }
 
         [RelayCommand()]
+        private void SetFocusToVersionInfoLink(ContentElement? element)
+        {
+            element?.Focus();
+        }
+
+        [RelayCommand()]
         private void OpenProjectWebsite()
         {
             _viewModelService.OpenProjectWebsite();
