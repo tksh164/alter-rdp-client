@@ -31,7 +31,7 @@
     </Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Key="V" Modifiers="Alt" Command="{Binding OpenProjectWebsiteCommand}"/>
+        <KeyBinding Key="V" Modifiers="Alt" Command="{Binding SetFocusToVersionInfoLinkCommand}" CommandParameter="{Binding ElementName=VersionInfoHyperLink}"/>
     </Window.InputBindings>
 
     <Grid ShowGridLines="False">
@@ -236,7 +236,7 @@
 
             <!-- Version info link -->
             <TextBlock Grid.Row="2" Margin="16" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Hyperlink KeyboardNavigation.TabIndex="5" Command="{Binding OpenProjectWebsiteCommand}">
+                <Hyperlink x:Name="VersionInfoHyperLink" KeyboardNavigation.TabIndex="5" Command="{Binding OpenProjectWebsiteCommand}">
                     <Run Text="{Binding VersionInfoText, Mode=OneTime}"/>
                 </Hyperlink>
             </TextBlock>
