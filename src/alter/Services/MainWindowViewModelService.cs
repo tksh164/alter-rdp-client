@@ -18,33 +18,38 @@ namespace AlterApp.Services
 
         public string GetWindowTitle(string connectionNickname, string userNmae, string remoteComputer, string remotePort)
         {
-            if (string.IsNullOrWhiteSpace(connectionNickname) && string.IsNullOrWhiteSpace(remoteComputer))
+            string trimedConnectionNickname = connectionNickname.Trim();
+            string trimedUserNmae = userNmae.Trim();
+            string trimedRemoteComputer = remoteComputer.Trim();
+            string trimedRemotePort = remotePort.Trim();
+
+            if (string.IsNullOrWhiteSpace(trimedConnectionNickname) && string.IsNullOrWhiteSpace(trimedRemoteComputer))
             {
                 return _appSettingsService.AppName;
             }
 
             List<string> windowTitleParts = new();
 
-            if (!string.IsNullOrWhiteSpace(connectionNickname))
+            if (!string.IsNullOrWhiteSpace(trimedConnectionNickname))
             {
-                windowTitleParts.Add(connectionNickname);
+                windowTitleParts.Add(trimedConnectionNickname);
             }
 
-            if (!string.IsNullOrWhiteSpace(userNmae) && !string.IsNullOrWhiteSpace(remoteComputer) && !string.IsNullOrWhiteSpace(remotePort))
+            if (!string.IsNullOrWhiteSpace(trimedUserNmae) && !string.IsNullOrWhiteSpace(trimedRemoteComputer) && !string.IsNullOrWhiteSpace(trimedRemotePort))
             {
-                windowTitleParts.Add(string.Format("{0} | {1}:{2}", userNmae, remoteComputer, remotePort));
+                windowTitleParts.Add(string.Format("{0} | {1}:{2}", trimedUserNmae, trimedRemoteComputer, trimedRemotePort));
             }
-            else if (!string.IsNullOrWhiteSpace(userNmae) && !string.IsNullOrWhiteSpace(remoteComputer))
+            else if (!string.IsNullOrWhiteSpace(trimedUserNmae) && !string.IsNullOrWhiteSpace(trimedRemoteComputer))
             {
-                windowTitleParts.Add(string.Format("{0} | {1}", userNmae, remoteComputer));
+                windowTitleParts.Add(string.Format("{0} | {1}", trimedUserNmae, trimedRemoteComputer));
             }
-            else if (!string.IsNullOrWhiteSpace(remoteComputer) && !string.IsNullOrWhiteSpace(remotePort))
+            else if (!string.IsNullOrWhiteSpace(trimedRemoteComputer) && !string.IsNullOrWhiteSpace(trimedRemotePort))
             {
-                windowTitleParts.Add(string.Format("{0}:{1}", remoteComputer, remotePort));
+                windowTitleParts.Add(string.Format("{0}:{1}", trimedRemoteComputer, trimedRemotePort));
             }
-            else if (!string.IsNullOrWhiteSpace(remoteComputer))
+            else if (!string.IsNullOrWhiteSpace(trimedRemoteComputer))
             {
-                windowTitleParts.Add(remoteComputer);
+                windowTitleParts.Add(trimedRemoteComputer);
             }
 
             windowTitleParts.Add(_appSettingsService.AppName);
