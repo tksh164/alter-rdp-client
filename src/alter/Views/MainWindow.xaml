@@ -144,7 +144,7 @@
                 <!-- Connection nickname -->
                 <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,2"
                        Target="{Binding ElementName=ConnectionNicknameTextBox}" VerticalContentAlignment="Bottom"
-                       Content="_Nickname for the connection"/>
+                       Content="Connection _title"/>
                 <TextBox x:Name="ConnectionNicknameTextBox"
                          Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="3" VerticalContentAlignment="Center"
