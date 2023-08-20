@@ -113,7 +113,8 @@
 
                 <!-- Remote computer -->
                 <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="11" Padding="0" Margin="0,0,0,2"
-                       VerticalContentAlignment="Bottom" Content="_Remote computer"/>
+                       Target="{Binding ElementName=RemoteComputerTextBox}" VerticalContentAlignment="Bottom"
+                       Content="_Remote computer"/>
                 <TextBox x:Name="RemoteComputerTextBox"
                          Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="11" Padding="6,0,6,0" Margin="0,0,2,0"
                          TabIndex="0" VerticalContentAlignment="Center"
@@ -122,24 +123,30 @@
 
                 <!-- Remote port -->
                 <Label Grid.Row="1" Grid.Column="11" Padding="0" Margin="0,0,0,2"
-                       VerticalContentAlignment="Bottom" Content="_Port"/>
-                <TextBox Grid.Row="2" Grid.Column="11" Padding="6,0,6,0" Margin="0,0,0,0"
+                       Target="{Binding ElementName=RemotePortTextBox}" VerticalContentAlignment="Bottom"
+                       Content="_Port"/>
+                <TextBox x:Name="RemotePortTextBox"
+                         Grid.Row="2" Grid.Column="11" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="1" VerticalContentAlignment="Center" MaxLength="5"
                          Style="{StaticResource RemotePortTextBoxStyle}"
                          Text="{Binding RemotePort, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- User name -->
                 <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,2"
-                       VerticalContentAlignment="Bottom"  Content="_User name"/>
-                <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
+                       Target="{Binding ElementName=UserNameTextBox}" VerticalContentAlignment="Bottom"
+                       Content="_User name"/>
+                <TextBox x:Name="UserNameTextBox"
+                         Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="2" VerticalContentAlignment="Center"
                          Style="{StaticResource DefaultTextBoxStyle}"
                          Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connection nickname -->
                 <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,2"
-                       VerticalContentAlignment="Bottom" Content="_Nickname for the connection"/>
-                <TextBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
+                       Target="{Binding ElementName=ConnectionNicknameTextBox}" VerticalContentAlignment="Bottom"
+                       Content="_Nickname for the connection"/>
+                <TextBox x:Name="ConnectionNicknameTextBox"
+                         Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="3" VerticalContentAlignment="Center"
                          Style="{StaticResource DefaultTextBoxStyle}"
                          Text="{Binding ConnectionNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
