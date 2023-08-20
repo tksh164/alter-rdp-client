@@ -10,6 +10,12 @@ namespace AlterApp.Services.Interfaces
 
         public bool ShouldShowDestinationAndNicknameTitle(string connectionNickname);
 
+        public bool ValidateRemoteComputer(string remoteComputer);
+
+        public bool ValidateRemotePort(string remotePort);
+
+        public bool ValidateUserName(string userName);
+
         public RdpClientHost GetRdpClientInstance();
 
         public bool ShouldShowDisconnectReason(RdpClientDisconnectReason lastDisconnectReason);

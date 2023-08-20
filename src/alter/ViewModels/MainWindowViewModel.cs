@@ -138,11 +138,6 @@ namespace AlterApp.ViewModels
             StartConnect();
         }
 
-        private bool CanConnectToRemoteComputer()
-        {
-            return !string.IsNullOrWhiteSpace(RemoteComputer) && !string.IsNullOrWhiteSpace(RemotePort) && !string.IsNullOrWhiteSpace(UserName);
-        }
-
         private void SwtichToRdpClientView()
         {
             IsElementEnabled = false;
@@ -158,12 +153,17 @@ namespace AlterApp.ViewModels
         {
             if (RdpClientHost == null) throw new InvalidOperationException("The RDP client host is not instantiated.");
 
-            RdpClientHost.RemoteComputer = RemoteComputer;
-            RdpClientHost.RemotePort = int.Parse(RemotePort);  // TODO: Validation
-            RdpClientHost.UserName = UserName;
+            RdpClientHost.RemoteComputer = RemoteComputer.Trim();
+            RdpClientHost.RemotePort = int.Parse(RemotePort.Trim());
+            RdpClientHost.UserName = UserName.Trim();
             RdpClientHost.DesktopWidth = (int)RdpClientHostWidth;
             RdpClientHost.DesktopHeight = (int)RdpClientHostHeight;
             RdpClientHost.Connect();
+        }
+
+        private bool CanConnectToRemoteComputer()
+        {
+            return _viewModelService.ValidateRemoteComputer(RemoteComputer) && _viewModelService.ValidateRemotePort(RemotePort) && _viewModelService.ValidateUserName(UserName);
         }
 
         public string VersionInfoText
