@@ -19,9 +19,9 @@ namespace AlterApp.Services
         public string GetWindowTitle(string connectionNickname, string remoteComputer, string remotePort, string userNmae)
         {
             string trimedConnectionNickname = connectionNickname.Trim();
-            string trimedUserNmae = userNmae.Trim();
             string trimedRemoteComputer = remoteComputer.Trim();
             string trimedRemotePort = remotePort.Trim();
+            string trimedUserNmae = userNmae.Trim();
 
             if (string.IsNullOrWhiteSpace(trimedConnectionNickname) && string.IsNullOrWhiteSpace(trimedRemoteComputer))
             {
