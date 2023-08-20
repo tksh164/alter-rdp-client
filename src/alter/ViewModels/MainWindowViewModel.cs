@@ -59,7 +59,7 @@ namespace AlterApp.ViewModels
 
         public string DestinationText
         {
-            get => _viewModelService.GetDestinationText(UserName, RemoteComputer, RemotePort);
+            get => _viewModelService.GetDestinationText(RemoteComputer, RemotePort, UserName);
         }
 
         public bool ShouldShowDestinationAndNicknameTitle
