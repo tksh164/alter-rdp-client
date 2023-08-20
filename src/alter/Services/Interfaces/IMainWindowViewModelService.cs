@@ -4,9 +4,9 @@ namespace AlterApp.Services.Interfaces
 {
     internal interface IMainWindowViewModelService
     {
-        public string GetWindowTitle(string connectionNickname, string userNmae, string remoteComputer, string remotePort);
+        public string GetWindowTitle(string connectionNickname, string remoteComputer, string remotePort, string userNmae);
 
-        public string GetDestinationText(string userNmae, string remoteComputer, string remotePort);
+        public string GetDestinationText(string remoteComputer, string remotePort, string userNmae);
 
         public bool ShouldShowDestinationAndNicknameTitle(string connectionNickname);
 

@@ -16,35 +16,40 @@ namespace AlterApp.Services
             _appSettingsService = appSettingsService;
         }
 
-        public string GetWindowTitle(string connectionNickname, string userNmae, string remoteComputer, string remotePort)
+        public string GetWindowTitle(string connectionNickname, string remoteComputer, string remotePort, string userNmae)
         {
-            if (string.IsNullOrWhiteSpace(connectionNickname) && string.IsNullOrWhiteSpace(remoteComputer))
+            string trimedConnectionNickname = connectionNickname.Trim();
+            string trimedRemoteComputer = remoteComputer.Trim();
+            string trimedRemotePort = remotePort.Trim();
+            string trimedUserNmae = userNmae.Trim();
+
+            if (string.IsNullOrWhiteSpace(trimedConnectionNickname) && string.IsNullOrWhiteSpace(trimedRemoteComputer))
             {
                 return _appSettingsService.AppName;
             }
 
             List<string> windowTitleParts = new();
 
-            if (!string.IsNullOrWhiteSpace(connectionNickname))
+            if (!string.IsNullOrWhiteSpace(trimedConnectionNickname))
             {
-                windowTitleParts.Add(connectionNickname);
+                windowTitleParts.Add(trimedConnectionNickname);
             }
 
-            if (!string.IsNullOrWhiteSpace(userNmae) && !string.IsNullOrWhiteSpace(remoteComputer) && !string.IsNullOrWhiteSpace(remotePort))
+            if (!string.IsNullOrWhiteSpace(trimedRemoteComputer) && !string.IsNullOrWhiteSpace(trimedRemotePort) && !string.IsNullOrWhiteSpace(trimedUserNmae))
             {
-                windowTitleParts.Add(string.Format("{0} | {1}:{2}", userNmae, remoteComputer, remotePort));
+                windowTitleParts.Add(string.Format("{0} | {1}:{2}", trimedUserNmae, trimedRemoteComputer, trimedRemotePort));
             }
-            else if (!string.IsNullOrWhiteSpace(userNmae) && !string.IsNullOrWhiteSpace(remoteComputer))
+            else if (!string.IsNullOrWhiteSpace(trimedRemoteComputer) && !string.IsNullOrWhiteSpace(trimedUserNmae))
             {
-                windowTitleParts.Add(string.Format("{0} | {1}", userNmae, remoteComputer));
+                windowTitleParts.Add(string.Format("{0} | {1}", trimedUserNmae, trimedRemoteComputer));
             }
-            else if (!string.IsNullOrWhiteSpace(remoteComputer) && !string.IsNullOrWhiteSpace(remotePort))
+            else if (!string.IsNullOrWhiteSpace(trimedRemoteComputer) && !string.IsNullOrWhiteSpace(trimedRemotePort))
             {
-                windowTitleParts.Add(string.Format("{0}:{1}", remoteComputer, remotePort));
+                windowTitleParts.Add(string.Format("{0}:{1}", trimedRemoteComputer, trimedRemotePort));
             }
-            else if (!string.IsNullOrWhiteSpace(remoteComputer))
+            else if (!string.IsNullOrWhiteSpace(trimedRemoteComputer))
             {
-                windowTitleParts.Add(remoteComputer);
+                windowTitleParts.Add(trimedRemoteComputer);
             }
 
             windowTitleParts.Add(_appSettingsService.AppName);
@@ -52,17 +57,21 @@ namespace AlterApp.Services
             return string.Join(" - ", windowTitleParts);
         }
 
-        public string GetDestinationText(string userNmae, string remoteComputer, string remotePort)
+        public string GetDestinationText(string remoteComputer, string remotePort, string userNmae)
         {
-            if (string.IsNullOrWhiteSpace(userNmae) && string.IsNullOrWhiteSpace(remoteComputer))
+            string trimedRemoteComputer = remoteComputer.Trim();
+            string trimedRemotePort = remotePort.Trim();
+            string trimedUserNmae = userNmae.Trim();
+
+            if (string.IsNullOrWhiteSpace(trimedRemoteComputer) && string.IsNullOrWhiteSpace(trimedUserNmae))
             {
                 return string.Empty;
             }
 
             const string placeHolderText = "????";
-            var userNamePart = string.IsNullOrWhiteSpace(userNmae) ? placeHolderText : userNmae;
-            var remoteComputerPart = string.IsNullOrWhiteSpace(remoteComputer) ? placeHolderText : remoteComputer;
-            var remotePortPart = string.IsNullOrWhiteSpace(remotePort) ? placeHolderText : remotePort;
+            var userNamePart = string.IsNullOrWhiteSpace(trimedUserNmae) ? placeHolderText : trimedUserNmae;
+            var remoteComputerPart = string.IsNullOrWhiteSpace(trimedRemoteComputer) ? placeHolderText : trimedRemoteComputer;
+            var remotePortPart = string.IsNullOrWhiteSpace(trimedRemotePort) ? placeHolderText : trimedRemotePort;
             return string.Format("{0} | {1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
         }
 
