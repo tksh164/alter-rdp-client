@@ -59,15 +59,19 @@ namespace AlterApp.Services
 
         public string GetDestinationText(string userNmae, string remoteComputer, string remotePort)
         {
-            if (string.IsNullOrWhiteSpace(userNmae) && string.IsNullOrWhiteSpace(remoteComputer))
+            string trimedRemoteComputer = remoteComputer.Trim();
+            string trimedRemotePort = remotePort.Trim();
+            string trimedUserNmae = userNmae.Trim();
+
+            if (string.IsNullOrWhiteSpace(trimedUserNmae) && string.IsNullOrWhiteSpace(trimedRemoteComputer))
             {
                 return string.Empty;
             }
 
             const string placeHolderText = "????";
-            var userNamePart = string.IsNullOrWhiteSpace(userNmae) ? placeHolderText : userNmae;
-            var remoteComputerPart = string.IsNullOrWhiteSpace(remoteComputer) ? placeHolderText : remoteComputer;
-            var remotePortPart = string.IsNullOrWhiteSpace(remotePort) ? placeHolderText : remotePort;
+            var userNamePart = string.IsNullOrWhiteSpace(trimedUserNmae) ? placeHolderText : trimedUserNmae;
+            var remoteComputerPart = string.IsNullOrWhiteSpace(trimedRemoteComputer) ? placeHolderText : trimedRemoteComputer;
+            var remotePortPart = string.IsNullOrWhiteSpace(trimedRemotePort) ? placeHolderText : trimedRemotePort;
             return string.Format("{0} | {1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
         }
 
