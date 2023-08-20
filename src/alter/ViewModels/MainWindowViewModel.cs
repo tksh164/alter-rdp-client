@@ -153,9 +153,9 @@ namespace AlterApp.ViewModels
         {
             if (RdpClientHost == null) throw new InvalidOperationException("The RDP client host is not instantiated.");
 
-            RdpClientHost.RemoteComputer = RemoteComputer;
-            RdpClientHost.RemotePort = int.Parse(RemotePort);  // TODO: Validation
-            RdpClientHost.UserName = UserName;
+            RdpClientHost.RemoteComputer = RemoteComputer.Trim();
+            RdpClientHost.RemotePort = int.Parse(RemotePort.Trim());
+            RdpClientHost.UserName = UserName.Trim();
             RdpClientHost.DesktopWidth = (int)RdpClientHostWidth;
             RdpClientHost.DesktopHeight = (int)RdpClientHostHeight;
             RdpClientHost.Connect();
