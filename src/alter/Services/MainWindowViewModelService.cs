@@ -74,8 +74,8 @@ namespace AlterApp.Services
         public bool ValidateRemoteComputer(string remoteComputer)
         {
             if (string.IsNullOrWhiteSpace(remoteComputer)) return false;
-            if (IPAddressRegex().Match(remoteComputer).Success) return true;
-            if (HostNameRegex().Match(remoteComputer).Success) return true;
+            if (IPAddressRegex().Match(remoteComputer.Trim()).Success) return true;
+            if (HostNameRegex().Match(remoteComputer.Trim()).Success) return true;
             return false;
         }
 
