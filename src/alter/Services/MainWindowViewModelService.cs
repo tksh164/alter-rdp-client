@@ -16,7 +16,7 @@ namespace AlterApp.Services
             _appSettingsService = appSettingsService;
         }
 
-        public string GetWindowTitle(string connectionNickname, string userNmae, string remoteComputer, string remotePort)
+        public string GetWindowTitle(string connectionNickname, string remoteComputer, string remotePort, string userNmae)
         {
             string trimedConnectionNickname = connectionNickname.Trim();
             string trimedUserNmae = userNmae.Trim();
