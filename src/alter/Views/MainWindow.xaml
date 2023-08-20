@@ -19,7 +19,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Resources/MainWindowDictionary.xaml"/>
+                <ResourceDictionary Source="../ResourceDictionaries/MainWindowDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!-- Converters -->
             <cv:RdpClientConnectionStateConverter x:Key="rdpClientConnectionStateConverter"/>
