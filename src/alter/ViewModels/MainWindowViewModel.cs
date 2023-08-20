@@ -138,11 +138,6 @@ namespace AlterApp.ViewModels
             StartConnect();
         }
 
-        private bool CanConnectToRemoteComputer()
-        {
-            return !string.IsNullOrWhiteSpace(RemoteComputer) && !string.IsNullOrWhiteSpace(RemotePort) && !string.IsNullOrWhiteSpace(UserName);
-        }
-
         private void SwtichToRdpClientView()
         {
             IsElementEnabled = false;
@@ -164,6 +159,11 @@ namespace AlterApp.ViewModels
             RdpClientHost.DesktopWidth = (int)RdpClientHostWidth;
             RdpClientHost.DesktopHeight = (int)RdpClientHostHeight;
             RdpClientHost.Connect();
+        }
+
+        private bool CanConnectToRemoteComputer()
+        {
+            return _viewModelService.ValidateRemoteComputer(RemoteComputer) && _viewModelService.ValidateRemotePort(RemotePort) && _viewModelService.ValidateUserName(UserName);
         }
 
         public string VersionInfoText

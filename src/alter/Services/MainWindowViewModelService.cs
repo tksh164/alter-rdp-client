@@ -1,11 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
-using AlterApp.Services.Interfaces;
+using System.Text.RegularExpressions;
 using MsRdcAx;
+using AlterApp.Services.Interfaces;
 
 namespace AlterApp.Services
 {
-    internal class MainWindowViewModelService : IMainWindowViewModelService
+    internal partial class MainWindowViewModelService : IMainWindowViewModelService
     {
         private readonly IAppSettingsService _appSettingsService;
 
@@ -67,6 +69,39 @@ namespace AlterApp.Services
         public bool ShouldShowDestinationAndNicknameTitle(string connectionNickname)
         {
             return !string.IsNullOrWhiteSpace(connectionNickname);
+        }
+
+        public bool ValidateRemoteComputer(string remoteComputer)
+        {
+            if (string.IsNullOrWhiteSpace(remoteComputer)) return false;
+            if (IPAddressRegex().Match(remoteComputer).Success) return true;
+            if (HostNameRegex().Match(remoteComputer).Success) return true;
+            return false;
+        }
+
+        [GeneratedRegex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+        private static partial Regex IPAddressRegex();
+
+        [GeneratedRegex("^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+        private static partial Regex HostNameRegex();
+
+        public bool ValidateRemotePort(string remotePort)
+        {
+            if (string.IsNullOrWhiteSpace(remotePort)) return false;
+            if (!int.TryParse(remotePort, out int port)) return false;
+
+            const int minPort = 1;
+            const int maxPort = 65535;
+            if (port < minPort || port > maxPort) return false;
+
+            return true;
+        }
+
+        public bool ValidateUserName(string userName)
+        {
+            if (string.IsNullOrWhiteSpace(userName)) return false;
+            if (0 <= userName.Trim().IndexOf(' ', StringComparison.OrdinalIgnoreCase)) return false;
+            return true;
         }
 
         public RdpClientHost GetRdpClientInstance()
