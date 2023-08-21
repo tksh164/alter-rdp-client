@@ -10,24 +10,24 @@
   </PropertyGroup>
 
   <PropertyGroup>
-	  <!-- NuGet package -->
-	  <Version>0.1.0</Version>
-	  <Title>Remote Desktop Services ActiveX client for Alter</Title>
-	  <Description>$(Title)</Description>
-	  <Authors>Takeshi Katano</Authors>
-	  <Copyright>Copyright (c) 2023 Takeshi Katano. All rights reserved.</Copyright>
-	  <PackageProjectUrl>https://github.com/tksh164/alter-rdp-client</PackageProjectUrl>
-	  <RepositoryUrl>https://github.com/tksh164/alter-rdp-client</RepositoryUrl>
-	  <RepositoryType>git</RepositoryType>
-	  <NeutralLanguage>en-US</NeutralLanguage>
+    <!-- NuGet package -->
+	<Version>0.1.0</Version>
+	<Title>Remote Desktop Services ActiveX client for Alter</Title>
+	<Description>$(Title)</Description>
+	<Authors>Takeshi Katano</Authors>
+	<Copyright>Copyright (c) 2023 Takeshi Katano. All rights reserved.</Copyright>
+	<PackageProjectUrl>https://github.com/tksh164/alter-rdp-client</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/tksh164/alter-rdp-client</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<NeutralLanguage>en-US</NeutralLanguage>
 
-	  <!-- AssemblyInfo -->
-	  <Company></Company>
-	  <Product>MsRdcAx</Product>
-	  <FileVersion>$(Version)</FileVersion>
-	  <InformationalVersion>$(Version)</InformationalVersion>
-	  <AssemblyVersion>$(Version)</AssemblyVersion>
-	  <AssemblyTitle>$(Title)</AssemblyTitle>
+	<!-- AssemblyInfo -->
+	<Company></Company>
+	<Product>MsRdcAx</Product>
+	<FileVersion>$(Version)</FileVersion>
+	<InformationalVersion>$(Version)</InformationalVersion>
+	<AssemblyVersion>$(Version)</AssemblyVersion>
+	<AssemblyTitle>$(Title)</AssemblyTitle>
   </PropertyGroup>
 
   <ItemGroup>
