@@ -109,7 +109,6 @@ namespace AlterApp.Services
         public bool ValidateUserName(string userName)
         {
             if (string.IsNullOrWhiteSpace(userName)) return false;
-            if (0 <= userName.Trim().IndexOf(' ', StringComparison.OrdinalIgnoreCase)) return false;
             return true;
         }
 
