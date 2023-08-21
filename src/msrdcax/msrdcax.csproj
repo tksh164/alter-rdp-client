@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
+	<UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
+	<Nullable>enable</Nullable>
+	<RootNamespace>MsRdcAx</RootNamespace>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
-    <RootNamespace>MsRdcAx</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
