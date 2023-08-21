@@ -1,27 +1,4 @@
-﻿using System.Reflection;
-using System.Runtime.InteropServices;
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-//[assembly: AssemblyVersion("0.1.0.0")]
-//[assembly: AssemblyFileVersion("0.1.0.0")]
-
-//// General Information about an assembly is controlled through the following 
-//// set of attributes. Change these attribute values to modify the information
-//// associated with an assembly.
-//[assembly: AssemblyTitle("Remote Desktop Services ActiveX client for Alter")]
-//[assembly: AssemblyDescription("Remote Desktop Services ActiveX client for Alter.")]
-//[assembly: AssemblyConfiguration("")]
-//[assembly: AssemblyCompany("")]
-//[assembly: AssemblyProduct("msrdcax")]
-//[assembly: AssemblyCopyright("Copyright (c) 2023 Takeshi Katano. All rights reserved.")]
-//[assembly: AssemblyTrademark("")]
-//[assembly: AssemblyCulture("")]
+﻿using System.Runtime.InteropServices;
 
 //// Setting ComVisible to false makes the types in this assembly not visible 
 //// to COM components.  If you need to access a type in this assembly from 
