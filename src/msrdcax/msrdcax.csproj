@@ -17,7 +17,7 @@
 	<Authors>Takeshi Katano</Authors>
 	<Copyright>Copyright (c) 2023 Takeshi Katano. All rights reserved.</Copyright>
 	<PackageProjectUrl>https://github.com/tksh164/alter-rdp-client</PackageProjectUrl>
-	<RepositoryUrl>https://github.com/tksh164/alter-rdp-client</RepositoryUrl>
+	<RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
 	<NeutralLanguage>en-US</NeutralLanguage>
 
