@@ -3,14 +3,14 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <RootNamespace>AlterApp</RootNamespace>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ApplicationManifest>Resources\app.manifest</ApplicationManifest>
-    <NoWarn>$(NoWarn);WFAC010</NoWarn>
-    <ApplicationIcon>Resources\alter.ico</ApplicationIcon>
+	<UseWindowsForms>true</UseWindowsForms>
+	<Nullable>enable</Nullable>
+    <RootNamespace>AlterApp</RootNamespace>
+	<ApplicationManifest>Resources\app.manifest</ApplicationManifest>
+	<ApplicationIcon>Resources\alter.ico</ApplicationIcon>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<NoWarn>$(NoWarn);WFAC010</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
