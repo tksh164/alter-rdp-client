@@ -3,14 +3,35 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <RootNamespace>AlterApp</RootNamespace>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ApplicationManifest>Resources\app.manifest</ApplicationManifest>
-    <NoWarn>$(NoWarn);WFAC010</NoWarn>
-    <ApplicationIcon>Resources\alter.ico</ApplicationIcon>
+	<UseWindowsForms>true</UseWindowsForms>
+	<Nullable>enable</Nullable>
+    <RootNamespace>AlterApp</RootNamespace>
+	<ApplicationManifest>Resources\app.manifest</ApplicationManifest>
+	<ApplicationIcon>Resources\alter.ico</ApplicationIcon>
+	<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+	<NoWarn>$(NoWarn);WFAC010</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- NuGet package -->
+	<Version>0.1.0</Version>
+	<Title>Alter RDP client</Title>
+	<Description>Alter is a remote desktop client application.</Description>
+	<Authors>Takeshi Katano</Authors>
+	<Copyright>Copyright (c) 2023 Takeshi Katano. All rights reserved.</Copyright>
+	<PackageProjectUrl>https://github.com/tksh164/alter-rdp-client</PackageProjectUrl>
+	<RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<NeutralLanguage>en-US</NeutralLanguage>
+
+	<!-- AssemblyInfo -->
+	<Company></Company>
+	<Product>Alter</Product>
+	<FileVersion>$(Version)</FileVersion>
+	<InformationalVersion>$(Version)</InformationalVersion>
+	<AssemblyVersion>$(Version)</AssemblyVersion>
+	<AssemblyTitle>$(Title)</AssemblyTitle>
   </PropertyGroup>
 
   <ItemGroup>

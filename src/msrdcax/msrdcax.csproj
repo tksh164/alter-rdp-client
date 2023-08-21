@@ -2,11 +2,32 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
-    <RootNamespace>MsRdcAx</RootNamespace>
+	<UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
+	<Nullable>enable</Nullable>
+	<RootNamespace>MsRdcAx</RootNamespace>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- NuGet package -->
+	<Version>0.1.0</Version>
+	<Title>Remote Desktop Services ActiveX client for Alter</Title>
+	<Description>$(Title)</Description>
+	<Authors>Takeshi Katano</Authors>
+	<Copyright>Copyright (c) 2023 Takeshi Katano. All rights reserved.</Copyright>
+	<PackageProjectUrl>https://github.com/tksh164/alter-rdp-client</PackageProjectUrl>
+	<RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<NeutralLanguage>en-US</NeutralLanguage>
+
+	<!-- AssemblyInfo -->
+	<Company></Company>
+	<Product>MsRdcAx</Product>
+	<FileVersion>$(Version)</FileVersion>
+	<InformationalVersion>$(Version)</InformationalVersion>
+	<AssemblyVersion>$(Version)</AssemblyVersion>
+	<AssemblyTitle>$(Title)</AssemblyTitle>
   </PropertyGroup>
 
   <ItemGroup>
