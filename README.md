@@ -1,6 +1,11 @@
 # Alter
 
-Alter is a simple RDP client application.
+Alter is an remote desktop client application.
+
+## ✨ Features
+
+- High DPI support - Reflect to the local DPI to the remote desktop session.
+- Update the resolution on the window resize.
 
 ## 📥 Install
 
@@ -33,7 +38,7 @@ Alter is a simple RDP client application.
     - Windows Server 2016 with latest updates
     - Windows Server 2012 R2 with latest updates
 
-## 🔨 Build from source
+## 🔨 Build from the source
 
 You can build the project using [Visual Studio 2022](https://visualstudio.microsoft.com/).
 
