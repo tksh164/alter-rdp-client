@@ -1,6 +1,6 @@
 # Alter
 
-Alter is an remote desktop client application.
+Alter is a remote desktop client application.
 
 ## ✨ Features
 
