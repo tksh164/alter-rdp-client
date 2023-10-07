@@ -48,10 +48,11 @@
     </Style>
 
     <!-- Default styles -->
+    <CornerRadius x:Key="Button.CornerRadius">4,4,4,4</CornerRadius>
     <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="CornerRadius" Value="{StaticResource Button.CornerRadius}"/>
             </Style>
         </Style.Resources>
     </Style>
