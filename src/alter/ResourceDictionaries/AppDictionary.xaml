@@ -9,10 +9,11 @@
         </Style.Resources>
     </Style>
 
+    <CornerRadius x:Key="TextBox.CornerRadius">4,4,4,4</CornerRadius>
     <Style x:Key="DefaultTextBoxStyle" TargetType="{x:Type TextBox}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="CornerRadius" Value="{StaticResource TextBox.CornerRadius}"/>
             </Style>
         </Style.Resources>
     </Style>
@@ -20,7 +21,7 @@
     <Style x:Key="DefaultMultilineTextBoxStyle" TargetType="{x:Type TextBox}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="CornerRadius" Value="{StaticResource TextBox.CornerRadius}"/>
                 <!-- "Padding" is need for the clear rounded corner line when scrollbar showing -->
                 <Setter Property="Padding" Value="0.6"/>
             </Style>
