@@ -119,6 +119,7 @@
                          Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="11" Padding="6,0,6,0" Margin="0,0,2,0"
                          TabIndex="0" VerticalContentAlignment="Center"
                          Style="{StaticResource RemoteComputerTextBoxStyle}"
+                         Tag="Remote computer"
                          Text="{Binding RemoteComputer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Remote port -->
@@ -129,6 +130,7 @@
                          Grid.Row="2" Grid.Column="11" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="1" VerticalContentAlignment="Center" MaxLength="5"
                          Style="{StaticResource RemotePortTextBoxStyle}"
+                         Tag="Port"
                          Text="{Binding RemotePort, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- User name -->
@@ -139,9 +141,10 @@
                          Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="2" VerticalContentAlignment="Center"
                          Style="{StaticResource DefaultTextBoxStyle}"
+                         Tag="User name"
                          Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <!-- Connection nickname -->
+                <!-- Connection title -->
                 <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="12" Padding="0" Margin="0,0,0,2"
                        Target="{Binding ElementName=ConnectionNicknameTextBox}" VerticalContentAlignment="Bottom"
                        Content="Connection _title"/>
@@ -149,6 +152,7 @@
                          Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,0,0,0"
                          TabIndex="3" VerticalContentAlignment="Center"
                          Style="{StaticResource DefaultTextBoxStyle}"
+                         Tag="Connection title (optional)"
                          Text="{Binding ConnectionNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connect button -->
