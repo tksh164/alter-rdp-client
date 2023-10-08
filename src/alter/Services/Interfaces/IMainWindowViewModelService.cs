@@ -1,5 +1,5 @@
-﻿using MsRdcAx;
 ﻿using AlterApp.ViewModels;
+using MsRdcAx;
 
 namespace AlterApp.Services.Interfaces
 {
@@ -7,7 +7,7 @@ namespace AlterApp.Services.Interfaces
     {
         public string GetWindowTitle(string connectionNickname, string remoteComputer, string remotePort, string userNmae);
 
-        public string GetDestinationText(string remoteComputer, string remotePort, string userNmae);
+        public string GetRemoteComputerWithPort(string remoteComputer, string remotePort);
 
         public ConnectionInfoHeaderVisibility GetConnectionHeaderVisibility(string remoteComputer, string userName, string connectionTitle);
 

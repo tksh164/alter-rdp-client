@@ -58,22 +58,24 @@ namespace AlterApp.Services
             return string.Join(" - ", windowTitleParts);
         }
 
-        public string GetDestinationText(string remoteComputer, string remotePort, string userNmae)
+        public string GetRemoteComputerWithPort(string remoteComputer, string remotePort)
         {
+            const string placeHolderText = "????";
+            const string separator = ":";
             string trimedRemoteComputer = remoteComputer.Trim();
             string trimedRemotePort = remotePort.Trim();
-            string trimedUserNmae = userNmae.Trim();
 
-            if (string.IsNullOrWhiteSpace(trimedRemoteComputer) && string.IsNullOrWhiteSpace(trimedUserNmae))
+            if (string.IsNullOrWhiteSpace(trimedRemoteComputer))
             {
                 return string.Empty;
             }
 
-            const string placeHolderText = "????";
-            var userNamePart = string.IsNullOrWhiteSpace(trimedUserNmae) ? placeHolderText : trimedUserNmae;
-            var remoteComputerPart = string.IsNullOrWhiteSpace(trimedRemoteComputer) ? placeHolderText : trimedRemoteComputer;
-            var remotePortPart = string.IsNullOrWhiteSpace(trimedRemotePort) ? placeHolderText : trimedRemotePort;
-            return string.Format("{0} | {1}:{2}", userNamePart, remoteComputerPart, remotePortPart);
+            if (string.IsNullOrWhiteSpace(trimedRemotePort))
+            {
+                return trimedRemoteComputer + separator + placeHolderText;
+            }
+
+            return trimedRemoteComputer + separator + trimedRemotePort;
         }
 
         public ConnectionInfoHeaderVisibility GetConnectionHeaderVisibility(string connectionTitle, string remoteComputer, string userName)

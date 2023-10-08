@@ -31,21 +31,20 @@ namespace AlterApp.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationText))]
+        [NotifyPropertyChangedFor(nameof(RemoteComputerWithPort))]
         [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remoteComputer;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationText))]
+        [NotifyPropertyChangedFor(nameof(RemoteComputerWithPort))]
         [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remotePort;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationText))]
         [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _userName;
@@ -60,9 +59,9 @@ namespace AlterApp.ViewModels
             get => _viewModelService.GetWindowTitle(ConnectionNickname, RemoteComputer, RemotePort, UserName);
         }
 
-        public string DestinationText
+        public string RemoteComputerWithPort
         {
-            get => _viewModelService.GetDestinationText(RemoteComputer, RemotePort, UserName);
+            get => _viewModelService.GetRemoteComputerWithPort(RemoteComputer, RemotePort);
         }
 
         public ConnectionInfoHeaderVisibility ConnectionInfoHeaderVisibility
