@@ -1,4 +1,5 @@
 ﻿using MsRdcAx;
+﻿using AlterApp.ViewModels;
 
 namespace AlterApp.Services.Interfaces
 {
@@ -8,7 +9,7 @@ namespace AlterApp.Services.Interfaces
 
         public string GetDestinationText(string remoteComputer, string remotePort, string userNmae);
 
-        public bool ShouldShowDestinationAndNicknameTitle(string connectionNickname);
+        public ConnectionInfoHeaderVisibility GetConnectionHeaderVisibility(string remoteComputer, string userName, string connectionTitle);
 
         public bool ValidateRemoteComputer(string remoteComputer);
 

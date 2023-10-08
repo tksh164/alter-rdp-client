@@ -32,24 +32,27 @@ namespace AlterApp.ViewModels
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
         [NotifyPropertyChangedFor(nameof(DestinationText))]
+        [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remoteComputer;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
         [NotifyPropertyChangedFor(nameof(DestinationText))]
+        [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remotePort;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
         [NotifyPropertyChangedFor(nameof(DestinationText))]
+        [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _userName;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(ShouldShowDestinationAndNicknameTitle))]
+        [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         private string _connectionNickname;
 
         public string WindowTitle
@@ -62,9 +65,9 @@ namespace AlterApp.ViewModels
             get => _viewModelService.GetDestinationText(RemoteComputer, RemotePort, UserName);
         }
 
-        public bool ShouldShowDestinationAndNicknameTitle
+        public ConnectionInfoHeaderVisibility ConnectionInfoHeaderVisibility
         {
-            get => _viewModelService.ShouldShowDestinationAndNicknameTitle(ConnectionNickname);
+            get => _viewModelService.GetConnectionHeaderVisibility(ConnectionNickname, RemoteComputer, UserName);
         }
 
         private RdpClientHost? _rdpClientHost = null;
