@@ -51,6 +51,7 @@
     <!-- Default styles -->
 
     <CornerRadius x:Key="Button.CornerRadius">4,4,4,4</CornerRadius>
+
     <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
@@ -60,6 +61,7 @@
     </Style>
 
     <CornerRadius x:Key="TextBox.CornerRadius">4,4,4,4</CornerRadius>
+
     <Style x:Key="DefaultTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxWithPlaceholderTextStyle}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
@@ -87,6 +89,7 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
     <DrawingImage x:Key="SegoeFluentIcon_e977_PC1_Gray">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V2048 H2048 V0 H0 Z">
