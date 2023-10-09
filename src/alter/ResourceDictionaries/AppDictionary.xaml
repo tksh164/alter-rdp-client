@@ -1,18 +1,71 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- TextBox with placeholder text style -->
+
+    <SolidColorBrush x:Key="TextBox.PlaceholderText.Foreground" Color="#FF808080"/>
+    <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+    <Style x:Key="TextBoxWithPlaceholderTextStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border" SnapsToDevicePixels="True" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            <!-- Placeholder text -->
+                            <TextBlock IsHitTestVisible="False" SnapsToDevicePixels="True" Padding="{TemplateBinding Padding}"
+                                       Background="Transparent" Foreground="{StaticResource TextBox.PlaceholderText.Foreground}"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                       Text="{TemplateBinding Tag}">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Text, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- Default styles -->
+
+    <CornerRadius x:Key="Button.CornerRadius">4,4,4,4</CornerRadius>
+
     <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="CornerRadius" Value="{StaticResource Button.CornerRadius}"/>
             </Style>
         </Style.Resources>
     </Style>
 
-    <Style x:Key="DefaultTextBoxStyle" TargetType="{x:Type TextBox}">
+    <CornerRadius x:Key="TextBox.CornerRadius">4,4,4,4</CornerRadius>
+
+    <Style x:Key="DefaultTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxWithPlaceholderTextStyle}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="CornerRadius" Value="{StaticResource TextBox.CornerRadius}"/>
             </Style>
         </Style.Resources>
     </Style>
@@ -20,10 +73,45 @@
     <Style x:Key="DefaultMultilineTextBoxStyle" TargetType="{x:Type TextBox}">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="CornerRadius" Value="{StaticResource TextBox.CornerRadius}"/>
                 <!-- "Padding" is need for the clear rounded corner line when scrollbar showing -->
                 <Setter Property="Padding" Value="0.6"/>
             </Style>
         </Style.Resources>
     </Style>
+    
+    <!-- Icons -->
+
+    <DrawingImage x:Key="SegoeFluentIcon_e977_PC1_Black">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V2048 H2048 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M2048,2048z M0,0z M320,1920Q281,1920 246,1905 211,1890 185,1864 159,1838 143,1802 127,1766 128,1728L128,320Q128,281 143,246 158,211 184,185 210,159 246,143 282,127 320,128L960,128Q999,128 1034,143 1069,158 1095,184 1121,210 1137,246 1153,282 1152,320L1152,512 1024,512 1024,320Q1024,294 1005,275 986,256 960,256L320,256Q294,256 275,275 256,294 256,320L256,1728Q256,1754 275,1773 294,1792 320,1792L896,1792 896,1920 320,1920z M448,512Q422,512 403,493 384,474 384,448 384,422 403,403 422,384 448,384L832,384Q858,384 877,403 896,422 896,448 896,474 877,493 858,512 832,512L448,512z M448,768Q422,768 403,749 384,730 384,704 384,678 403,659 422,640 448,640L640,640 640,768 448,768z M1088,1920Q1062,1920 1043,1901 1024,1882 1024,1856 1024,1834 1032,1822 1040,1810 1054,1803 1068,1796 1085,1794 1102,1792 1119,1792L1152,1792 1152,1664 960,1664Q921,1664 886,1649 851,1634 825,1608 799,1582 783,1546 767,1510 768,1472L768,832Q768,793 783,758 798,723 824,697 850,671 886,655 922,639 960,640L1856,640Q1895,640 1930,655 1965,670 1991,696 2017,722 2033,758 2049,794 2048,832L2048,1472Q2048,1511 2033,1546 2018,1581 1992,1607 1966,1633 1930,1649 1894,1665 1856,1664L1664,1664 1664,1792 1698,1792Q1715,1792 1732,1794 1749,1796 1762,1802 1775,1808 1784,1822 1793,1836 1792,1856 1792,1882 1773,1901 1754,1920 1728,1920L1088,1920z M1856,1536Q1882,1536 1901,1517 1920,1498 1920,1472L1920,832Q1920,806 1901,787 1882,768 1856,768L960,768Q934,768 915,787 896,806 896,832L896,1472Q896,1498 915,1517 934,1536 960,1536L1856,1536z M1280,1664L1280,1792 1536,1792 1536,1664 1280,1664z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="SegoeFluentIcon_e977_PC1_Gray">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V2048 H2048 V0 H0 Z">
+                <GeometryDrawing Brush="#FF666666" Geometry="F1 M2048,2048z M0,0z M320,1920Q281,1920 246,1905 211,1890 185,1864 159,1838 143,1802 127,1766 128,1728L128,320Q128,281 143,246 158,211 184,185 210,159 246,143 282,127 320,128L960,128Q999,128 1034,143 1069,158 1095,184 1121,210 1137,246 1153,282 1152,320L1152,512 1024,512 1024,320Q1024,294 1005,275 986,256 960,256L320,256Q294,256 275,275 256,294 256,320L256,1728Q256,1754 275,1773 294,1792 320,1792L896,1792 896,1920 320,1920z M448,512Q422,512 403,493 384,474 384,448 384,422 403,403 422,384 448,384L832,384Q858,384 877,403 896,422 896,448 896,474 877,493 858,512 832,512L448,512z M448,768Q422,768 403,749 384,730 384,704 384,678 403,659 422,640 448,640L640,640 640,768 448,768z M1088,1920Q1062,1920 1043,1901 1024,1882 1024,1856 1024,1834 1032,1822 1040,1810 1054,1803 1068,1796 1085,1794 1102,1792 1119,1792L1152,1792 1152,1664 960,1664Q921,1664 886,1649 851,1634 825,1608 799,1582 783,1546 767,1510 768,1472L768,832Q768,793 783,758 798,723 824,697 850,671 886,655 922,639 960,640L1856,640Q1895,640 1930,655 1965,670 1991,696 2017,722 2033,758 2049,794 2048,832L2048,1472Q2048,1511 2033,1546 2018,1581 1992,1607 1966,1633 1930,1649 1894,1665 1856,1664L1664,1664 1664,1792 1698,1792Q1715,1792 1732,1794 1749,1796 1762,1802 1775,1808 1784,1822 1793,1836 1792,1856 1792,1882 1773,1901 1754,1920 1728,1920L1088,1920z M1856,1536Q1882,1536 1901,1517 1920,1498 1920,1472L1920,832Q1920,806 1901,787 1882,768 1856,768L960,768Q934,768 915,787 896,806 896,832L896,1472Q896,1498 915,1517 934,1536 960,1536L1856,1536z M1280,1664L1280,1792 1536,1792 1536,1664 1280,1664z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="SegoeFluentIcon_e77b_Contact_Black">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V2048 H2048 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M2048,2048z M0,0z M512,502Q512,398 553,307 594,216 665,147 736,78 828,40 920,2 1024,0 1130,0 1223,40 1316,80 1386,149 1456,218 1496,312 1536,406 1536,512 1536,618 1496,711 1456,804 1387,874 1318,944 1224,984 1130,1024 1024,1024 915,1024 822,983 729,942 659,871 589,800 551,705 513,610 512,502z M1408,504Q1408,426 1377,358 1346,290 1294,238 1242,186 1171,158 1100,130 1024,128 944,128 874,158 804,188 752,240 700,292 670,362 640,432 640,512 640,592 670,662 700,732 752,784 804,836 874,866 944,896 1024,896 1106,896 1176,866 1246,836 1298,782 1350,728 1379,657 1408,586 1408,504z M128,1408Q128,1357 148,1311 168,1265 202,1229 236,1193 281,1173 326,1153 379,1152L1664,1152Q1715,1152 1761,1172 1807,1192 1843,1226 1879,1260 1899,1305 1919,1350 1920,1403 1920,1526 1882,1622 1844,1718 1779,1789 1714,1860 1627,1910 1540,1960 1440,1990 1340,2020 1234,2034 1128,2048 1024,2048 925,2048 827,2038 729,2028 634,2000 526,1969 434,1917 342,1865 273,1792 204,1719 167,1623 130,1527 128,1408z M1792,1408Q1792,1382 1782,1359 1772,1336 1755,1318 1738,1300 1714,1290 1690,1280 1664,1280L384,1280Q357,1280 334,1290 311,1300 294,1317 277,1334 266,1358 255,1382 256,1408 256,1511 290,1588 324,1665 382,1723 440,1781 516,1818 592,1855 678,1878 764,1901 853,1910 942,1919 1024,1920 1106,1920 1195,1911 1284,1902 1369,1879 1454,1856 1531,1818 1608,1780 1666,1723 1724,1666 1758,1588 1792,1510 1792,1408z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="SegoeFluentIcon_e77b_Contact_Gray">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V2048 H2048 V0 H0 Z">
+                <GeometryDrawing Brush="#FF666666" Geometry="F1 M2048,2048z M0,0z M512,502Q512,398 553,307 594,216 665,147 736,78 828,40 920,2 1024,0 1130,0 1223,40 1316,80 1386,149 1456,218 1496,312 1536,406 1536,512 1536,618 1496,711 1456,804 1387,874 1318,944 1224,984 1130,1024 1024,1024 915,1024 822,983 729,942 659,871 589,800 551,705 513,610 512,502z M1408,504Q1408,426 1377,358 1346,290 1294,238 1242,186 1171,158 1100,130 1024,128 944,128 874,158 804,188 752,240 700,292 670,362 640,432 640,512 640,592 670,662 700,732 752,784 804,836 874,866 944,896 1024,896 1106,896 1176,866 1246,836 1298,782 1350,728 1379,657 1408,586 1408,504z M128,1408Q128,1357 148,1311 168,1265 202,1229 236,1193 281,1173 326,1153 379,1152L1664,1152Q1715,1152 1761,1172 1807,1192 1843,1226 1879,1260 1899,1305 1919,1350 1920,1403 1920,1526 1882,1622 1844,1718 1779,1789 1714,1860 1627,1910 1540,1960 1440,1990 1340,2020 1234,2034 1128,2048 1024,2048 925,2048 827,2038 729,2028 634,2000 526,1969 434,1917 342,1865 273,1792 204,1719 167,1623 130,1527 128,1408z M1792,1408Q1792,1382 1782,1359 1772,1336 1755,1318 1738,1300 1714,1290 1690,1280 1664,1280L384,1280Q357,1280 334,1290 311,1300 294,1317 277,1334 266,1358 255,1382 256,1408 256,1511 290,1588 324,1665 382,1723 440,1781 516,1818 592,1855 678,1878 764,1901 853,1910 942,1919 1024,1920 1106,1920 1195,1911 1284,1902 1369,1879 1454,1856 1531,1818 1608,1780 1666,1723 1724,1666 1758,1588 1792,1510 1792,1408z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
 </ResourceDictionary>

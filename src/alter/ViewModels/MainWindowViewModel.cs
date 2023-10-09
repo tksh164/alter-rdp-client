@@ -2,9 +2,9 @@
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using AlterApp.Services.Interfaces;
 using MsRdcAx;
 using MsRdcAx.AxMsTscLib;
+using AlterApp.Services.Interfaces;
 
 namespace AlterApp.ViewModels
 {
@@ -31,25 +31,27 @@ namespace AlterApp.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationText))]
+        [NotifyPropertyChangedFor(nameof(RemoteComputerWithPort))]
+        [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remoteComputer;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationText))]
+        [NotifyPropertyChangedFor(nameof(RemoteComputerWithPort))]
+        [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remotePort;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(DestinationText))]
+        [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _userName;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(ShouldShowDestinationAndNicknameTitle))]
+        [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         private string _connectionNickname;
 
         public string WindowTitle
@@ -57,14 +59,14 @@ namespace AlterApp.ViewModels
             get => _viewModelService.GetWindowTitle(ConnectionNickname, RemoteComputer, RemotePort, UserName);
         }
 
-        public string DestinationText
+        public string RemoteComputerWithPort
         {
-            get => _viewModelService.GetDestinationText(RemoteComputer, RemotePort, UserName);
+            get => _viewModelService.GetRemoteComputerWithPort(RemoteComputer, RemotePort);
         }
 
-        public bool ShouldShowDestinationAndNicknameTitle
+        public ConnectionInfoHeaderVisibility ConnectionInfoHeaderVisibility
         {
-            get => _viewModelService.ShouldShowDestinationAndNicknameTitle(ConnectionNickname);
+            get => _viewModelService.GetConnectionHeaderVisibility(ConnectionNickname, RemoteComputer, UserName);
         }
 
         private RdpClientHost? _rdpClientHost = null;
