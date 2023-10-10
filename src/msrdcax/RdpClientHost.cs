@@ -301,6 +301,19 @@ namespace MsRdcAx
         {
             if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
+            int widthDelta = Math.Abs(_axMsRdpClient.Width - _axMsRdpClient.DesktopWidth);
+            int heightDelta = Math.Abs(_axMsRdpClient.Height - _axMsRdpClient.DesktopHeight);
+            Debug.WriteLine("widthDelta: {0}", widthDelta);
+            Debug.WriteLine("heightDelta: {0}", heightDelta);
+
+            // Session display size update is not needed because it is already the same.
+            // NOTE: Possible to the delta value is 1 due to calculation accuracy.
+            if (widthDelta <= 1 && heightDelta <= 1)
+            {
+                Debug.WriteLine("The session display size is already the same.");
+                return;
+            }
+
             uint desktopWidth = (uint)_axMsRdpClient.Width;
             uint desktopHeight = (uint)_axMsRdpClient.Height;
             uint desktopScaleFactor = (uint)(_axMsRdpClient.GetDesktopScaleFactor() * 100.0);
