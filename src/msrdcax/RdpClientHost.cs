@@ -251,10 +251,16 @@ namespace MsRdcAx
         {
             Debug.WriteLine("AxRdpClient_OnLoginComplete");
             IsLoginCompleted = true;
+            UpdateSessionDisplaySettingsWithRetry();
             OnLoginComplete?.Invoke(this, e);
         }
 
-        private void UpdateSessionDisplaySettingsWithRetry(int retriedCount = 0)
+        private void UpdateSessionDisplaySettingsWithRetry()
+        {
+            TryUpdateSessionDisplaySettings(0);
+        }
+
+        private void TryUpdateSessionDisplaySettings(int retriedCount)
         {
             if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
@@ -282,7 +288,7 @@ namespace MsRdcAx
                     Task.Run(() =>
                     {
                         Thread.Sleep(2000);
-                        UpdateSessionDisplaySettingsWithRetry(retriedCount++);
+                        TryUpdateSessionDisplaySettings(retriedCount++);
                     });
                     return;
                 }
@@ -294,6 +300,19 @@ namespace MsRdcAx
         private void UpdateSessionDisplaySettings()
         {
             if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
+
+            int widthDelta = Math.Abs(_axMsRdpClient.Width - _axMsRdpClient.DesktopWidth);
+            int heightDelta = Math.Abs(_axMsRdpClient.Height - _axMsRdpClient.DesktopHeight);
+            Debug.WriteLine("widthDelta: {0}", widthDelta);
+            Debug.WriteLine("heightDelta: {0}", heightDelta);
+
+            // Session display size update is not needed because it is already the same.
+            // NOTE: Possible to the delta value is 1 due to calculation accuracy.
+            if (widthDelta <= 1 && heightDelta <= 1)
+            {
+                Debug.WriteLine("The session display size is already the same.");
+                return;
+            }
 
             uint desktopWidth = (uint)_axMsRdpClient.Width;
             uint desktopHeight = (uint)_axMsRdpClient.Height;
