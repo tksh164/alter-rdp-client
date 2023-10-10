@@ -255,7 +255,12 @@ namespace MsRdcAx
             OnLoginComplete?.Invoke(this, e);
         }
 
-        private void UpdateSessionDisplaySettingsWithRetry(int retriedCount = 0)
+        private void UpdateSessionDisplaySettingsWithRetry()
+        {
+            TryUpdateSessionDisplaySettings(0);
+        }
+
+        private void TryUpdateSessionDisplaySettings(int retriedCount)
         {
             if (_axMsRdpClient == null) throw new InvalidOperationException("The RDP client ActiveX control is not instantiated.");
 
@@ -283,7 +288,7 @@ namespace MsRdcAx
                     Task.Run(() =>
                     {
                         Thread.Sleep(2000);
-                        UpdateSessionDisplaySettingsWithRetry(retriedCount++);
+                        TryUpdateSessionDisplaySettings(retriedCount++);
                     });
                     return;
                 }
