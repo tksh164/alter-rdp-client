@@ -166,7 +166,6 @@
                 </TextBlock>-->
 
                 <!-- Remote computer -->
-                <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE977;" FontFamily="Segoe Fluent Icons" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>-->
                 <Image Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" Source="{StaticResource SegoeFluentIcon_e977_PC1_Black}"/>
                 <TextBox x:Name="RemoteComputerTextBox"
                          Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="10" Padding="6,0,6,0" Margin="0,4,2,4"
@@ -184,7 +183,6 @@
                          Text="{Binding RemotePort, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- User name -->
-                <!--<TextBlock Grid.Row="1" Grid.Column="0" Text="&#xE77B;" FontFamily="Segoe Fluent Icons" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>-->
                 <Image Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" Source="{StaticResource SegoeFluentIcon_e77b_Contact_Black}"/>
                 <TextBox x:Name="UserNameTextBox"
                          Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="11" Padding="6,0,6,0" Margin="0,4,0,4"
