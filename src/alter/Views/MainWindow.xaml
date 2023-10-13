@@ -172,7 +172,7 @@
                          Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="10" Padding="6,0,6,0" Margin="0,4,2,4"
                          TabIndex="0" VerticalContentAlignment="Center"
                          Style="{StaticResource RemoteComputerTextBoxStyle}"
-                         Tag="Remote computer"
+                         Tag="Remote host"
                          Text="{Binding RemoteComputer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Remote port -->
@@ -198,7 +198,7 @@
                          Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,4,0,4"
                          TabIndex="3" VerticalContentAlignment="Center"
                          Style="{StaticResource DefaultTextBoxStyle}"
-                         Tag="Connection title (optional)"
+                         Tag="Title (optional)"
                          Text="{Binding ConnectionNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connect button -->
