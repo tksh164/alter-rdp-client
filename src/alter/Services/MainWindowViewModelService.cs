@@ -17,23 +17,23 @@ namespace AlterApp.Services
             _appSettingsService = appSettingsService;
         }
 
-        public string GetWindowTitle(string connectionNickname, string remoteComputer, string remotePort, string userNmae)
+        public string GetWindowTitle(string connectionTitle, string remoteComputer, string remotePort, string userNmae)
         {
-            string trimedConnectionNickname = connectionNickname.Trim();
+            string trimedConnectionTitle = connectionTitle.Trim();
             string trimedRemoteComputer = remoteComputer.Trim();
             string trimedRemotePort = remotePort.Trim();
             string trimedUserNmae = userNmae.Trim();
 
-            if (string.IsNullOrWhiteSpace(trimedConnectionNickname) && string.IsNullOrWhiteSpace(trimedRemoteComputer))
+            if (string.IsNullOrWhiteSpace(trimedConnectionTitle) && string.IsNullOrWhiteSpace(trimedRemoteComputer))
             {
                 return _appSettingsService.AppName;
             }
 
             List<string> windowTitleParts = new();
 
-            if (!string.IsNullOrWhiteSpace(trimedConnectionNickname))
+            if (!string.IsNullOrWhiteSpace(trimedConnectionTitle))
             {
-                windowTitleParts.Add(trimedConnectionNickname);
+                windowTitleParts.Add(trimedConnectionTitle);
             }
 
             if (!string.IsNullOrWhiteSpace(trimedRemoteComputer) && !string.IsNullOrWhiteSpace(trimedRemotePort) && !string.IsNullOrWhiteSpace(trimedUserNmae))
