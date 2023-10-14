@@ -21,7 +21,7 @@ namespace AlterApp.ViewModels
             RemoteComputer = string.Empty;
             RemotePort = _appSettingsService.DefaultRemotePort;
             UserName = string.Empty;
-            ConnectionNickname = string.Empty;
+            ConnectionTitle = string.Empty;
 
             RdpClientHost = _viewModelService.GetRdpClientInstance();
             RdpClientHost.OnConnecting += RdpClientHost_OnConnecting;
@@ -52,11 +52,11 @@ namespace AlterApp.ViewModels
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
         [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
-        private string _connectionNickname;
+        private string _connectionTitle;
 
         public string WindowTitle
         {
-            get => _viewModelService.GetWindowTitle(ConnectionNickname, RemoteComputer, RemotePort, UserName);
+            get => _viewModelService.GetWindowTitle(ConnectionTitle, RemoteComputer, RemotePort, UserName);
         }
 
         public string RemoteComputerWithPort
@@ -66,7 +66,7 @@ namespace AlterApp.ViewModels
 
         public ConnectionInfoHeaderVisibility ConnectionInfoHeaderVisibility
         {
-            get => _viewModelService.GetConnectionHeaderVisibility(ConnectionNickname, RemoteComputer, UserName);
+            get => _viewModelService.GetConnectionHeaderVisibility(ConnectionTitle, RemoteComputer, UserName);
         }
 
         private RdpClientHost? _rdpClientHost = null;
