@@ -167,7 +167,7 @@ namespace AlterApp.Services
 
         public string GetVersionInfoText()
         {
-            string? appVersion = _appSettingsService.GetSemanticAppVersion();
+            string? appVersion = _appSettingsService.GetAppVersionSemanticPart();
             if (appVersion == null)
             {
                 return string.Format("{0} (Could not get app version)", _appSettingsService.AppName);

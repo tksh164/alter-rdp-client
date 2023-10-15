@@ -8,7 +8,7 @@
 
         public string? GetAppVersion();
 
-        public string? GetSemanticAppVersion();
+        public string? GetAppVersionSemanticPart();
 
         public string DefaultRemotePort { get; }
     }
