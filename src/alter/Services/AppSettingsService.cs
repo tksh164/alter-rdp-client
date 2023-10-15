@@ -19,7 +19,7 @@ namespace AlterApp.Services
             return (((Assembly.GetEntryAssembly())?.GetName())?.Version)?.ToString();
         }
 
-        public string? GetSemanticAppVersion()
+        public string? GetAppVersionSemanticPart()
         {
             string? appVersion = GetAppVersion();
             return appVersion?.Substring(0, appVersion.LastIndexOf(".", StringComparison.OrdinalIgnoreCase));
