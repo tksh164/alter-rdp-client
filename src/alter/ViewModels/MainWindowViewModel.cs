@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using MsRdcAx;
 using MsRdcAx.AxMsTscLib;
 using AlterApp.Services.Interfaces;
+using AlterApp.Models;
 
 namespace AlterApp.ViewModels
 {
@@ -18,8 +19,11 @@ namespace AlterApp.ViewModels
             _viewModelService = viewModelService;
             _appSettingsService = appSettingsService;
 
+            WindowWidth = _appSettingsService.GetSettingValue<double>("mainWindow.width", AppDefaultValues.MainWindowWidth);
+            WindowHeight = _appSettingsService.GetSettingValue<double>("mainWindow.height", AppDefaultValues.MainWindowHeight);
+
             RemoteComputer = string.Empty;
-            RemotePort = _appSettingsService.DefaultRemotePort;
+            RemotePort = _appSettingsService.GetSettingValue("defaultRdpPort", AppDefaultValues.RdpPort).ToString();
             UserName = string.Empty;
             ConnectionTitle = string.Empty;
 
@@ -28,6 +32,16 @@ namespace AlterApp.ViewModels
             RdpClientHost.OnConnected += RdpClientHost_OnConnected;
             RdpClientHost.OnDisconnected += RdpClientHost_OnDisconnected;
         }
+
+        [ObservableProperty]
+        private double _windowWidth;
+
+        [ObservableProperty]
+        private double _windowHeight;
+
+        public double WindowMinWidth => AppDefaultValues.MainWindowMinWidth;
+
+        public double WindowMinHeight => AppDefaultValues.MainWindowMinHeight;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
