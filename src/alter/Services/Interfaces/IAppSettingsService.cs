@@ -10,6 +10,6 @@
 
         public string? GetAppVersionSemanticPart();
 
-        public string DefaultRemotePort { get; }
+        public T GetSettingValue<T>(string name, T defaultValue);
     }
 }

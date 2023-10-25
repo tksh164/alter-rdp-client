@@ -1,11 +1,20 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
+using System.Data;
+using Microsoft.Data.Sqlite;
 using AlterApp.Services.Interfaces;
+using AlterApp.Models;
+using System.Xml.Linq;
 
 namespace AlterApp.Services
 {
     internal class AppSettingsService : IAppSettingsService
     {
+        public AppSettingsService()
+        {
+        }
+
         private const string _appName = "Alter";
 
         public string AppName => _appName;
@@ -25,8 +34,53 @@ namespace AlterApp.Services
             return appVersion?[..appVersion.LastIndexOf(".", StringComparison.OrdinalIgnoreCase)];
         }
 
-        private const string _defaultRemotePort = "3389";
+        public T GetSettingValue<T>(string name, T defaultValue)
+        {
+            return ReadAppSettingValue<T>(name, defaultValue);
+        }
 
-        public string DefaultRemotePort => _defaultRemotePort;
+        private static T ReadAppSettingValue<T>(string settingName, T defaultValue)
+        {
+            string jsonPath = "$." + settingName;
+            string connectionString = GetSettingDbConnectionString();
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                        $@"
+                        SELECT
+                            json->>'{jsonPath}' AS SettingValue
+                        FROM
+                            app_settings
+                        ORDER BY ROWID ASC
+                        LIMIT 1;
+                        ";
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return reader.GetFieldValue<T>("SettingValue");
+                        }
+                    }
+                }
+            }
+            return defaultValue;
+        }
+
+        private static string GetSettingDbConnectionString()
+        {
+            string appSettingFilePath = GetSettingFilePath();
+            return string.Format("Data Source={0}", appSettingFilePath);
+        }
+
+        private static string GetSettingFilePath()
+        {
+            string appDirectoryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+            const string appSettingFileName = "setting.db";
+            return Path.Combine(appDirectoryPath, appSettingFileName);
+        }
     }
 }
