@@ -1,10 +1,10 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using MsRdcAx;
 using AlterApp.Services.Interfaces;
 using AlterApp.ViewModels;
+using AlterApp.Models;
 
 namespace AlterApp.Services
 {
@@ -26,7 +26,7 @@ namespace AlterApp.Services
 
             if (string.IsNullOrWhiteSpace(trimedConnectionTitle) && string.IsNullOrWhiteSpace(trimedRemoteComputer))
             {
-                return _appSettingsService.AppName;
+                return AppConstants.AppName;
             }
 
             List<string> windowTitleParts = new();
@@ -53,7 +53,7 @@ namespace AlterApp.Services
                 windowTitleParts.Add(trimedRemoteComputer);
             }
 
-            windowTitleParts.Add(_appSettingsService.AppName);
+            windowTitleParts.Add(AppConstants.AppName);
 
             return string.Join(" - ", windowTitleParts);
         }
@@ -170,16 +170,16 @@ namespace AlterApp.Services
             string? appVersion = _appSettingsService.GetAppVersionSemanticPart();
             if (appVersion == null)
             {
-                return string.Format("{0} (Could not get app version)", _appSettingsService.AppName);
+                return string.Format("{0} (Could not get app version)", AppConstants.AppName);
             }
-            return string.Format("{0} v{1}", _appSettingsService.AppName, appVersion);
+            return string.Format("{0} v{1}", AppConstants.AppName, appVersion);
         }
 
         public void OpenProjectWebsite()
         {
             Process.Start(new ProcessStartInfo()
             {
-                FileName = _appSettingsService.AppProjectWebsiteUri,
+                FileName = AppConstants.ProjectWebsiteUri,
                 UseShellExecute = true,
             });
         }

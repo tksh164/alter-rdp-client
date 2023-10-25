@@ -14,10 +14,6 @@ namespace AlterApp.Services
         {
         }
 
-        public string AppName => AppConstants.AppName;
-
-        public string AppProjectWebsiteUri => AppConstants.ProjectWebsiteUri;
-
         public string? GetAppVersion()
         {
             return (((Assembly.GetEntryAssembly())?.GetName())?.Version)?.ToString();

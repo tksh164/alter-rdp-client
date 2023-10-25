@@ -1,26 +1,24 @@
 ﻿using System;
 using System.Diagnostics;
 using AlterApp.Services.Interfaces;
+using AlterApp.Models;
 
 namespace AlterApp.Services
 {
     internal class ExceptionReportWindowViewModelService : IExceptionReportWindowViewModelService
     {
-        private readonly IAppSettingsService _appSettingsService;
-
-        public ExceptionReportWindowViewModelService(IAppSettingsService appSettingsService)
+        public ExceptionReportWindowViewModelService()
         {
-            _appSettingsService = appSettingsService;
         }
 
         public string GetWindowTitle()
         {
-            return _appSettingsService.AppName;
+            return AppConstants.AppName;
         }
 
         public void OpenIssueReportUri()
         {
-            string issueReportUri = _appSettingsService.AppProjectWebsiteUri + "/issues";
+            string issueReportUri = AppConstants.ProjectWebsiteUri + "/issues";
             Process.Start(new ProcessStartInfo()
             {
                 FileName = issueReportUri,

@@ -1,11 +1,9 @@
-﻿namespace AlterApp.Services.Interfaces
+﻿using System;
+
+namespace AlterApp.Services.Interfaces
 {
     internal interface IAppSettingsService
     {
-        public string AppName { get; }
-
-        public string AppProjectWebsiteUri { get; }
-
         public string? GetAppVersion();
 
         public string? GetAppVersionSemanticPart();
