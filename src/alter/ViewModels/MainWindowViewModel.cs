@@ -19,11 +19,11 @@ namespace AlterApp.ViewModels
             _viewModelService = viewModelService;
             _appSettingsService = appSettingsService;
 
-            WindowWidth = _appSettingsService.GetSettingValue<double>("mainWindow.width", AppDefaultValues.MainWindowWidth);
-            WindowHeight = _appSettingsService.GetSettingValue<double>("mainWindow.height", AppDefaultValues.MainWindowHeight);
+            WindowWidth = _appSettingsService.GetSettingValue<double>("mainWindow.width", AppConstants.MainWindowWidth);
+            WindowHeight = _appSettingsService.GetSettingValue<double>("mainWindow.height", AppConstants.MainWindowHeight);
 
             RemoteComputer = string.Empty;
-            RemotePort = _appSettingsService.GetSettingValue("defaultRdpPort", AppDefaultValues.RdpPort).ToString();
+            RemotePort = _appSettingsService.GetSettingValue("defaultRdpPort", AppConstants.RdpPort).ToString();
             UserName = string.Empty;
             ConnectionTitle = string.Empty;
 
@@ -39,9 +39,9 @@ namespace AlterApp.ViewModels
         [ObservableProperty]
         private double _windowHeight;
 
-        public double WindowMinWidth => AppDefaultValues.MainWindowMinWidth;
+        public double WindowMinWidth => AppConstants.MainWindowMinWidth;
 
-        public double WindowMinHeight => AppDefaultValues.MainWindowMinHeight;
+        public double WindowMinHeight => AppConstants.MainWindowMinHeight;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]

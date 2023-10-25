@@ -1,6 +1,6 @@
 ﻿namespace AlterApp.Models
 {
-    internal static class AppDefaultValues
+    internal static class AppConstants
     {
         public static double MainWindowMinWidth = 780;
         public static double MainWindowMinHeight = 520;
