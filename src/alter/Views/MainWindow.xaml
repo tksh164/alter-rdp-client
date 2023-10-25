@@ -14,7 +14,8 @@
         MinWidth="{Binding WindowMinWidth}" MinHeight="{Binding WindowMinHeight}"
         WindowStartupLocation="CenterScreen"
         FontSize="14"
-        FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}">
+        FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}"
+        Closing="Window_Closing">
 
     <Window.Resources>
         <ResourceDictionary>

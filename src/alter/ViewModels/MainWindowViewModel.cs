@@ -5,11 +5,12 @@ using CommunityToolkit.Mvvm.Input;
 using MsRdcAx;
 using MsRdcAx.AxMsTscLib;
 using AlterApp.Services.Interfaces;
+using AlterApp.ViewModels.Interfaces;
 using AlterApp.Models;
 
 namespace AlterApp.ViewModels
 {
-    internal partial class MainWindowViewModel : ObservableObject
+    internal partial class MainWindowViewModel : ObservableObject, IWindowClosing
     {
         private readonly IMainWindowViewModelService _viewModelService;
         private readonly IAppSettingsService _appSettingsService;
@@ -30,6 +31,11 @@ namespace AlterApp.ViewModels
             RdpClientHost.OnConnecting += RdpClientHost_OnConnecting;
             RdpClientHost.OnConnected += RdpClientHost_OnConnected;
             RdpClientHost.OnDisconnected += RdpClientHost_OnDisconnected;
+        }
+
+        public bool OnClosing()
+        {
+            return false;
         }
 
         [ObservableProperty]

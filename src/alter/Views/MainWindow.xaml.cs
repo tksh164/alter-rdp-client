@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using AlterApp.ViewModels;
+using AlterApp.ViewModels.Interfaces;
 
 namespace AlterApp.Views
 {
@@ -13,6 +14,15 @@ namespace AlterApp.Views
         {
             InitializeComponent();
             this.DataContext = App.Current.Services.GetService<MainWindowViewModel>();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            IWindowClosing? context = this.DataContext as IWindowClosing;
+            if (context != null)
+            {
+                e.Cancel = context.OnClosing();
+            }
         }
     }
 }
