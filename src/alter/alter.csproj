@@ -49,4 +49,11 @@
     <ProjectReference Include="..\msrdcax\msrdcax.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Assets\setting.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>setting.db</TargetPath>
+    </None>
+  </ItemGroup>
+
 </Project>
