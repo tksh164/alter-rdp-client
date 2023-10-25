@@ -4,8 +4,6 @@ using System.Reflection;
 using System.Data;
 using Microsoft.Data.Sqlite;
 using AlterApp.Services.Interfaces;
-using AlterApp.Models;
-using System.Xml.Linq;
 
 namespace AlterApp.Services
 {
