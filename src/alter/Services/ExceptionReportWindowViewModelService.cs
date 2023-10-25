@@ -28,7 +28,7 @@ namespace AlterApp.Services
 
         public void TerminateApplicationWithErrorExitCode()
         {
-            Environment.Exit(AppExitCode.ViaCrashReporter);
+            Environment.Exit(AppExitCodes.ViaCrashReporter);
         }
     }
 }

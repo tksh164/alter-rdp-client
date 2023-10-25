@@ -1,6 +1,6 @@
 ﻿namespace AlterApp.Models
 {
-    internal static class AppExitCode
+    internal static class AppExitCodes
     {
         public const int ViaCrashReporter = -1;
         public const int UnhandledException1 = -100;
