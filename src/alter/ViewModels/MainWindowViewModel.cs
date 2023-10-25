@@ -54,20 +54,11 @@ namespace AlterApp.ViewModels
         [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         private string _connectionTitle;
 
-        public string WindowTitle
-        {
-            get => _viewModelService.GetWindowTitle(ConnectionTitle, RemoteComputer, RemotePort, UserName);
-        }
+        public string WindowTitle => _viewModelService.GetWindowTitle(ConnectionTitle, RemoteComputer, RemotePort, UserName);
 
-        public string RemoteComputerWithPort
-        {
-            get => _viewModelService.GetRemoteComputerWithPort(RemoteComputer, RemotePort);
-        }
+        public string RemoteComputerWithPort => _viewModelService.GetRemoteComputerWithPort(RemoteComputer, RemotePort);
 
-        public ConnectionInfoHeaderVisibility ConnectionInfoHeaderVisibility
-        {
-            get => _viewModelService.GetConnectionHeaderVisibility(ConnectionTitle, RemoteComputer, UserName);
-        }
+        public ConnectionInfoHeaderVisibility ConnectionInfoHeaderVisibility => _viewModelService.GetConnectionHeaderVisibility(ConnectionTitle, RemoteComputer, UserName);
 
         private RdpClientHost? _rdpClientHost = null;
         public RdpClientHost? RdpClientHost
@@ -100,10 +91,7 @@ namespace AlterApp.ViewModels
             }
         }
 
-        public bool ShouldShowDisconnectReason
-        {
-            get => _viewModelService.ShouldShowDisconnectReason(RdpClientLastDisconnectReason);
-        }
+        public bool ShouldShowDisconnectReason => _viewModelService.ShouldShowDisconnectReason(RdpClientLastDisconnectReason);
 
         private bool _shouldShowDisconnectReasonDetails = false;
         public bool ShouldShowDisconnectReasonDetails
@@ -168,10 +156,7 @@ namespace AlterApp.ViewModels
             return _viewModelService.ValidateRemoteComputer(RemoteComputer) && _viewModelService.ValidateRemotePort(RemotePort) && _viewModelService.ValidateUserName(UserName);
         }
 
-        public string VersionInfoText
-        {
-            get => _viewModelService.GetVersionInfoText();
-        }
+        public string VersionInfoText => _viewModelService.GetVersionInfoText();
 
         [RelayCommand()]
         private void SetFocusToVersionInfoLink(ContentElement? element)

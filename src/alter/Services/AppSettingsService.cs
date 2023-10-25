@@ -22,7 +22,7 @@ namespace AlterApp.Services
         public string? GetAppVersionSemanticPart()
         {
             string? appVersion = GetAppVersion();
-            return appVersion?.Substring(0, appVersion.LastIndexOf(".", StringComparison.OrdinalIgnoreCase));
+            return appVersion?[..appVersion.LastIndexOf(".", StringComparison.OrdinalIgnoreCase)];
         }
 
         private const string _defaultRemotePort = "3389";
