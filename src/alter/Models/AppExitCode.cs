@@ -1,4 +1,4 @@
-﻿namespace AlterApp
+﻿namespace AlterApp.Models
 {
     internal static class AppExitCode
     {

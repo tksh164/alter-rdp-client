@@ -6,6 +6,7 @@ using AlterApp.Services;
 using AlterApp.Services.Interfaces;
 using AlterApp.ViewModels;
 using AlterApp.Views;
+using AlterApp.Models;
 
 namespace AlterApp
 {
