@@ -50,7 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Assets\setting.db">
+    <None Update="Resources\setting.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <TargetPath>setting.db</TargetPath>
     </None>
