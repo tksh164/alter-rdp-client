@@ -19,8 +19,8 @@ namespace AlterApp.ViewModels
             _viewModelService = viewModelService;
             _appSettingsService = appSettingsService;
 
-            WindowWidth = _appSettingsService.GetSettingValue<double>("mainWindow.width", AppConstants.DefaultMainWindowWidth);
-            WindowHeight = _appSettingsService.GetSettingValue<double>("mainWindow.height", AppConstants.DefaultMainWindowHeight);
+            WindowWidth = _appSettingsService.GetSettingValue("mainWindow.width", AppConstants.DefaultMainWindowWidth);
+            WindowHeight = _appSettingsService.GetSettingValue("mainWindow.height", AppConstants.DefaultMainWindowHeight);
 
             RemoteComputer = string.Empty;
             RemotePort = _appSettingsService.GetSettingValue("defaultRdpPort", AppConstants.DefaultRdpPort).ToString();
