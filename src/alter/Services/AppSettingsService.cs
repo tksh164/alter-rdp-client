@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Data;
 using Microsoft.Data.Sqlite;
 using AlterApp.Services.Interfaces;
+using AlterApp.Models;
 
 namespace AlterApp.Services
 {
@@ -13,13 +14,9 @@ namespace AlterApp.Services
         {
         }
 
-        private const string _appName = "Alter";
+        public string AppName => AppConstants.AppName;
 
-        public string AppName => _appName;
-
-        private const string _appProjectWebsiteUri = "https://github.com/tksh164/alter-rdp-client";
-
-        public string AppProjectWebsiteUri => _appProjectWebsiteUri;
+        public string AppProjectWebsiteUri => AppConstants.ProjectWebsiteUri;
 
         public string? GetAppVersion()
         {
@@ -77,8 +74,7 @@ namespace AlterApp.Services
         private static string GetSettingFilePath()
         {
             string appDirectoryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-            const string appSettingFileName = "setting.db";
-            return Path.Combine(appDirectoryPath, appSettingFileName);
+            return Path.Combine(appDirectoryPath, AppConstants.SettingFileName);
         }
     }
 }
