@@ -183,5 +183,10 @@ namespace AlterApp.Services
                 UseShellExecute = true,
             });
         }
+
+        public T GetAppSettingValue<T>(string name, T defaultValue)
+        {
+            return _appSettingsService.GetSettingValue(name, defaultValue);
+        }
     }
 }

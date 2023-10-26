@@ -24,5 +24,7 @@ namespace AlterApp.Services.Interfaces
         public string GetVersionInfoText();
 
         public void OpenProjectWebsite();
+
+        public T GetAppSettingValue<T>(string name, T defaultValue);
     }
 }
