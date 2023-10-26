@@ -42,18 +42,17 @@ namespace AlterApp.Services
                     command.CommandText =
                         $@"
                         SELECT
-                            json->>'{jsonPath}' AS SettingValue
+                            json->>'{jsonPath}' AS value
                         FROM
                             app_settings
-                        ORDER BY ROWID ASC
-                        LIMIT 1;
+                        WHERE ROWID = 1;
                         ";
 
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            return reader.GetFieldValue<T>("SettingValue");
+                            return reader.GetFieldValue<T>("value");
                         }
                     }
                 }
