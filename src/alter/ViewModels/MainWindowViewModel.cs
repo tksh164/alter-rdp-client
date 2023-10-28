@@ -33,6 +33,8 @@ namespace AlterApp.ViewModels
 
         public bool OnClosing()
         {
+            _viewModelService.SetAppSettingValue("mainWindow.width", WindowWidth);
+            _viewModelService.SetAppSettingValue("mainWindow.height", WindowHeight);
             return false;
         }
 
