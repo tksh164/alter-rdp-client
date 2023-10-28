@@ -4,30 +4,24 @@ namespace MsRdcAx
 {
     public static class ConvertEnumValue
     {
-        public static T To<T>(int value)
+        public static T To<T>(object value)
         {
-            return ConvertEnumValueToEnumMember<int, T>(value);
+            return ConvertEnumRawValueToEnumMember<T>(value);
         }
 
-        public static T To<T>(short value)
-        {
-            return ConvertEnumValueToEnumMember<short, T>(value);
-        }
-
-        private static T2 ConvertEnumValueToEnumMember<T1, T2>(T1 value)
+        private static T ConvertEnumRawValueToEnumMember<T>(object value)
         {
             ArgumentNullException.ThrowIfNull(value, nameof(value));
-
-            Type t = typeof(T2);
+            Type t = typeof(T);
             if (!t.IsEnum)
             {
-                throw new ArgumentException(string.Format("{0} is not an Enum type.", t.FullName), nameof(T2));
+                throw new ArgumentException(string.Format("{0} is not an Enum type.", t.FullName), nameof(T));
             }
             if (!Enum.IsDefined(t, value))
             {
                 throw new ArgumentOutOfRangeException(nameof(value), value, string.Format("The value is not a member of {0}.", t.FullName));
             }
-            return (T2)(object)value;
+            return (T)value;
         }
     }
 }
