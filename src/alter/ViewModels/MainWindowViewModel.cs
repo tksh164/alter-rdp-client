@@ -44,9 +44,9 @@ namespace AlterApp.ViewModels
         [ObservableProperty]
         private double _windowHeight;
 
-        public double WindowMinWidth => AppConstants.MainWindowMinWidth;
+        public static double WindowMinWidth => AppConstants.MainWindowMinWidth;
 
-        public double WindowMinHeight => AppConstants.MainWindowMinHeight;
+        public static double WindowMinHeight => AppConstants.MainWindowMinHeight;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
