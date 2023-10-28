@@ -61,7 +61,7 @@ namespace AlterApp.ViewModels
             get => _remotePort;
             set
             {
-                if (value.Length == 0 || uint.TryParse(value, out _))
+                if (value.Length == 0 || _viewModelService.ValidateRemotePort(value))
                 {
                     SetProperty(ref _remotePort, value);
                     OnPropertyChanged(nameof(WindowTitle));
@@ -182,7 +182,9 @@ namespace AlterApp.ViewModels
 
         private bool CanConnectToRemoteComputer()
         {
-            return _viewModelService.ValidateRemoteComputer(RemoteComputer) && _viewModelService.ValidateRemotePort(RemotePort) && _viewModelService.ValidateUserName(UserName);
+            return _viewModelService.ValidateRemoteComputer(RemoteComputer) &&
+                _viewModelService.ValidateRemotePort(RemotePort) &&
+                _viewModelService.ValidateUserName(UserName);
         }
 
         public string VersionInfoText => _viewModelService.GetVersionInfoText();
