@@ -51,7 +51,7 @@
 
   <ItemGroup>
     <None Update="Resources\setting.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>setting.db</TargetPath>
     </None>
   </ItemGroup>
