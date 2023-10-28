@@ -98,7 +98,7 @@ namespace AlterApp.Services
             return ConnectionInfoHeaderVisibility.None;
         }
 
-        public bool ValidateRemoteComputer(string remoteComputer)
+        public bool IsValidRemoteComputer(string remoteComputer)
         {
             if (string.IsNullOrWhiteSpace(remoteComputer)) return false;
             if (IPAddressRegex().Match(remoteComputer.Trim()).Success) return true;
@@ -112,7 +112,7 @@ namespace AlterApp.Services
         [GeneratedRegex("^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
         private static partial Regex HostNameRegex();
 
-        public bool ValidateRemotePort(string remotePort)
+        public bool IsValidRemotePort(string remotePort)
         {
             if (string.IsNullOrWhiteSpace(remotePort)) return false;
             if (!int.TryParse(remotePort, out int port)) return false;
@@ -124,7 +124,7 @@ namespace AlterApp.Services
             return true;
         }
 
-        public bool ValidateUserName(string userName)
+        public bool IsValidUserName(string userName)
         {
             if (string.IsNullOrWhiteSpace(userName)) return false;
             return true;
