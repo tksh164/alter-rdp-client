@@ -2,9 +2,9 @@
 
 namespace MsRdcAx
 {
-    public static class ConvertEnumValue
+    public static class ConvertEnumRawValue
     {
-        public static T To<T>(object value)
+        public static T ToEnumMember<T>(object value)
         {
             return ConvertEnumRawValueToEnumMember<T>(value);
         }

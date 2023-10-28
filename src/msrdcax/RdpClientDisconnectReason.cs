@@ -11,8 +11,8 @@
 
         public RdpClientDisconnectReason(int reason, MSTSCLib.ExtendedDisconnectReasonCode extendedReason, string errorDescription)
         {
-            Reason = ConvertEnumValue.To<RdpClientDisconnectReasonCode>(reason);
-            ExtendedReason = ConvertEnumValue.To<RdpClientExtendedDisconnectReasonCode>((int)extendedReason);
+            Reason = ConvertEnumRawValue.ToEnumMember<RdpClientDisconnectReasonCode>(reason);
+            ExtendedReason = ConvertEnumRawValue.ToEnumMember<RdpClientExtendedDisconnectReasonCode>((int)extendedReason);
             ErrorDescription = errorDescription;
         }
 
