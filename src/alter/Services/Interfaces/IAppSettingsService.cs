@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AlterApp.Services.Interfaces
+﻿namespace AlterApp.Services.Interfaces
 {
     internal interface IAppSettingsService
     {
@@ -9,5 +7,7 @@ namespace AlterApp.Services.Interfaces
         public string? GetAppVersionSemanticPart();
 
         public T GetSettingValue<T>(string name, T defaultValue);
+
+        public int SetSettingValue<T>(string name, T newValue);
     }
 }

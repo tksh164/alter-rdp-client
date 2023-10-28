@@ -27,7 +27,7 @@ namespace AlterApp.Services
 
         public T GetSettingValue<T>(string name, T defaultValue)
         {
-            return ReadAppSettingValue<T>(name, defaultValue);
+            return ReadAppSettingValue(name, defaultValue);
         }
 
         private static T ReadAppSettingValue<T>(string settingName, T defaultValue)
@@ -58,6 +58,31 @@ namespace AlterApp.Services
                 }
             }
             return defaultValue;
+        }
+
+        public int SetSettingValue<T>(string name, T newValue)
+        {
+            return WriteAppSettingValue(name, newValue);
+        }
+
+        private static int WriteAppSettingValue<T>(string settingName, T newValue)
+        {
+            string jsonPath = "$." + settingName;
+            string connectionString = GetSettingDbConnectionString();
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                        $@"
+                        UPDATE app_settings
+                        SET json = json_set(json, '{jsonPath}', {newValue})
+                        WHERE ROWID = 1
+                        ";
+                    return command.ExecuteNonQuery();
+                }
+            }
         }
 
         private static string GetSettingDbConnectionString()
