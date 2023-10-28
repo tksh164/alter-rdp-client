@@ -26,5 +26,7 @@ namespace AlterApp.Services.Interfaces
         public void OpenProjectWebsite();
 
         public T GetAppSettingValue<T>(string name, T defaultValue);
+
+        public int SetAppSettingValue<T>(string name, T newValue);
     }
 }
