@@ -42,17 +42,17 @@ namespace AlterApp.Services
                     command.CommandText =
                         $@"
                         SELECT
-                            json->>'{jsonPath}' AS value
+                            {AppConstants.AppSettingJsonColumnName}->>'{jsonPath}' AS {AppConstants.AppSettingQueryResultColumnName}
                         FROM
-                            app_settings
-                        WHERE ROWID = 1;
+                            {AppConstants.AppSettingTableName}
+                        WHERE ROWID = {AppConstants.AppSettingRowId};
                         ";
 
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            return reader.GetFieldValue<T>("value");
+                            return reader.GetFieldValue<T>(AppConstants.AppSettingQueryResultColumnName);
                         }
                     }
                 }
@@ -76,9 +76,9 @@ namespace AlterApp.Services
                 {
                     command.CommandText =
                         $@"
-                        UPDATE app_settings
-                        SET json = json_set(json, '{jsonPath}', {newValue})
-                        WHERE ROWID = 1
+                        UPDATE {AppConstants.AppSettingTableName}
+                        SET {AppConstants.AppSettingJsonColumnName} = json_set({AppConstants.AppSettingJsonColumnName}, '{jsonPath}', {newValue})
+                        WHERE ROWID = {AppConstants.AppSettingRowId};
                         ";
                     return command.ExecuteNonQuery();
                 }

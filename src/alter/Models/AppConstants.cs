@@ -6,6 +6,10 @@
         public static string ProjectWebsiteUri = "https://github.com/tksh164/alter-rdp-client";
 
         public static string SettingFileName = "setting.db";
+        public static string AppSettingTableName = "app_settings";
+        public static string AppSettingJsonColumnName = "json";
+        public static uint AppSettingRowId = 1;
+        public static string AppSettingQueryResultColumnName = "value";
 
         public static double MainWindowMinWidth = 780;
         public static double MainWindowMinHeight = 520;
