@@ -47,7 +47,14 @@ namespace MsRdcAx
         {
             get
             {
-                return _axMsRdpClient == null ? RdpClientConnectionState.NotConnected : ConvertEnumValue.To<RdpClientConnectionState>(_axMsRdpClient.Connected);
+                if (_axMsRdpClient == null)
+                {
+                    return RdpClientConnectionState.NotConnected;
+                }
+                else
+                {
+                    return ConvertEnumRawValue.ToEnumMember<RdpClientConnectionState>(_axMsRdpClient.Connected);
+                }
             }
         }
 
