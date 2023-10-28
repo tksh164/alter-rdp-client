@@ -9,12 +9,13 @@
         xmlns:ap="clr-namespace:AlterApp.AttachedProperties"
         xmlns:msrdcax="clr-namespace:MsRdcAx;assembly=msrdcax"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
-        Title="{Binding WindowTitle}"
-        Width="1024" Height="768" MinWidth="780" MinHeight="520"
+        Title="{Binding WindowTitle}" d:Title="Alter"
+        Width="{Binding WindowWidth, Mode=TwoWay}" Height="{Binding WindowHeight, Mode=TwoWay}" d:Width="1024" d:Height="768"
+        MinWidth="{Binding WindowMinWidth}" MinHeight="{Binding WindowMinHeight}"
         WindowStartupLocation="CenterScreen"
         FontSize="14"
-        FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}">
+        FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}"
+        Closing="Window_Closing">
 
     <Window.Resources>
         <ResourceDictionary>

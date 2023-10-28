@@ -4,18 +4,17 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using AlterApp.Services.Interfaces;
+using AlterApp.Models;
 
 namespace AlterApp.ViewModels
 {
     internal partial class ExceptionReportWindowViewModel : ObservableObject
     {
         private readonly IExceptionReportWindowViewModelService _viewModelService;
-        private readonly IAppSettingsService _appSettingsService;
 
-        public ExceptionReportWindowViewModel(IExceptionReportWindowViewModelService viewModelService, IAppSettingsService appSettingsService)
+        public ExceptionReportWindowViewModel(IExceptionReportWindowViewModelService viewModelService)
         {
             _viewModelService = viewModelService;
-            _appSettingsService = appSettingsService;
         }
 
         public string WindowTitle
@@ -25,7 +24,7 @@ namespace AlterApp.ViewModels
 
         public string AppName
         {
-            get => _appSettingsService.AppName;
+            get => AppConstants.AppName;
         }
 
         private const string _copyButtonCaptionForBeforeClick = "Copy the exception report to the clipboard";

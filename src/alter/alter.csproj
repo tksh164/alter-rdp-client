@@ -41,11 +41,19 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.13" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\msrdcax\msrdcax.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\setting.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>setting.db</TargetPath>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -5,21 +5,23 @@ using CommunityToolkit.Mvvm.Input;
 using MsRdcAx;
 using MsRdcAx.AxMsTscLib;
 using AlterApp.Services.Interfaces;
+using AlterApp.ViewModels.Interfaces;
+using AlterApp.Models;
 
 namespace AlterApp.ViewModels
 {
-    internal partial class MainWindowViewModel : ObservableObject
+    internal partial class MainWindowViewModel : ObservableObject, IWindowClosing
     {
         private readonly IMainWindowViewModelService _viewModelService;
-        private readonly IAppSettingsService _appSettingsService;
 
-        public MainWindowViewModel(IMainWindowViewModelService viewModelService, IAppSettingsService appSettingsService)
+        public MainWindowViewModel(IMainWindowViewModelService viewModelService)
         {
             _viewModelService = viewModelService;
-            _appSettingsService = appSettingsService;
 
+            WindowWidth = _viewModelService.GetAppSettingValue("mainWindow.width", AppConstants.DefaultMainWindowWidth);
+            WindowHeight = _viewModelService.GetAppSettingValue("mainWindow.height", AppConstants.DefaultMainWindowHeight);
             RemoteComputer = string.Empty;
-            RemotePort = _appSettingsService.DefaultRemotePort;
+            RemotePort = _viewModelService.GetAppSettingValue("defaultRdpPort", AppConstants.DefaultRdpPort).ToString();
             UserName = string.Empty;
             ConnectionTitle = string.Empty;
 
@@ -28,6 +30,23 @@ namespace AlterApp.ViewModels
             RdpClientHost.OnConnected += RdpClientHost_OnConnected;
             RdpClientHost.OnDisconnected += RdpClientHost_OnDisconnected;
         }
+
+        public bool OnClosing()
+        {
+            _viewModelService.SetAppSettingValue("mainWindow.width", WindowWidth);
+            _viewModelService.SetAppSettingValue("mainWindow.height", WindowHeight);
+            return false;
+        }
+
+        [ObservableProperty]
+        private double _windowWidth;
+
+        [ObservableProperty]
+        private double _windowHeight;
+
+        public double WindowMinWidth => AppConstants.MainWindowMinWidth;
+
+        public double WindowMinHeight => AppConstants.MainWindowMinHeight;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
@@ -54,20 +73,11 @@ namespace AlterApp.ViewModels
         [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         private string _connectionTitle;
 
-        public string WindowTitle
-        {
-            get => _viewModelService.GetWindowTitle(ConnectionTitle, RemoteComputer, RemotePort, UserName);
-        }
+        public string WindowTitle => _viewModelService.GetWindowTitle(ConnectionTitle, RemoteComputer, RemotePort, UserName);
 
-        public string RemoteComputerWithPort
-        {
-            get => _viewModelService.GetRemoteComputerWithPort(RemoteComputer, RemotePort);
-        }
+        public string RemoteComputerWithPort => _viewModelService.GetRemoteComputerWithPort(RemoteComputer, RemotePort);
 
-        public ConnectionInfoHeaderVisibility ConnectionInfoHeaderVisibility
-        {
-            get => _viewModelService.GetConnectionHeaderVisibility(ConnectionTitle, RemoteComputer, UserName);
-        }
+        public ConnectionInfoHeaderVisibility ConnectionInfoHeaderVisibility => _viewModelService.GetConnectionHeaderVisibility(ConnectionTitle, RemoteComputer, UserName);
 
         private RdpClientHost? _rdpClientHost = null;
         public RdpClientHost? RdpClientHost
@@ -100,10 +110,7 @@ namespace AlterApp.ViewModels
             }
         }
 
-        public bool ShouldShowDisconnectReason
-        {
-            get => _viewModelService.ShouldShowDisconnectReason(RdpClientLastDisconnectReason);
-        }
+        public bool ShouldShowDisconnectReason => _viewModelService.ShouldShowDisconnectReason(RdpClientLastDisconnectReason);
 
         private bool _shouldShowDisconnectReasonDetails = false;
         public bool ShouldShowDisconnectReasonDetails
@@ -168,10 +175,7 @@ namespace AlterApp.ViewModels
             return _viewModelService.ValidateRemoteComputer(RemoteComputer) && _viewModelService.ValidateRemotePort(RemotePort) && _viewModelService.ValidateUserName(UserName);
         }
 
-        public string VersionInfoText
-        {
-            get => _viewModelService.GetVersionInfoText();
-        }
+        public string VersionInfoText => _viewModelService.GetVersionInfoText();
 
         [RelayCommand()]
         private void SetFocusToVersionInfoLink(ContentElement? element)
