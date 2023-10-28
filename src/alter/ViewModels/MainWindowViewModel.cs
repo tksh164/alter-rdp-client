@@ -53,9 +53,9 @@ namespace AlterApp.ViewModels
         [NotifyPropertyChangedFor(nameof(RemoteComputerWithPort))]
         [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
-        private string _remoteComputer;
+        private string _remoteComputer = string.Empty;
 
-        private string _remotePort;
+        private string _remotePort = string.Empty;
         public string RemotePort
         {
             get => _remotePort;
@@ -76,12 +76,12 @@ namespace AlterApp.ViewModels
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
         [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
-        private string _userName;
+        private string _userName = string.Empty;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
         [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
-        private string _connectionTitle;
+        private string _connectionTitle = string.Empty;
 
         public string WindowTitle => _viewModelService.GetWindowTitle(ConnectionTitle, RemoteComputer, RemotePort, UserName);
 
