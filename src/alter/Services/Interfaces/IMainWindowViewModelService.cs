@@ -11,11 +11,11 @@ namespace AlterApp.Services.Interfaces
 
         public ConnectionInfoHeaderVisibility GetConnectionHeaderVisibility(string remoteComputer, string userName, string connectionTitle);
 
-        public bool ValidateRemoteComputer(string remoteComputer);
+        public bool IsValidRemoteComputer(string remoteComputer);
 
-        public bool ValidateRemotePort(string remotePort);
+        public bool IsValidRemotePort(string remotePort);
 
-        public bool ValidateUserName(string userName);
+        public bool IsValidUserName(string userName);
 
         public RdpClientHost GetRdpClientInstance();
 
