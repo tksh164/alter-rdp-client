@@ -193,6 +193,7 @@
                          Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connection title -->
+                <Image Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" Source="{StaticResource SegoeFluentIcon_e932_Label_Black}"/>
                 <TextBox x:Name="ConnectionTitleTextBox"
                          Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,4,0,4"
                          TabIndex="3" VerticalContentAlignment="Center"
