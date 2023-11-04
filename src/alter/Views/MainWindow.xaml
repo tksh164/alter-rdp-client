@@ -38,104 +38,16 @@
     <Grid ShowGridLines="False">
         <Grid IsEnabled="{Binding IsElementEnabled, Mode=OneWay}" ShowGridLines="False">
             <Grid.RowDefinitions>
-                <RowDefinition Height="28*"/>
-                <RowDefinition Height="57*"/>
-                <RowDefinition Height="15*"/>
+                <RowDefinition Height="16*"/>
+                <RowDefinition Height="68*"/>
+                <RowDefinition Height="16*"/>
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <ContentPresenter Grid.Row="0" Content="{Binding}" Margin="28,0,28,0">
-                <ContentPresenter.Resources>
-                    <!-- None header -->
-                    <DataTemplate x:Key="EmptyHeader"/>
-
-                    <!-- Title only header -->
-                    <DataTemplate x:Key="TitleOnlyHeader">
-                        <TextBlock Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   TextAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
-                                   FontWeight="SemiBold" FontSize="26"
-                                   Text="{Binding ConnectionTitle, Mode=OneWay}"/>
-                    </DataTemplate>
-
-                    <!-- Destination and user name header -->
-                    <DataTemplate x:Key="DestinationAndUserNameHeader">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Grid Margin="0" HorizontalAlignment="Center" MaxHeight="60" ShowGridLines="False">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="36"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26" Source="{StaticResource SegoeFluentIcon_e977_PC1_Gray}"/>
-                                <TextBlock Grid.Column="1" Margin="0" VerticalAlignment="Center"
-                                           TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
-                                           FontWeight="SemiBold" FontSize="26" LineHeight="26" LineStackingStrategy="BlockLineHeight"
-                                           Text="{Binding RemoteComputerWithPort, Mode=OneWay}"/>
-                            </Grid>
-                            <Grid Margin="0,18,0,0" HorizontalAlignment="Center" MaxHeight="30" ShowGridLines="False">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="36"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26" Source="{StaticResource SegoeFluentIcon_e77b_Contact_Gray}"/>
-                                <TextBlock Grid.Column="1" Margin="0" VerticalAlignment="Center"
-                                           TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
-                                           FontWeight="SemiBold" FontSize="26" LineHeight="26" LineStackingStrategy="BlockLineHeight"
-                                           Text="{Binding UserName, Mode=OneWay}"/>
-                            </Grid>
-                        </StackPanel>
-                    </DataTemplate>
-
-                    <!-- Title, destination and user name header -->
-                    <DataTemplate x:Key="TitleDestinationUserNameHeader">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Margin="0" HorizontalAlignment="Center"
-                                       TextAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
-                                       FontWeight="SemiBold" FontSize="26"
-                                       Text="{Binding ConnectionTitle, Mode=OneWay}"/>
-                            <Grid Margin="0,14,0,0" HorizontalAlignment="Center" MaxHeight="45" ShowGridLines="False">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" Source="{StaticResource SegoeFluentIcon_e977_PC1_Gray}"/>
-                                <TextBlock Grid.Column="1" Margin="0" VerticalAlignment="Center"
-                                           TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
-                                           FontWeight="Normal" FontSize="20" LineHeight="20" LineStackingStrategy="BlockLineHeight"
-                                           Text="{Binding RemoteComputerWithPort, Mode=OneWay}"/>
-                            </Grid>
-                            <Grid Margin="0,10,0,0" HorizontalAlignment="Center" MaxHeight="30" ShowGridLines="False">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" Source="{StaticResource SegoeFluentIcon_e77b_Contact_Gray}"/>
-                                <TextBlock Grid.Column="1" Margin="0" VerticalAlignment="Center"
-                                           TextAlignment="Center" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
-                                           FontWeight="Normal" FontSize="20" LineHeight="20" LineStackingStrategy="BlockLineHeight"
-                                           Text="{Binding UserName, Mode=OneWay}"/>
-                            </Grid>
-                        </StackPanel>
-                    </DataTemplate>
-                </ContentPresenter.Resources>
-
-                <!-- Triggers -->
-                <ContentPresenter.Style>
-                    <Style TargetType="{x:Type ContentPresenter}">
-                        <Setter Property="ContentTemplate" Value="{StaticResource EmptyHeader}"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ConnectionInfoHeaderVisibility, Mode=OneWay}" Value="{x:Static vm:ConnectionInfoHeaderVisibility.TitleOnly}">
-                                <Setter Property="ContentTemplate" Value="{StaticResource TitleOnlyHeader}"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding ConnectionInfoHeaderVisibility, Mode=OneWay}" Value="{x:Static vm:ConnectionInfoHeaderVisibility.DestinationAndUserName}">
-                                <Setter Property="ContentTemplate" Value="{StaticResource DestinationAndUserNameHeader}"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding ConnectionInfoHeaderVisibility, Mode=OneWay}" Value="{x:Static vm:ConnectionInfoHeaderVisibility.TitleDestinationUserName}">
-                                <Setter Property="ContentTemplate" Value="{StaticResource TitleDestinationUserNameHeader}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ContentPresenter.Style>
-            </ContentPresenter>
+            <TextBlock Grid.Row="0" Margin="30,0,30,0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       TextAlignment="Center" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" TextTrimming="CharacterEllipsis"
+                       FontWeight="SemiBold" FontSize="28"
+                       Text="{Binding ConnectionTitle, Mode=OneWay}"/>
 
             <!-- Connection settings -->
             <Grid Grid.Row="1" Width="700" VerticalAlignment="Center" ShowGridLines="False">
@@ -193,6 +105,7 @@
                          Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Connection title -->
+                <Image Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" Source="{StaticResource SegoeFluentIcon_e932_Label_Black}"/>
                 <TextBox x:Name="ConnectionTitleTextBox"
                          Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Padding="6,0,6,0" Margin="0,4,0,4"
                          TabIndex="3" VerticalContentAlignment="Center"

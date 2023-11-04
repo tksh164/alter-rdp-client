@@ -7,10 +7,6 @@ namespace AlterApp.Services.Interfaces
     {
         public string GetWindowTitle(string connectionTitle, string remoteComputer, string remotePort, string userNmae);
 
-        public string GetRemoteComputerWithPort(string remoteComputer, string remotePort);
-
-        public ConnectionInfoHeaderVisibility GetConnectionHeaderVisibility(string remoteComputer, string userName, string connectionTitle);
-
         public bool IsValidRemoteComputer(string remoteComputer);
 
         public bool IsValidRemotePort(string remotePort);

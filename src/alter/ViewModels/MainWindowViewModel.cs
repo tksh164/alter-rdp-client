@@ -50,8 +50,6 @@ namespace AlterApp.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(RemoteComputerWithPort))]
-        [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _remoteComputer = string.Empty;
 
@@ -65,8 +63,6 @@ namespace AlterApp.ViewModels
                 {
                     SetProperty(ref _remotePort, value);
                     OnPropertyChanged(nameof(WindowTitle));
-                    OnPropertyChanged(nameof(RemoteComputerWithPort));
-                    OnPropertyChanged(nameof(ConnectionInfoHeaderVisibility));
                     ConnectToRemoteComputerCommand.NotifyCanExecuteChanged();
                 }
             }
@@ -74,20 +70,14 @@ namespace AlterApp.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         [NotifyCanExecuteChangedFor(nameof(ConnectToRemoteComputerCommand))]
         private string _userName = string.Empty;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(WindowTitle))]
-        [NotifyPropertyChangedFor(nameof(ConnectionInfoHeaderVisibility))]
         private string _connectionTitle = string.Empty;
 
         public string WindowTitle => _viewModelService.GetWindowTitle(ConnectionTitle, RemoteComputer, RemotePort, UserName);
-
-        public string RemoteComputerWithPort => _viewModelService.GetRemoteComputerWithPort(RemoteComputer, RemotePort);
-
-        public ConnectionInfoHeaderVisibility ConnectionInfoHeaderVisibility => _viewModelService.GetConnectionHeaderVisibility(ConnectionTitle, RemoteComputer, UserName);
 
         private RdpClientHost? _rdpClientHost = null;
         public RdpClientHost? RdpClientHost
