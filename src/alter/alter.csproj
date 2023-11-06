@@ -50,9 +50,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\setting.db">
+    <None Update="Resources\setting.dbtpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>setting.db</TargetPath>
+      <TargetPath>setting.dbtpl</TargetPath>
     </None>
   </ItemGroup>
 
