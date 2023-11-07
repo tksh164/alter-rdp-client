@@ -94,7 +94,19 @@ namespace AlterApp.Services
         private static string GetSettingFilePath()
         {
             string appDirectoryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-            return Path.Combine(appDirectoryPath, AppConstants.SettingFileName);
+            string settingFilePath = Path.Combine(appDirectoryPath, AppConstants.SettingFileName);
+            if (!File.Exists(settingFilePath))
+            {
+                CreateSettingFile(settingFilePath);
+            }
+            return settingFilePath;
+        }
+
+        private static void CreateSettingFile(string settingFilePath)
+        {
+            string appDirectoryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+            string templateFilePath = Path.Combine(appDirectoryPath, AppConstants.SettingFileTemplateFileName);
+            File.Copy(templateFilePath, settingFilePath, true);
         }
     }
 }

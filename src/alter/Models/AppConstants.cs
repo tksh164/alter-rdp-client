@@ -5,6 +5,7 @@
         public static string AppName = "Alter";
         public static string ProjectWebsiteUri = "https://github.com/tksh164/alter-rdp-client";
 
+        public static string SettingFileTemplateFileName = "setting.template";
         public static string SettingFileName = "setting.db";
         public static string AppSettingTableName = "app_settings";
         public static string AppSettingJsonColumnName = "json";
