@@ -93,19 +93,33 @@ namespace AlterApp.Services
 
         private static string GetSettingFilePath()
         {
-            string appDirectoryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-            string settingFilePath = Path.Combine(appDirectoryPath, AppConstants.SettingFileName);
+            string settingStoreFolderPath = GetSettingStoreFolderPath();
+            string settingFilePath = Path.Combine(settingStoreFolderPath, AppConstants.SettingFileName);
             if (!File.Exists(settingFilePath))
             {
-                CreateSettingFile(settingFilePath);
+                InitializeSettingFile(settingFilePath);
             }
             return settingFilePath;
         }
 
-        private static void CreateSettingFile(string settingFilePath)
+        private static string GetSettingStoreFolderPath()
         {
-            string appDirectoryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-            string templateFilePath = Path.Combine(appDirectoryPath, AppConstants.SettingFileTemplateFileName);
+            string settingStoreFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AppConstants.SettingStoreFolderName);
+            if (!Directory.Exists(settingStoreFolderPath))
+            {
+                Directory.CreateDirectory(settingStoreFolderPath);
+            }
+            return settingStoreFolderPath;
+        }
+
+        private static void InitializeSettingFile(string settingFilePath)
+        {
+            string? appFolderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            if (string.IsNullOrEmpty(appFolderPath))
+            {
+                throw new FileNotFoundException("The app folder path was null or empty.", appFolderPath);
+            }
+            string templateFilePath = Path.Combine(appFolderPath, AppConstants.SettingFileTemplateFileName);
             File.Copy(templateFilePath, settingFilePath, true);
         }
     }
