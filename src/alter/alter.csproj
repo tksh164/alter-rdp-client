@@ -16,7 +16,7 @@
 
   <PropertyGroup>
     <!-- NuGet package -->
-	<Version>0.2.0</Version>
+	<Version>0.3.0</Version>
 	<Title>Alter RDP client</Title>
 	<Description>Alter is a remote desktop client application.</Description>
 	<Authors>Takeshi Katano</Authors>
@@ -26,12 +26,15 @@
 	<RepositoryType>git</RepositoryType>
 	<NeutralLanguage>en-US</NeutralLanguage>
 
+	<!-- Value definition for other properties -->
+	<VersionSuffix>$([System.DateTime]::UtcNow.ToString(MMdd))$([System.DateTime]::UtcNow.ToString(yy)[1])</VersionSuffix>
+
 	<!-- AssemblyInfo -->
 	<Company></Company>
 	<Product>Alter</Product>
-	<FileVersion>$(Version)</FileVersion>
-	<InformationalVersion>$(Version)</InformationalVersion>
-	<AssemblyVersion>$(Version)</AssemblyVersion>
+	<FileVersion>$(Version).$(VersionSuffix)</FileVersion>
+	<InformationalVersion>$(Version).$(VersionSuffix)</InformationalVersion>
+	<AssemblyVersion>$(Version).$(VersionSuffix)</AssemblyVersion>
 	<AssemblyTitle>$(Title)</AssemblyTitle>
   </PropertyGroup>
 
