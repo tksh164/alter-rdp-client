@@ -14,17 +14,6 @@ namespace AlterApp.Services
         {
         }
 
-        public string? GetAppVersion()
-        {
-            return (((Assembly.GetEntryAssembly())?.GetName())?.Version)?.ToString();
-        }
-
-        public string? GetAppVersionSemanticPart()
-        {
-            string? appVersion = GetAppVersion();
-            return appVersion?[..appVersion.LastIndexOf(".", StringComparison.OrdinalIgnoreCase)];
-        }
-
         public T GetSettingValue<T>(string name, T defaultValue)
         {
             return ReadAppSettingValue(name, defaultValue);
