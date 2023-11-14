@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using MsRdcAx;
 using AlterApp.Services.Interfaces;
-using AlterApp.ViewModels;
 using AlterApp.Models;
 
 namespace AlterApp.Services
@@ -127,7 +126,7 @@ namespace AlterApp.Services
 
         public string GetVersionInfoText()
         {
-            string? appVersion = _appSettingsService.GetAppVersionSemanticPart();
+            string? appVersion = AppConstants.GetAppVersionSemanticPart();
             if (appVersion == null)
             {
                 return string.Format("{0} (Could not get app version)", AppConstants.AppName);
