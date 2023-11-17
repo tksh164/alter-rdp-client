@@ -93,7 +93,8 @@ namespace AlterApp.Services
 
         private static string GetSettingStoreFolderPath()
         {
-            string settingStoreFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AppConstants.SettingStoreFolderName);
+            string? appVersion = AppConstants.GetAppVersionSemanticPart();
+            string settingStoreFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AppConstants.SettingStoreFolderName, appVersion ?? "unspecified");
             if (!Directory.Exists(settingStoreFolderPath))
             {
                 Directory.CreateDirectory(settingStoreFolderPath);
