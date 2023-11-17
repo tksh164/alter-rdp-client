@@ -1,8 +1,23 @@
-﻿namespace AlterApp.Models
+﻿using System;
+using System.Reflection;
+
+namespace AlterApp.Models
 {
     internal static class AppConstants
     {
         public static string AppName = "Alter";
+
+        public static string? GetAppVersion()
+        {
+            return (((Assembly.GetEntryAssembly())?.GetName())?.Version)?.ToString();
+        }
+
+        public static string? GetAppVersionSemanticPart()
+        {
+            string? appVersion = GetAppVersion();
+            return appVersion?[..appVersion.LastIndexOf(".", StringComparison.OrdinalIgnoreCase)];
+        }
+
         public static string ProjectWebsiteUri = "https://github.com/tksh164/alter-rdp-client";
 
         public static string SettingFileTemplateFileName = "setting.template";

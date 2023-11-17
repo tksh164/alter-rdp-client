@@ -14,17 +14,6 @@ namespace AlterApp.Services
         {
         }
 
-        public string? GetAppVersion()
-        {
-            return (((Assembly.GetEntryAssembly())?.GetName())?.Version)?.ToString();
-        }
-
-        public string? GetAppVersionSemanticPart()
-        {
-            string? appVersion = GetAppVersion();
-            return appVersion?[..appVersion.LastIndexOf(".", StringComparison.OrdinalIgnoreCase)];
-        }
-
         public T GetSettingValue<T>(string name, T defaultValue)
         {
             return ReadAppSettingValue(name, defaultValue);
@@ -104,7 +93,8 @@ namespace AlterApp.Services
 
         private static string GetSettingStoreFolderPath()
         {
-            string settingStoreFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AppConstants.SettingStoreFolderName);
+            string? appVersion = AppConstants.GetAppVersionSemanticPart();
+            string settingStoreFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AppConstants.SettingStoreFolderName, appVersion ?? "unspecified");
             if (!Directory.Exists(settingStoreFolderPath))
             {
                 Directory.CreateDirectory(settingStoreFolderPath);
