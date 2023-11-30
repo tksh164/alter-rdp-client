@@ -37,11 +37,11 @@ namespace AlterApp.Services
 
             if (!string.IsNullOrWhiteSpace(trimedRemoteComputer) && !string.IsNullOrWhiteSpace(trimedRemotePort) && !string.IsNullOrWhiteSpace(trimedUserNmae))
             {
-                windowTitleParts.Add(string.Format("{0} | {1}:{2}", trimedUserNmae, trimedRemoteComputer, trimedRemotePort));
+                windowTitleParts.Add(string.Format("{0}:{1} | {2}", trimedRemoteComputer, trimedRemotePort, trimedUserNmae));
             }
             else if (!string.IsNullOrWhiteSpace(trimedRemoteComputer) && !string.IsNullOrWhiteSpace(trimedUserNmae))
             {
-                windowTitleParts.Add(string.Format("{0} | {1}", trimedUserNmae, trimedRemoteComputer));
+                windowTitleParts.Add(string.Format("{0} | {1}", trimedRemoteComputer, trimedUserNmae));
             }
             else if (!string.IsNullOrWhiteSpace(trimedRemoteComputer) && !string.IsNullOrWhiteSpace(trimedRemotePort))
             {
