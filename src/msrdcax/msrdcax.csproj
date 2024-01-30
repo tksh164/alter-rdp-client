@@ -12,7 +12,7 @@
 
   <PropertyGroup>
     <!-- NuGet package -->
-	<Version>0.3.0</Version>
+	<Version>0.4.0</Version>
 	<Title>Remote Desktop Services ActiveX client for Alter</Title>
 	<Description>$(Title)</Description>
 	<Authors>Takeshi Katano</Authors>
