@@ -2,36 +2,36 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows8.0</TargetFramework>
-	<UseWPF>true</UseWPF>
-	<UseWindowsForms>true</UseWindowsForms>
-	<Nullable>enable</Nullable>
-	<RootNamespace>MsRdcAx</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <RootNamespace>MsRdcAx</RootNamespace>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 
   <PropertyGroup>
     <!-- NuGet package -->
-	<Version>0.3.0</Version>
-	<Title>Remote Desktop Services ActiveX client for Alter</Title>
-	<Description>$(Title)</Description>
-	<Authors>Takeshi Katano</Authors>
-	<Copyright>Copyright (c) 2023 Takeshi Katano. All rights reserved.</Copyright>
-	<PackageProjectUrl>https://github.com/tksh164/alter-rdp-client</PackageProjectUrl>
-	<RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
-	<NeutralLanguage>en-US</NeutralLanguage>
+    <Version>0.3.0</Version>
+    <Title>Remote Desktop Services ActiveX client for Alter</Title>
+    <Description>$(Title)</Description>
+    <Authors>Takeshi Katano</Authors>
+    <Copyright>Copyright (c) 2023 Takeshi Katano. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/tksh164/alter-rdp-client</PackageProjectUrl>
+    <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>en-US</NeutralLanguage>
 
-	<!-- Value definition for other properties -->
-	<VersionSuffix>$([System.DateTime]::UtcNow.ToString(MMdd))$([System.DateTime]::UtcNow.ToString(yy)[1])</VersionSuffix>
+    <!-- Value definition for other properties -->
+    <VersionSuffix>$([System.DateTime]::UtcNow.ToString(MMdd))$([System.DateTime]::UtcNow.ToString(yy)[1])</VersionSuffix>
 
-	<!-- AssemblyInfo -->
-	<Company></Company>
-	<Product>MsRdcAx</Product>
-	<FileVersion>$(Version).$(VersionSuffix)</FileVersion>
-	<InformationalVersion>$(Version).$(VersionSuffix)</InformationalVersion>
-	<AssemblyVersion>$(Version).$(VersionSuffix)</AssemblyVersion>
-	<AssemblyTitle>$(Title)</AssemblyTitle>
+    <!-- AssemblyInfo -->
+    <Company></Company>
+    <Product>MsRdcAx</Product>
+    <FileVersion>$(Version).$(VersionSuffix)</FileVersion>
+    <InformationalVersion>$(Version).$(VersionSuffix)</InformationalVersion>
+    <AssemblyVersion>$(Version).$(VersionSuffix)</AssemblyVersion>
+    <AssemblyTitle>$(Title)</AssemblyTitle>
   </PropertyGroup>
 
   <ItemGroup>
