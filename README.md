@@ -11,13 +11,13 @@ Alter is a remote desktop client application.
 
 1. Download [the app's latest release zip file](https://github.com/tksh164/alter-rdp-client/releases/latest).
 
-2. After the download the zip file, you can unblock the zip file by check **Unblock** from the file's property or using [Unblock-File](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/unblock-file) cmdlet.
+2. Unblock the downloaded zip file by check **Unblock** from the zip file's property or using the [Unblock-File](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/unblock-file) cmdlet.
     
     ```powershell
     Unblock-File alter-x.y.z.zip
     ```
     
-3. Next, extract files from the zip file. You can extract files by the **Extract All...** context menu in the File Explorer or using [Expand-Archive](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive) cmdlet.
+3. Extract files from the downloaded zip file. You can extract files by the **Extract All...** context menu in the File Explorer or using the [Expand-Archive](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive) cmdlet.
 
     ```powershell
     Expand-Archive alter-x.y.z.zip
