@@ -7,7 +7,7 @@ Alter is a remote desktop client application.
 - High DPI support - Reflect to the local DPI to the remote desktop session.
 - Update the resolution on the window resize.
 
-## 📥 Install
+## 📥 Install and uninstall
 
 1. Download [the app's latest release zip file](https://github.com/tksh164/alter-rdp-client/releases/latest).
 
@@ -23,9 +23,11 @@ Alter is a remote desktop client application.
     Expand-Archive alter-x.y.z.zip
     ```
 
-4. Put the extracted files anywhere you like.
+4. Put the extracted folder `alter-x.y.z` anywhere you like.
 
-    If you don't need this app anymore, you can uninstall it by deleting the app's folder.
+5. Run the `alter.exe` in the extracted folder.
+
+6. If you don't need this app anymore, you can uninstall this app by deleting the `alter-x.y.z` folder.
 
 ## 📋 Supported operating systems
 
