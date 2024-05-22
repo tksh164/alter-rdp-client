@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using MsRdcAx;
 using MsRdcAx.AxMsTscLib;
 using AlterApp.Services.Interfaces;
+using AlterApp.Services;
 using AlterApp.ViewModels.Interfaces;
 using AlterApp.Models;
 
@@ -14,21 +15,27 @@ namespace AlterApp.ViewModels
     {
         private readonly IMainWindowViewModelService _viewModelService;
 
-        public MainWindowViewModel(IMainWindowViewModelService viewModelService)
+        public MainWindowViewModel(IMainWindowViewModelService viewModelService, CommandLineArgsService commandLineArgsService)
         {
             _viewModelService = viewModelService;
-
-            WindowWidth = _viewModelService.GetAppSettingValue("mainWindow.width", AppConstants.DefaultMainWindowWidth);
-            WindowHeight = _viewModelService.GetAppSettingValue("mainWindow.height", AppConstants.DefaultMainWindowHeight);
-            RemoteComputer = string.Empty;
-            RemotePort = _viewModelService.GetAppSettingValue("defaultRdpPort", AppConstants.DefaultRdpPort).ToString();
-            UserName = string.Empty;
-            ConnectionTitle = string.Empty;
 
             RdpClientHost = _viewModelService.GetRdpClientInstance();
             RdpClientHost.OnConnecting += RdpClientHost_OnConnecting;
             RdpClientHost.OnConnected += RdpClientHost_OnConnected;
             RdpClientHost.OnDisconnected += RdpClientHost_OnDisconnected;
+
+            WindowWidth = _viewModelService.GetAppSettingValue("mainWindow.width", AppConstants.DefaultMainWindowWidth);
+            WindowHeight = _viewModelService.GetAppSettingValue("mainWindow.height", AppConstants.DefaultMainWindowHeight);
+
+            RemoteComputer = commandLineArgsService.RemoteComputer ?? string.Empty;
+            RemotePort = commandLineArgsService.RemotePort ?? _viewModelService.GetAppSettingValue("defaultRdpPort", AppConstants.DefaultRdpPort).ToString();
+            UserName = commandLineArgsService.UserName ?? string.Empty;
+            ConnectionTitle = commandLineArgsService.ConnectionTitle ?? string.Empty;
+
+            if (commandLineArgsService.IsValidCommandLineArgs && commandLineArgsService.AutoConnect && ConnectToRemoteComputerCommand.CanExecute(null))
+            {
+                ConnectToRemoteComputerCommand.Execute(null);
+            }
         }
 
         public bool OnClosing()
