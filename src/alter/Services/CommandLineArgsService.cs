@@ -36,12 +36,6 @@ namespace AlterApp.Services
             // ExeName -host x.x.x.x -port xxxx -username xxxx -title "xxxx" -autoconnect
             bool isValidAllArgs = true;
 
-            string? remoteComputer = null;
-            string? remotePort = null;
-            string? userName = null;
-            string? connectionTitle = null;
-            bool autoConnect = false;
-
             for (int i = 1; i < args.Length; i++)
             {
                 string lowerArgs = args[i].ToLower();
@@ -55,14 +49,17 @@ namespace AlterApp.Services
                         isValidAllArgs = false;  // Argument value is missing.
                         break;
                     }
+                    i++;
+
                     string argValue = args[indexOfValue];
-                    if (!ValidateRemoteComputerArg(remoteComputer, argValue))
+                    if (ValidateRemoteComputerArg(RemoteComputer, argValue))
+                    {
+                        RemoteComputer = argValue;
+                    }
+                    else
                     {
                         isValidAllArgs = false;  // Argument is invalid.
-                        break;
                     }
-                    remoteComputer = argValue;
-                    i++;
                 }
 
                 // -port
@@ -74,14 +71,17 @@ namespace AlterApp.Services
                         isValidAllArgs = false;  // Argument value is missing.
                         break;
                     }
+                    i++;
+
                     string argValue = args[indexOfValue];
-                    if (!ValidateRemotePortArg(remotePort, argValue))
+                    if (ValidateRemotePortArg(RemotePort, argValue))
+                    {
+                        RemotePort = argValue;
+                    }
+                    else
                     {
                         isValidAllArgs = false;  // Argument is invalid.
-                        break;
                     }
-                    remotePort = argValue;
-                    i++;
                 }
 
                 // -username
@@ -93,14 +93,17 @@ namespace AlterApp.Services
                         isValidAllArgs = false;  // Argument value is missing.
                         break;
                     }
+                    i++;
+
                     string argValue = args[indexOfValue];
-                    if (!ValidateUserNameArg(userName, argValue))
+                    if (ValidateUserNameArg(UserName, argValue))
+                    {
+                        UserName = argValue;
+                    }
+                    else
                     {
                         isValidAllArgs = false;  // Argument is invalid.
-                        break;
                     }
-                    userName = argValue;
-                    i++;
                 }
 
                 // -title
@@ -112,43 +115,40 @@ namespace AlterApp.Services
                         isValidAllArgs = false;  // Argument value is missing.
                         break;
                     }
+                    i++;
+
                     string argValue = args[indexOfValue];
-                    if (!ValidateConnectionTitleArg(connectionTitle, argValue))
+                    if (ValidateConnectionTitleArg(ConnectionTitle, argValue))
+                    {
+                        ConnectionTitle = argValue;
+                    }
+                    else
                     {
                         isValidAllArgs = false;  // Argument is invalid.
-                        break;
                     }
-                    connectionTitle = argValue;
-                    i++;
                 }
 
                 // -autoconnect
                 else if (string.CompareOrdinal("-autoconnect", lowerArgs) == 0)
                 {
-                    if (!ValidateAutoConnectArg(autoConnect))
+                    if (ValidateAutoConnectArg(AutoConnect))
+                    {
+                        AutoConnect = true;
+                    }
+                    else
                     {
                         isValidAllArgs = false;  // Argument is invalid.
-                        break;
                     }
-                    autoConnect = true;
                 }
 
                 // Unexpected argument.
                 else
                 {
                     isValidAllArgs = false;
-                    break;
                 }
             }
 
-            if (!isValidAllArgs) return;  // Some arguments are invalid.
-
-            IsValidCommandLineArgs = true;
-            RemoteComputer = remoteComputer;
-            RemotePort = remotePort;
-            UserName = userName;
-            ConnectionTitle = connectionTitle;
-            AutoConnect = autoConnect;
+            IsValidCommandLineArgs = isValidAllArgs;
         }
 
         private static bool ValidateRemoteComputerArg(string? currentArgValue, string newArgValue)
