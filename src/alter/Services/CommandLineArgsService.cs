@@ -29,7 +29,7 @@ namespace AlterApp.Services
 
         private void ParseCommandLineArgs()
         {
-            string[] args = Environment.GetCommandLineArgs();
+            var args = Environment.GetCommandLineArgs();
 
             // No command line arguments.
             if (args.Length < 2) return;
