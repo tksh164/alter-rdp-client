@@ -6,7 +6,7 @@ namespace AlterApp.Services
     {
         public CommandLineArgsService()
         {
-            HasInvalidArgs = false;
+            ShouldShowUsage = false;
             RemoteComputer = null;
             RemotePort = null;
             UserName = null;
@@ -15,7 +15,7 @@ namespace AlterApp.Services
             ParseCommandLineArgs();
         }
 
-        public bool HasInvalidArgs { get; private set; }
+        public bool ShouldShowUsage { get; private set; }
 
         public string? RemoteComputer { get; private set; }
 
@@ -58,7 +58,7 @@ namespace AlterApp.Services
                 }
                 else
                 {
-                    HasInvalidArgs = true;
+                    ShouldShowUsage = true;
                 }
             }
         }
