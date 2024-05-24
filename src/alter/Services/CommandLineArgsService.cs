@@ -1,5 +1,4 @@
 ﻿using System;
-using AlterApp.Services.Interfaces;
 
 namespace AlterApp.Services
 {
@@ -7,16 +6,16 @@ namespace AlterApp.Services
     {
         public CommandLineArgsService()
         {
-            IsValidCommandLineArgs = false;
+            HasInvalidArgs = false;
             RemoteComputer = null;
             RemotePort = null;
             UserName = null;
             ConnectionTitle = null;
-            AutoConnect = false;
+            ShouldAutomaticallyStartConnection = false;
             ParseCommandLineArgs();
         }
 
-        public bool IsValidCommandLineArgs { get; private set; }
+        public bool HasInvalidArgs { get; private set; }
 
         public string? RemoteComputer { get; private set; }
 
@@ -26,184 +25,47 @@ namespace AlterApp.Services
 
         public string? ConnectionTitle { get; private set; }
 
-        public bool AutoConnect { get; private set; }
+        public bool ShouldAutomaticallyStartConnection { get; private set; }
 
         private void ParseCommandLineArgs()
         {
             string[] args = Environment.GetCommandLineArgs();
-            if (args.Length < 2) return;  // No command line arguments.
 
-            // ExeName -host x.x.x.x -port xxxx -username xxxx -title "xxxx" -autoconnect
-            bool isValidAllArgs = true;
+            // No command line arguments.
+            if (args.Length < 2) return;
 
             for (int i = 1; i < args.Length; i++)
             {
-                string lowerArgs = args[i].ToLower();
-
-                // -host
-                if (string.CompareOrdinal("-host", lowerArgs) == 0)
+                if (args[i].StartsWith("-host:", StringComparison.OrdinalIgnoreCase))
                 {
-                    int indexOfValue = i + 1;
-                    if (indexOfValue >= args.Length)
-                    {
-                        isValidAllArgs = false;  // Argument value is missing.
-                        break;
-                    }
-                    i++;
-
-                    string argValue = args[indexOfValue];
-                    if (ValidateRemoteComputerArg(RemoteComputer, argValue))
-                    {
-                        RemoteComputer = argValue;
-                    }
-                    else
-                    {
-                        isValidAllArgs = false;  // Argument is invalid.
-                    }
+                    RemoteComputer = GetArgValue(args[i]);
                 }
-
-                // -port
-                else if (string.CompareOrdinal("-port", lowerArgs) == 0)
+                else if (args[i].StartsWith("-port:", StringComparison.OrdinalIgnoreCase))
                 {
-                    int indexOfValue = i + 1;
-                    if (indexOfValue >= args.Length)
-                    {
-                        isValidAllArgs = false;  // Argument value is missing.
-                        break;
-                    }
-                    i++;
-
-                    string argValue = args[indexOfValue];
-                    if (ValidateRemotePortArg(RemotePort, argValue))
-                    {
-                        RemotePort = argValue;
-                    }
-                    else
-                    {
-                        isValidAllArgs = false;  // Argument is invalid.
-                    }
+                    RemotePort = GetArgValue(args[i]);
                 }
-
-                // -username
-                else if (string.CompareOrdinal("-username", lowerArgs) == 0)
+                else if (args[i].StartsWith("-username:", StringComparison.OrdinalIgnoreCase))
                 {
-                    int indexOfValue = i + 1;
-                    if (indexOfValue >= args.Length)
-                    {
-                        isValidAllArgs = false;  // Argument value is missing.
-                        break;
-                    }
-                    i++;
-
-                    string argValue = args[indexOfValue];
-                    if (ValidateUserNameArg(UserName, argValue))
-                    {
-                        UserName = argValue;
-                    }
-                    else
-                    {
-                        isValidAllArgs = false;  // Argument is invalid.
-                    }
+                    UserName = GetArgValue(args[i]);
                 }
-
-                // -title
-                else if (string.CompareOrdinal("-title", lowerArgs) == 0)
+                else if (args[i].StartsWith("-title:", StringComparison.OrdinalIgnoreCase))
                 {
-                    int indexOfValue = i + 1;
-                    if (indexOfValue >= args.Length)
-                    {
-                        isValidAllArgs = false;  // Argument value is missing.
-                        break;
-                    }
-                    i++;
-
-                    string argValue = args[indexOfValue];
-                    if (ValidateConnectionTitleArg(ConnectionTitle, argValue))
-                    {
-                        ConnectionTitle = argValue;
-                    }
-                    else
-                    {
-                        isValidAllArgs = false;  // Argument is invalid.
-                    }
+                    ConnectionTitle = GetArgValue(args[i]);
                 }
-
-                // -autoconnect
-                else if (string.CompareOrdinal("-autoconnect", lowerArgs) == 0)
+                else if (args[i].Equals("-autoconnect", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (ValidateAutoConnectArg(AutoConnect))
-                    {
-                        AutoConnect = true;
-                    }
-                    else
-                    {
-                        isValidAllArgs = false;  // Argument is invalid.
-                    }
+                    ShouldAutomaticallyStartConnection = true;
                 }
-
-                // Unexpected argument.
                 else
                 {
-                    isValidAllArgs = false;
+                    HasInvalidArgs = true;
                 }
             }
-
-            IsValidCommandLineArgs = isValidAllArgs;
         }
 
-        private static bool ValidateRemoteComputerArg(string? currentArgValue, string newArgValue)
+        private static string GetArgValue(string argNameValuePair)
         {
-            if (currentArgValue != null) return false;  // The argument value is already set.
-            if (!ValidateRemoteComputerArgValue(newArgValue)) return false;  // The argument value is invalid.
-            return true;
-        }
-
-        private static bool ValidateRemoteComputerArgValue(string argValue)
-        {
-            return argValue.IndexOf(' ') < 0;  // Whitespaces are not allowed in the computer name.
-        }
-
-        private static bool ValidateRemotePortArg(string? currentArgValue, string newArgValue)
-        {
-            if (currentArgValue != null) return false;  // The argument value is already set.
-            if (!ValidateRemotePortArgValue(newArgValue)) return false;  // The argument value is invalid.
-            return true;
-        }
-
-        private static bool ValidateRemotePortArgValue(string argValue)
-        {
-            bool parseResult = int.TryParse(argValue, out int port);
-            return parseResult && port >= 1 && port <= 65535;  // The remote port is a number between 1 and 65535.
-        }
-
-        private static bool ValidateUserNameArg(string? currentArgValue, string newArgValue)
-        {
-            if (currentArgValue != null) return false;  // The argument value is already set.
-            if (!ValidateUserNameArgValue(newArgValue)) return false;  // The argument value is invalid.
-            return true;
-        }
-
-        private static bool ValidateUserNameArgValue(string argValue)
-        {
-            return true;
-        }
-
-        private static bool ValidateConnectionTitleArg(string? currentArgValue, string newArgValue)
-        {
-            if (currentArgValue != null) return false;  // The argument value is already set.
-            if (!ValidateConnectionTitleArgValue(newArgValue)) return false;  // The argument value is invalid.
-            return true;
-        }
-
-        private static bool ValidateConnectionTitleArgValue(string argValue)
-        {
-            return true;
-        }
-
-        private static bool ValidateAutoConnectArg(bool currentArgValue)
-        {
-            if (currentArgValue == true) return false;  // The argument value is already set.
-            return true;
+            return argNameValuePair[(argNameValuePair.IndexOf(':') + 1)..];
         }
     }
 }

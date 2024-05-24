@@ -32,9 +32,14 @@ namespace AlterApp.ViewModels
             UserName = commandLineArgsService.UserName ?? string.Empty;
             ConnectionTitle = commandLineArgsService.ConnectionTitle ?? string.Empty;
 
-            if (commandLineArgsService.IsValidCommandLineArgs && commandLineArgsService.AutoConnect && ConnectToRemoteComputerCommand.CanExecute(null))
+            if (!commandLineArgsService.HasInvalidArgs && commandLineArgsService.ShouldAutomaticallyStartConnection && ConnectToRemoteComputerCommand.CanExecute(null))
             {
                 ConnectToRemoteComputerCommand.Execute(null);
+            }
+
+            if (commandLineArgsService.HasInvalidArgs)
+            {
+                // TODO: Show usage if command-line args are invalid.
             }
         }
 
