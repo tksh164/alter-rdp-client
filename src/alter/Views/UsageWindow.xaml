@@ -10,11 +10,23 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         FontSize="14">
-    <Grid Margin="24,0,24,16">
+
+    <Window.Resources>
+        <Style x:Key="CmdLineOptionNameStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="0,0,0,14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+        <Style x:Key="CmdLineOptionDescriptionStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="0,0,0,14"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24,0,24,24">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">Alter.exe [-host:&lt;RemoteHost&gt;] [-port:&lt;Port&gt;] [-username:&lt;UserName&gt;] [-title:&lt;Title&gt;] [-autoconnect]</TextBlock>
@@ -32,24 +44,24 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,0,14" FontWeight="Medium">-host</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,0,0,14" TextWrapping="Wrap">Specify the remote host's DNS name or IP address to which you want to connect.<LineBreak/>Example: -host:host1.example.com<LineBreak/>Example: -host:198.51.100.123</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource CmdLineOptionNameStyle}">-host</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource CmdLineOptionDescriptionStyle}">Specify the remote host's DNS name or IP address to which you want to connect.<LineBreak/>Example: -host:host1.example.com<LineBreak/>Example: -host:198.51.100.123</TextBlock>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,0,14" FontWeight="Medium">-port</TextBlock>
-            <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,0,0,14" TextWrapping="Wrap">Specify the remote port to which you use to connect.<LineBreak/>Example: -port:12345</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource CmdLineOptionNameStyle}">-port</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource CmdLineOptionDescriptionStyle}">Specify the remote port to which you use to connect.<LineBreak/>Example: -port:12345</TextBlock>
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,0,14" FontWeight="Medium">-username</TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,0,0,14" TextWrapping="Wrap">Specify the user name that you want to use to connect to the remote host. Enclose the user name in double quotes if it has whitespaces.<LineBreak/>Example: -username:UserName<LineBreak/>Example: -username:&quot;User Name&quot;</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource CmdLineOptionNameStyle}">-username</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource CmdLineOptionDescriptionStyle}">Specify the user name that you want to use to connect to the remote host. Enclose the user name in double quotes if it has whitespaces.<LineBreak/>Example: -username:UserName<LineBreak/>Example: -username:&quot;User Name&quot;</TextBlock>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,0,14" FontWeight="Medium">-title</TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,0,0,14" TextWrapping="Wrap">Specify the title for the connection. Enclose the title in double quotes if it has whitespaces.<LineBreak/>Example: -title:JumpboxServer<LineBreak/>Example: -title:&quot;Jumpbox Server&quot;</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource CmdLineOptionNameStyle}">-title</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource CmdLineOptionDescriptionStyle}">Specify the title for the connection. Enclose the title in double quotes if it has whitespaces.<LineBreak/>Example: -title:JumpboxServer<LineBreak/>Example: -title:&quot;Jumpbox Server&quot;</TextBlock>
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,0,14" FontWeight="Medium">-autoconnect</TextBlock>
-            <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,0,0,14" TextWrapping="Wrap">If specify this option, will automatically start the connection.</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource CmdLineOptionNameStyle}">-autoconnect</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource CmdLineOptionDescriptionStyle}">If specify this option, will automatically start the connection.</TextBlock>
         </Grid>
 
         <Button Grid.Row="2" Padding="0,10,0,10"
-                Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Width="140" HorizontalAlignment="Center" VerticalAlignment="Center"
                 Style="{StaticResource DefaultButtonStyle}"
                 IsDefault="True"
                 Content="OK"/>
