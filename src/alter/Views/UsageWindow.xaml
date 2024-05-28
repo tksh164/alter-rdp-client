@@ -4,7 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlterApp.Views"
+        xmlns:vm="clr-namespace:AlterApp.ViewModels"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:UsageWindowViewModel}"
+        x:Name="UsageNoticeWindow"
         Title="Alter Usage"
         Width="730" Height="520"
         ResizeMode="NoResize"
@@ -64,6 +67,7 @@
                 Width="140" HorizontalAlignment="Center" VerticalAlignment="Center"
                 Style="{StaticResource DefaultButtonStyle}"
                 IsDefault="True"
+                Command="{Binding CloseWindowCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=UsageNoticeWindow}"
                 Content="OK"/>
     </Grid>
 </Window>
