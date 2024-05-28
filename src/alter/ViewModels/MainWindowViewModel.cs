@@ -15,7 +15,7 @@ namespace AlterApp.ViewModels
     {
         private readonly IMainWindowViewModelService _viewModelService;
 
-        public MainWindowViewModel(IMainWindowViewModelService viewModelService, CommandLineArgsService commandLineArgsService)
+        public MainWindowViewModel(IMainWindowViewModelService viewModelService, ICommandLineArgsService commandLineArgsService, IUsageNoticeService usageNoticeService)
         {
             _viewModelService = viewModelService;
 
@@ -32,14 +32,12 @@ namespace AlterApp.ViewModels
             UserName = commandLineArgsService.UserName ?? string.Empty;
             ConnectionTitle = commandLineArgsService.ConnectionTitle ?? string.Empty;
 
-            if (!commandLineArgsService.ShouldShowUsage && commandLineArgsService.ShouldAutomaticallyStartConnection && ConnectToRemoteComputerCommand.CanExecute(null))
-            {
-                ConnectToRemoteComputerCommand.Execute(null);
-            }
+            // NOTE: Start connecting is needed after the windows content is rendered because initial RDP client size comes from the control size.
+            _shouldAutomaticallyStartConnection = !commandLineArgsService.ShouldShowUsage && commandLineArgsService.ShouldAutomaticallyStartConnection;
 
             if (commandLineArgsService.ShouldShowUsage)
             {
-                // TODO: Show usage if command-line args are invalid.
+                usageNoticeService.ShowUsage();
             }
         }
 
@@ -50,6 +48,7 @@ namespace AlterApp.ViewModels
             return false;
         }
 
+        private readonly bool _shouldAutomaticallyStartConnection;
         [ObservableProperty]
         private double _windowWidth;
 
