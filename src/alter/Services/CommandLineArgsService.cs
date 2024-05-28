@@ -1,8 +1,9 @@
 ﻿using System;
+using AlterApp.Services.Interfaces;
 
 namespace AlterApp.Services
 {
-    internal class CommandLineArgsService
+    internal class CommandLineArgsService : ICommandLineArgsService
     {
         public CommandLineArgsService()
         {

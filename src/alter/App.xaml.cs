@@ -63,7 +63,7 @@ namespace AlterApp
             // Services
             services.AddTransient<IUnhandledExceptionReportService, UnhandledExceptionReportService>();
             services.AddSingleton<IAppSettingsService, AppSettingsService>();
-            services.AddTransient<CommandLineArgsService>();
+            services.AddTransient<ICommandLineArgsService, CommandLineArgsService>();
             services.AddTransient<IExceptionReportWindowViewModelService, ExceptionReportWindowViewModelService>();
             services.AddTransient<IMainWindowViewModelService, MainWindowViewModelService>();
 
