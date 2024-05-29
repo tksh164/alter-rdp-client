@@ -15,7 +15,8 @@
         WindowStartupLocation="CenterScreen"
         FontSize="14"
         FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        ContentRendered="Window_ContentRendered">
 
     <Window.Resources>
         <ResourceDictionary>

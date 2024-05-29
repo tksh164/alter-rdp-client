@@ -12,6 +12,6 @@
 
         public string? ConnectionTitle { get; }
 
-        public bool ShouldAutomaticallyStartConnection { get; }
+        public bool ShouldStartConnect { get; }
     }
 }

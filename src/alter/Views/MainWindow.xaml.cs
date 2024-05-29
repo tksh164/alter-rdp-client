@@ -24,5 +24,13 @@ namespace AlterApp.Views
                 e.Cancel = context.OnClosing();
             }
         }
+
+        private void Window_ContentRendered(object sender, System.EventArgs e)
+        {
+            if (DataContext is IWindowContentRendered dataContext)
+            {
+                dataContext.OnContentRendered();
+            }
+        }
     }
 }

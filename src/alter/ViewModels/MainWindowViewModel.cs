@@ -5,13 +5,12 @@ using CommunityToolkit.Mvvm.Input;
 using MsRdcAx;
 using MsRdcAx.AxMsTscLib;
 using AlterApp.Services.Interfaces;
-using AlterApp.Services;
 using AlterApp.ViewModels.Interfaces;
 using AlterApp.Models;
 
 namespace AlterApp.ViewModels
 {
-    internal partial class MainWindowViewModel : ObservableObject, IWindowClosing
+    internal partial class MainWindowViewModel : ObservableObject, IWindowClosing, IWindowContentRendered
     {
         private readonly IMainWindowViewModelService _viewModelService;
 
@@ -32,8 +31,10 @@ namespace AlterApp.ViewModels
             UserName = commandLineArgsService.UserName ?? string.Empty;
             ConnectionTitle = commandLineArgsService.ConnectionTitle ?? string.Empty;
 
-            // NOTE: Start connecting is needed after the windows content is rendered because initial RDP client size comes from the control size.
-            _shouldAutomaticallyStartConnection = !commandLineArgsService.ShouldShowUsage && commandLineArgsService.ShouldAutomaticallyStartConnection;
+            // NOTE: We cannot start connect at this time. Must start connect after the window content is rendered because the RDP client's
+            // DesktopWidth and DesktopHeight comes from the ContentControl element size via the RdpClientHostWidth and RdpClientHostHeight properties.
+            // The ContentControl element size does not get until the window content is rendered (We cannot get it at this time).
+            _shouldStartConnect = !commandLineArgsService.ShouldShowUsage && commandLineArgsService.ShouldStartConnect;
 
             if (commandLineArgsService.ShouldShowUsage)
             {
@@ -48,7 +49,17 @@ namespace AlterApp.ViewModels
             return false;
         }
 
-        private readonly bool _shouldAutomaticallyStartConnection;
+        private readonly bool _shouldStartConnect;
+
+        public void OnContentRendered()
+        {
+            // Start connect if the command line arguments indicate to do so.
+            if (_shouldStartConnect && ConnectToRemoteComputerCommand.CanExecute(null))
+            {
+                ConnectToRemoteComputerCommand.Execute(null);
+            }
+        }
+
         [ObservableProperty]
         private double _windowWidth;
 

@@ -12,7 +12,7 @@ namespace AlterApp.Services
             RemotePort = null;
             UserName = null;
             ConnectionTitle = null;
-            ShouldAutomaticallyStartConnection = false;
+            ShouldStartConnect = false;
             ParseCommandLineArgs();
         }
 
@@ -26,7 +26,7 @@ namespace AlterApp.Services
 
         public string? ConnectionTitle { get; private set; }
 
-        public bool ShouldAutomaticallyStartConnection { get; private set; }
+        public bool ShouldStartConnect { get; private set; }
 
         private void ParseCommandLineArgs()
         {
@@ -55,7 +55,7 @@ namespace AlterApp.Services
                 }
                 else if (args[i].Equals("-autoconnect", StringComparison.OrdinalIgnoreCase))
                 {
-                    ShouldAutomaticallyStartConnection = true;
+                    ShouldStartConnect = true;
                 }
                 else
                 {
