@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using AlterApp.ViewModels;
 using AlterApp.ViewModels.Interfaces;
+using AlterApp.ViewModels;
 
 namespace AlterApp.Views
 {
