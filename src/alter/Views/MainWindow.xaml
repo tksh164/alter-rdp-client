@@ -9,6 +9,7 @@
         xmlns:ap="clr-namespace:AlterApp.AttachedProperties"
         xmlns:msrdcax="clr-namespace:MsRdcAx;assembly=msrdcax"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         Title="{Binding WindowTitle}" d:Title="Alter"
         Width="{Binding WindowWidth, Mode=TwoWay}" Height="{Binding WindowHeight, Mode=TwoWay}" d:Width="1024" d:Height="768"
         MinWidth="{Binding WindowMinWidth}" MinHeight="{Binding WindowMinHeight}"
