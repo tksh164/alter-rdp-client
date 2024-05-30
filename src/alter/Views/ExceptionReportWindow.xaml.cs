@@ -12,7 +12,7 @@ namespace AlterApp.Views
         public ExceptionReportWindow()
         {
             InitializeComponent();
-            this.DataContext = App.Current.Services.GetService<ExceptionReportWindowViewModel>();
+            DataContext = App.Current.Services.GetService<ExceptionReportWindowViewModel>();
         }
     }
 }

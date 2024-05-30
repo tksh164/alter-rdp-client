@@ -13,7 +13,7 @@ namespace AlterApp.Views
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = App.Current.Services.GetService<MainWindowViewModel>();
+            DataContext = App.Current.Services.GetService<MainWindowViewModel>();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
