@@ -10,25 +10,36 @@ using AlterApp.Models;
 
 namespace AlterApp.ViewModels
 {
-    internal partial class MainWindowViewModel : ObservableObject, IWindowClosing
+    internal partial class MainWindowViewModel : ObservableObject, IWindowClosing, IWindowContentRendered
     {
         private readonly IMainWindowViewModelService _viewModelService;
 
-        public MainWindowViewModel(IMainWindowViewModelService viewModelService)
+        public MainWindowViewModel(IMainWindowViewModelService viewModelService, ICommandLineArgsService commandLineArgsService, IUsageNoticeService usageNoticeService)
         {
             _viewModelService = viewModelService;
-
-            WindowWidth = _viewModelService.GetAppSettingValue("mainWindow.width", AppConstants.DefaultMainWindowWidth);
-            WindowHeight = _viewModelService.GetAppSettingValue("mainWindow.height", AppConstants.DefaultMainWindowHeight);
-            RemoteComputer = string.Empty;
-            RemotePort = _viewModelService.GetAppSettingValue("defaultRdpPort", AppConstants.DefaultRdpPort).ToString();
-            UserName = string.Empty;
-            ConnectionTitle = string.Empty;
 
             RdpClientHost = _viewModelService.GetRdpClientInstance();
             RdpClientHost.OnConnecting += RdpClientHost_OnConnecting;
             RdpClientHost.OnConnected += RdpClientHost_OnConnected;
             RdpClientHost.OnDisconnected += RdpClientHost_OnDisconnected;
+
+            WindowWidth = _viewModelService.GetAppSettingValue("mainWindow.width", AppConstants.DefaultMainWindowWidth);
+            WindowHeight = _viewModelService.GetAppSettingValue("mainWindow.height", AppConstants.DefaultMainWindowHeight);
+
+            RemoteComputer = commandLineArgsService.RemoteComputer ?? string.Empty;
+            RemotePort = commandLineArgsService.RemotePort ?? _viewModelService.GetAppSettingValue("defaultRdpPort", AppConstants.DefaultRdpPort).ToString();
+            UserName = commandLineArgsService.UserName ?? string.Empty;
+            ConnectionTitle = commandLineArgsService.ConnectionTitle ?? string.Empty;
+
+            // NOTE: We cannot start connect at this time. Must start connect after the window content is rendered because the RDP client's
+            // DesktopWidth and DesktopHeight comes from the ContentControl element size via the RdpClientHostWidth and RdpClientHostHeight properties.
+            // The ContentControl element size does not get until the window content is rendered (We cannot get it at this time).
+            _shouldStartConnect = !commandLineArgsService.ShouldShowUsage && commandLineArgsService.ShouldStartConnect;
+
+            if (commandLineArgsService.ShouldShowUsage)
+            {
+                usageNoticeService.ShowUsage();
+            }
         }
 
         public bool OnClosing()
@@ -36,6 +47,17 @@ namespace AlterApp.ViewModels
             _viewModelService.SetAppSettingValue("mainWindow.width", WindowWidth);
             _viewModelService.SetAppSettingValue("mainWindow.height", WindowHeight);
             return false;
+        }
+
+        private readonly bool _shouldStartConnect;
+
+        public void OnContentRendered()
+        {
+            // Start connect if the command line arguments indicate to do so.
+            if (_shouldStartConnect && ConnectToRemoteComputerCommand.CanExecute(null))
+            {
+                ConnectToRemoteComputerCommand.Execute(null);
+            }
         }
 
         [ObservableProperty]

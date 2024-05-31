@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using AlterApp.ViewModels;
 using AlterApp.ViewModels.Interfaces;
+using AlterApp.ViewModels;
 
 namespace AlterApp.Views
 {
@@ -13,7 +13,7 @@ namespace AlterApp.Views
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = App.Current.Services.GetService<MainWindowViewModel>();
+            DataContext = App.Current.Services.GetService<MainWindowViewModel>();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -22,6 +22,14 @@ namespace AlterApp.Views
             if (context != null)
             {
                 e.Cancel = context.OnClosing();
+            }
+        }
+
+        private void Window_ContentRendered(object sender, System.EventArgs e)
+        {
+            if (DataContext is IWindowContentRendered dataContext)
+            {
+                dataContext.OnContentRendered();
             }
         }
     }

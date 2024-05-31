@@ -9,13 +9,15 @@
         xmlns:ap="clr-namespace:AlterApp.AttachedProperties"
         xmlns:msrdcax="clr-namespace:MsRdcAx;assembly=msrdcax"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         Title="{Binding WindowTitle}" d:Title="Alter"
         Width="{Binding WindowWidth, Mode=TwoWay}" Height="{Binding WindowHeight, Mode=TwoWay}" d:Width="1024" d:Height="768"
         MinWidth="{Binding WindowMinWidth}" MinHeight="{Binding WindowMinHeight}"
         WindowStartupLocation="CenterScreen"
         FontSize="14"
         FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        ContentRendered="Window_ContentRendered">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -93,7 +95,7 @@
                          TabIndex="1" VerticalContentAlignment="Center" MaxLength="5"
                          Style="{StaticResource RemotePortTextBoxStyle}"
                          Tag="Port"
-                         Text="{Binding RemotePort, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding RemotePort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- User name -->
                 <Image Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" Source="{StaticResource SegoeFluentIcon_e77b_Contact_Black}"/>
@@ -112,6 +114,14 @@
                          Style="{StaticResource DefaultTextBoxStyle}"
                          Tag="Title (optional)"
                          Text="{Binding ConnectionTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <!-- Display: Start with full-screen -->
+                <!-- Display: Use multi-monitors -->
+                <!-- Display: Color depth -->
+                <!-- Local resource: Audio playback -->
+                <!-- Local resource: Audio recording -->
+                <!-- Local resource: Keyboard -->
+                <!-- Local resource: Local devices -->
 
                 <!-- Connect button -->
                 <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="12" Padding="0,10,0,10" Margin="0,0,0,0"
