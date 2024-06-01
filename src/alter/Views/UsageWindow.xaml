@@ -9,7 +9,7 @@
         d:DataContext="{d:DesignInstance Type=vm:UsageWindowViewModel}"
         x:Name="UsageNoticeWindow"
         Title="Alter Usage"
-        Width="730" Height="520"
+        Width="730" Height="500"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         FontSize="14">
@@ -25,7 +25,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid Margin="24,0,24,24">
+    <Grid Margin="16,0,16,16">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
@@ -63,11 +63,10 @@
             <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource CmdLineOptionDescriptionStyle}">If specify this option, will automatically start the connection.</TextBlock>
         </Grid>
 
-        <Button Grid.Row="2" Padding="0,10,0,10"
-                Width="140" HorizontalAlignment="Center" VerticalAlignment="Center"
+        <Button Grid.Row="2" Padding="20,10" HorizontalAlignment="Center" VerticalAlignment="Center"
                 Style="{StaticResource DefaultButtonStyle}"
                 IsDefault="True"
-                Command="{Binding CloseWindowCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=UsageNoticeWindow}"
+                Command="{Binding CloseWindowCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=UsageNoticeWindow, Mode=OneTime}"
                 Content="OK"/>
     </Grid>
 </Window>
