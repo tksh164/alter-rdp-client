@@ -33,7 +33,7 @@ Alter is a remote desktop client application.
 
 - Alter is tested on the latest version of Windows 11 with latest updates.
 - Alter may also work on the following OSs:
-    - Non-latest version of Windows 11 with latest updates
+    - Windows 11 with latest updates
     - Windows 10 x64/x86 with latest updates
     - Windows Server 2022 with latest updates
     - Windows Server 2019 with latest updates
