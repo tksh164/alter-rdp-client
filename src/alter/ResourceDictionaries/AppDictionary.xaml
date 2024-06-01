@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
     <!-- TextBox with placeholder text style -->
 
     <SolidColorBrush x:Key="TextBox.PlaceholderText.Foreground" Color="#FF808080"/>
@@ -49,6 +50,8 @@
     </Style>
 
     <!-- Default styles -->
+
+    <s:Double x:Key="BaseFontSize">14</s:Double>
 
     <CornerRadius x:Key="Button.CornerRadius">4,4,4,4</CornerRadius>
 

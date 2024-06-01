@@ -10,8 +10,8 @@
         Title="{Binding WindowTitle, Mode=OneTime}"
         Width="640" Height="480" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True"
-        FontSize="14"
-        FocusManager.FocusedElement="{Binding ElementName=ReportContentTextBox}">
+        FontSize="{StaticResource BaseFontSize}"
+        FocusManager.FocusedElement="{Binding ElementName=ReportContentTextBox, Mode=OneTime}">
 
     <Grid Margin="16">
         <Grid.RowDefinitions>
@@ -30,14 +30,14 @@
         <TextBox x:Name="ReportContentTextBox"
                  Grid.Row="1" Padding="4"
                  TabIndex="0"
-                 IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                 IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                  Style="{StaticResource DefaultMultilineTextBoxStyle}" FontSize="12"
                  Text="{Binding ReportContentText, Mode=OneTime}"/>
         <Button Grid.Row="2" Padding="20,10" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                 TabIndex="1" IsDefault="True"
                 Style="{StaticResource DefaultButtonStyle}"
                 Command="{Binding CopyReportContentTextToClipboardCommand, Mode=OneTime}"
-                Content="{Binding CopyButtonContentText}"/>
+                Content="{Binding CopyButtonContentText, Mode=OneWay}"/>
         <Button Grid.Row="2" Padding="20,10" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 TabIndex="2" IsCancel="True"
                 Style="{StaticResource DefaultButtonStyle}"
