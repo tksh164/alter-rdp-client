@@ -13,21 +13,23 @@ namespace AlterApp.ViewModels
     internal partial class MainWindowViewModel : ObservableObject, IWindowClosing, IWindowContentRendered
     {
         private readonly IMainWindowViewModelService _viewModelService;
+        private readonly IAppSettingsService _appSettingsService;
 
-        public MainWindowViewModel(IMainWindowViewModelService viewModelService, ICommandLineArgsService commandLineArgsService, IUsageNoticeService usageNoticeService)
+        public MainWindowViewModel(IMainWindowViewModelService viewModelService, IAppSettingsService appSettingsService, ICommandLineArgsService commandLineArgsService, IUsageNoticeService usageNoticeService)
         {
             _viewModelService = viewModelService;
+            _appSettingsService = appSettingsService;
 
             RdpClientHost = _viewModelService.GetRdpClientInstance();
             RdpClientHost.OnConnecting += RdpClientHost_OnConnecting;
             RdpClientHost.OnConnected += RdpClientHost_OnConnected;
             RdpClientHost.OnDisconnected += RdpClientHost_OnDisconnected;
 
-            WindowWidth = _viewModelService.GetAppSettingValue("mainWindow.width", AppConstants.DefaultMainWindowWidth);
-            WindowHeight = _viewModelService.GetAppSettingValue("mainWindow.height", AppConstants.DefaultMainWindowHeight);
+            WindowWidth = _appSettingsService.GetSettingValue("mainWindow.width", AppConstants.DefaultMainWindowWidth);
+            WindowHeight = _appSettingsService.GetSettingValue("mainWindow.height", AppConstants.DefaultMainWindowHeight);
 
             RemoteComputer = commandLineArgsService.RemoteComputer ?? string.Empty;
-            RemotePort = commandLineArgsService.RemotePort ?? _viewModelService.GetAppSettingValue("defaultRdpPort", AppConstants.DefaultRdpPort).ToString();
+            RemotePort = commandLineArgsService.RemotePort ?? _appSettingsService.GetSettingValue("defaultRdpPort", AppConstants.DefaultRdpPort).ToString();
             UserName = commandLineArgsService.UserName ?? string.Empty;
             ConnectionTitle = commandLineArgsService.ConnectionTitle ?? string.Empty;
 
@@ -44,8 +46,8 @@ namespace AlterApp.ViewModels
 
         public bool OnClosing()
         {
-            _viewModelService.SetAppSettingValue("mainWindow.width", WindowWidth);
-            _viewModelService.SetAppSettingValue("mainWindow.height", WindowHeight);
+            _appSettingsService.SetSettingValue("mainWindow.width", WindowWidth);
+            _appSettingsService.SetSettingValue("mainWindow.height", WindowHeight);
             return false;
         }
 
