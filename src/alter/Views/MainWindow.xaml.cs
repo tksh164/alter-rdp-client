@@ -18,10 +18,9 @@ namespace AlterApp.Views
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            IWindowClosing? context = this.DataContext as IWindowClosing;
-            if (context != null)
+            if (DataContext is IWindowClosing dataContext)
             {
-                e.Cancel = context.OnClosing();
+                e.Cancel = dataContext.OnClosing();
             }
         }
 
