@@ -10,12 +10,12 @@
         xmlns:msrdcax="clr-namespace:MsRdcAx;assembly=msrdcax"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
-        Title="{Binding WindowTitle}" d:Title="Alter"
+        Title="{Binding WindowTitle, Mode=OneWay}" d:Title="Alter"
         Width="{Binding WindowWidth, Mode=TwoWay}" Height="{Binding WindowHeight, Mode=TwoWay}" d:Width="1024" d:Height="768"
-        MinWidth="{Binding WindowMinWidth}" MinHeight="{Binding WindowMinHeight}"
+        MinWidth="{Binding WindowMinWidth, Mode=OneTime}" MinHeight="{Binding WindowMinHeight, Mode=OneTime}"
         WindowStartupLocation="CenterScreen"
         FontSize="14"
-        FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox}"
+        FocusManager.FocusedElement="{Binding ElementName=RemoteComputerTextBox, Mode=OneTime}"
         Closing="Window_Closing"
         ContentRendered="Window_ContentRendered">
 
@@ -34,7 +34,8 @@
     </Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Key="V" Modifiers="Alt" Command="{Binding SetFocusToVersionInfoLinkCommand}" CommandParameter="{Binding ElementName=VersionInfoHyperLink}"/>
+        <KeyBinding Key="V" Modifiers="Alt"
+                    Command="{Binding SetFocusToVersionInfoLinkCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=VersionInfoHyperLink, Mode=OneTime}"/>
     </Window.InputBindings>
 
     <Grid ShowGridLines="False">
@@ -128,7 +129,7 @@
                         Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         TabIndex="4" IsDefault="True"
                         Style="{StaticResource DefaultButtonStyle}"
-                        Command="{Binding ConnectToRemoteComputerCommand}"
+                        Command="{Binding ConnectToRemoteComputerCommand, Mode=OneTime}"
                         Content="Connect"/>
             </Grid>
 
@@ -173,7 +174,7 @@
                                                TextAlignment="Center"
                                                Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonConverter}}">
                                         <TextBlock.InputBindings>
-                                            <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleDisconnectReasonDetailsVisibilityCommand}"/>
+                                            <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleDisconnectReasonDetailsVisibilityCommand, Mode=OneTime}"/>
                                         </TextBlock.InputBindings>
                                     </TextBlock>
                                     <!-- Disconnect reason details -->
@@ -181,7 +182,7 @@
                                                TextAlignment="Center"
                                                Text="{Binding RdpClientLastDisconnectReason, Mode=OneWay, Converter={StaticResource rdpClientDisconnectReasonDetailsConverter}}">
                                         <TextBlock.InputBindings>
-                                            <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleDisconnectReasonDetailsVisibilityCommand}"/>
+                                            <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleDisconnectReasonDetailsVisibilityCommand, Mode=OneTime}"/>
                                         </TextBlock.InputBindings>
                                     </TextBlock>
                                 </StackPanel>
@@ -208,7 +209,7 @@
 
             <!-- Version info link -->
             <TextBlock Grid.Row="2" Margin="16" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Hyperlink x:Name="VersionInfoHyperLink" KeyboardNavigation.TabIndex="5" Command="{Binding OpenProjectWebsiteCommand}">
+                <Hyperlink x:Name="VersionInfoHyperLink" KeyboardNavigation.TabIndex="5" Command="{Binding OpenProjectWebsiteCommand, Mode=OneTime}">
                     <Run Text="{Binding VersionInfoText, Mode=OneTime}"/>
                 </Hyperlink>
             </TextBlock>
