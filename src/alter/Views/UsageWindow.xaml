@@ -12,7 +12,7 @@
         Width="730" Height="500"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        FontSize="14">
+        FontSize="{StaticResource BaseFontSize}">
 
     <Window.Resources>
         <Style x:Key="CmdLineOptionNameStyle" TargetType="{x:Type TextBlock}">

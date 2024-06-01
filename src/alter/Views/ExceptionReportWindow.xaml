@@ -10,7 +10,7 @@
         Title="{Binding WindowTitle, Mode=OneTime}"
         Width="640" Height="480" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True"
-        FontSize="14"
+        FontSize="{StaticResource BaseFontSize}"
         FocusManager.FocusedElement="{Binding ElementName=ReportContentTextBox, Mode=OneTime}">
 
     <Grid Margin="16">
