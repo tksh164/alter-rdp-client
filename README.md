@@ -40,6 +40,12 @@ Alter is a remote desktop client application.
     - Windows Server 2016 with latest updates
     - Windows Server 2012 R2 with latest updates
 
+## Tips
+
+- You can get the detailed connection status information by clicking the message that at center bottom of the Alter's window. Click again to back the original message.
+    - Example: Clicking the `Remote disconnect by user` message then showing detailed connection information that `Reason: 0x2 (RemoteByUser), ExtendedReason: 0xB (RpcInitiatedDisconnectByUser)`.
+- The Alter's setting file is located at `%LocalAppData%\AlterRDClient\<Version>\setting.db`. The `setting.db` file is SQLite database file.
+
 ## 🔨 Build from the source
 
 You can build the project using [Visual Studio 2022](https://visualstudio.microsoft.com/).
