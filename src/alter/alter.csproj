@@ -10,6 +10,7 @@
     <ApplicationManifest>Resources\app.manifest</ApplicationManifest>
     <ApplicationIcon>Resources\alter.ico</ApplicationIcon>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <IncludeSourceRevisionInInformationalVersion>true</IncludeSourceRevisionInInformationalVersion>
     <PublishReadyToRun>true</PublishReadyToRun>
     <NoWarn>$(NoWarn);WFAC010</NoWarn>
   </PropertyGroup>

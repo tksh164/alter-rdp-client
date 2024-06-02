@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>MsRdcAx</RootNamespace>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <IncludeSourceRevisionInInformationalVersion>true</IncludeSourceRevisionInInformationalVersion>
     <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 
