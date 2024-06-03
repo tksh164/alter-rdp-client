@@ -38,9 +38,12 @@ namespace AlterApp.Services
 
             // App
             string appVersion = AppConstants.GetAppVersion() ?? "(Could not get app version)";
+            string commitHash = AppConstants.GetCommitHash() ?? "(Could not get commit)";
             string processArchitecture = RuntimeInformation.ProcessArchitecture.ToString();
             string dotNet = RuntimeInformation.FrameworkDescription;
             reportText.AppendFormat(@"App version: {0}", appVersion);
+            reportText.AppendLine();
+            reportText.AppendFormat(@"Commit: {0}", commitHash);
             reportText.AppendLine();
             reportText.AppendFormat(@"Process architecture: {0}", processArchitecture);
             reportText.AppendLine();
