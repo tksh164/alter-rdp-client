@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace AlterApp.Models
 {
@@ -14,8 +15,20 @@ namespace AlterApp.Models
 
         public static string? GetAppVersionSemanticPart()
         {
-            string? appVersion = GetAppVersion();
+            var appVersion = GetAppVersion();
             return appVersion?[..appVersion.LastIndexOf(".", StringComparison.OrdinalIgnoreCase)];
+        }
+
+        public static string? GetCommitHash()
+        {
+            var assembly = Assembly.GetEntryAssembly();
+            if (assembly == null) return null;
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+            var productVersion = fileVersionInfo.ProductVersion;
+            if (productVersion == null) return null;
+            var separatorIndex = productVersion.LastIndexOf("+", StringComparison.OrdinalIgnoreCase);
+            if (separatorIndex < 0) return null;
+            return productVersion[(separatorIndex + 1)..];
         }
 
         public static string ProjectWebsiteUri = "https://github.com/tksh164/alter-rdp-client";
