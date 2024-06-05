@@ -2,11 +2,12 @@
 using System.Runtime.ExceptionServices;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using AlterApp.Services;
 using AlterApp.Services.Interfaces;
-using AlterApp.ViewModels;
-using AlterApp.Views;
+using AlterApp.Services;
 using AlterApp.Models;
+using AlterApp.ViewModels;
+using AlterApp.Views.Interfaces;
+using AlterApp.Views;
 
 namespace AlterApp
 {
@@ -75,7 +76,7 @@ namespace AlterApp
 
             // Views
             services.AddTransient<ExceptionReportWindow>();
-            services.AddTransient<UsageWindow>();
+            services.AddTransient<IUsageWindow, UsageWindow>();
 
             return services.BuildServiceProvider();
         }

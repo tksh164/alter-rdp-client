@@ -1,20 +1,19 @@
-﻿using AlterApp.Services.Interfaces;
-using AlterApp.Views;
+﻿using Microsoft.Extensions.DependencyInjection;
+using AlterApp.Services.Interfaces;
+using AlterApp.Views.Interfaces;
 
 namespace AlterApp.Services
 {
     internal class UsageNoticeService : IUsageNoticeService
     {
-        private readonly UsageWindow _usageWindow;
-
-        public UsageNoticeService(UsageWindow usageWindow)
+        public UsageNoticeService()
         {
-            _usageWindow = usageWindow;
         }
 
         public void ShowUsage()
         {
-            _ = _usageWindow.ShowDialog();
+            IUsageWindow? usageWindow = App.Current.Services.GetService<IUsageWindow>();
+            _ = usageWindow?.ShowDialog();
         }
     }
 }
