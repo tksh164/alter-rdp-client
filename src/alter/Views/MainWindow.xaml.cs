@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using AlterApp.ViewModels.Interfaces;
 using AlterApp.ViewModels;
@@ -16,7 +18,7 @@ namespace AlterApp.Views
             DataContext = App.Current.Services.GetService<MainWindowViewModel>();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
             if (DataContext is IWindowClosing dataContext)
             {
@@ -24,7 +26,7 @@ namespace AlterApp.Views
             }
         }
 
-        private void Window_ContentRendered(object sender, System.EventArgs e)
+        private void Window_ContentRendered(object sender, EventArgs e)
         {
             if (DataContext is IWindowContentRendered dataContext)
             {
