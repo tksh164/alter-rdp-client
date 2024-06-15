@@ -42,6 +42,31 @@ Alter is a remote desktop client application.
 
 ## Tips
 
+- Command-line options
+
+    ```
+    Alter.exe [-host:<RemoteHost>] [-port:<Port>] [-username:<UserName>] [-title:<Title>] [-autoconnect]
+    ````
+
+    - `-host` - Specify the remote host's DNS name or IP address to which you want to connect.
+        - Example: `-host:host1.example.com`
+        - Example: `-host:198.51.100.123`
+
+    - `-port` - Specify the remote port to which you use to connect. Use the default port (3389) if not specified.
+        - Example: `-port:12345`
+
+    - `-username` - Specify the user name that you want to use to connect to the remote host. Enclose the user name in double quotes if it has whitespaces.
+        - Example: `-username:UserName`
+        - Example: `-username:"User Name"`
+
+    - `-title` - Specify the title for the connection. Enclose the title in double quotes if it has whitespaces.
+        - Example: `-title:JumpboxServer`
+        - Example: `-title:"Jumpbox Server"`
+
+    - `-autoconnect` - If specify this option, will automatically start the connection.
+
+- If you want to store your credentials, check the `Remember me` when you enter the credentials at the first time. Then you can skip enter credentials next time.
+
 - You can get the detailed connection status information by clicking the message that at center bottom of the Alter's window. Click again to back the original message.
     - Example: Clicking the `Remote disconnect by user` message then showing detailed connection information that `Reason: 0x2 (RemoteByUser), ExtendedReason: 0xB (RpcInitiatedDisconnectByUser)`.
 - The Alter's setting file is located at `%LocalAppData%\AlterRDClient\<Version>\setting.db`. The `setting.db` file is a SQLite database file.
