@@ -1,4 +1,5 @@
-﻿using MsRdcAx.AxMsTscLib;
+﻿using System;
+using MsRdcAx.AxMsTscLib;
 
 namespace MsRdcAx
 {
@@ -16,8 +17,15 @@ namespace MsRdcAx
 
         public void SetRdpExtendedSetting(string propertyName, object propertyValue)
         {
-            var rdpExtendedSettings = (MSTSCLib.IMsRdpExtendedSettings)this.GetOcx();
-            rdpExtendedSettings.set_Property(propertyName, ref propertyValue);
+            var rdpExtendedSettings = this.GetOcx() as MSTSCLib.IMsRdpExtendedSettings;
+            if (rdpExtendedSettings != null)
+            {
+                rdpExtendedSettings.set_Property(propertyName, ref propertyValue);
+            }
+            else
+            {
+                throw new InvalidOperationException("Failed to get an RDP extended settings.");
+            }
         }
     }
 }
