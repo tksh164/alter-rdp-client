@@ -24,7 +24,7 @@ namespace MsRdcAx
             }
             else
             {
-                throw new InvalidOperationException("Failed to cast to IMsRdpExtendedSettings.");
+                throw new InvalidOperationException($@"Failed to cast to IMsRdpExtendedSettings for property ""{propertyName}"".");
             }
         }
     }
