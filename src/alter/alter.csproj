@@ -18,7 +18,7 @@
 
   <PropertyGroup>
     <!-- NuGet package -->
-    <Version>0.5.0</Version>
+    <Version>0.6.0</Version>
     <Title>Alter RDP client</Title>
     <Description>Alter is a remote desktop client application.</Description>
     <Authors>Takeshi Katano</Authors>
